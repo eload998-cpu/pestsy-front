@@ -1,0 +1,117 @@
+<div class="row  animate__animated animate__fadeIn">
+
+  <div class="col-12">
+
+    <div class="rowd-flex justify-content-center align-items-center">
+
+
+      <form [formGroup]="form_model" class="lamp-tab-form" (ngSubmit)="onSubmit()">
+
+        <div class="signature mt-5">
+
+          <div class="d-flex justify-content-center"  ><b>Deslice el <span>{{(this.is_mobile)?"dedo":"cursor"}}</span> en el recuadro para firmar</b></div>
+        </div>
+
+        <div class="row mt-4">
+
+          <div class="col-12 col-md-6 col-xl-6 col-xll-6">
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-10">
+                <div class="row d-flex justify-content-center">
+
+                  <div class="col-8 p-0">
+                    <div class="row d-flex justify-content-end">
+                      <div class="col-2 p-1">
+                        <button type="button" class="action-icon " (click)="undo(signatureClient)">
+                          <fa-icon [icon]="faUndo" class="icon-m"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="col-2 p-1">
+                        <button type="button" class="action-icon " (click)="clear(signatureClient)">
+                          <fa-icon [icon]="faTimes" class="icon-m"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-10 signature-container">
+                <signature-pad #signatureClient [options]="signaturePadOptions" class="signature-box" [ngClass]="{
+                  'gray-theme':dark_color,
+                  'white-theme':!dark_color
+              }" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad>
+                <div class="text-center mt-2">
+                  <label for=""><b>Firma del Cliente</b></label>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+          <div class="col-12 col-md-6 col-xl-6 col-xll-6">
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-10">
+                <div class="row d-flex justify-content-center">
+
+                  <div class="col-8 p-0">
+                    <div class="row d-flex justify-content-end">
+                      <div class="col-2 p-1">
+                        <button type="button" class="action-icon" (click)="undo(signatureWorker)">
+                          <fa-icon [icon]="faUndo" class="icon-m"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="col-2 p-1">
+                        <button type="button" class="action-icon " (click)="clear(signatureWorker)">
+                          <fa-icon [icon]="faTimes" class="icon-m"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-10 signature-container" #container>
+                <signature-pad #signatureWorker [options]="signaturePadOptions" class="signature-box" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad>
+                <div class="text-center mt-2">
+                  <label for=""><b>Firma del Trabajador</b></label>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center mt-5 mb-5">
+          <div class="col-10 p-0 ">
+            <div class="row d-flex justify-content-end">
+
+              <div class="col-6 col-xl-2 col-xll-2  p-1">
+                <a (click)="goBack()" class="form-btn">
+                  <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                  <span
+                  *ngIf="!is_mobile"
+                  > Volver</span>
+              </a>
+              </div>
+              <div class="col-6 col-xl-2 col-xll-2 p-1">
+                <button type="submit" class="form-btn" [disabled]="form_model.invalid || sendingForm">
+                  <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+                  <span *ngIf="!is_mobile"> Guardar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

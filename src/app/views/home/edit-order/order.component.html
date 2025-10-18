@@ -1,0 +1,212 @@
+<div class="row  table-content">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">EDITAR ORDEN</h6>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-xl-6 col-xll-6 " *ngIf="order_id">
+                        <div class="row justify-content-center">
+                            <div class="col-5">
+
+                                <button type="submit" class="custom-btn custom-btn--large" (click)="finish()">
+                                    <fa-icon [icon]="faCheckSquare" class="icon-m"></fa-icon>
+                                    <span class="btn-text">
+                                        Finalizar
+
+                                    </span>
+                                </button>
+                            </div>
+
+
+                            <div class="col-5">
+                                <button type="submit" class="custom-btn custom-btn--large" (click)="discard()">
+                                    <fa-icon [icon]="faTrash" class="icon-m"></fa-icon>
+                                    <span class="btn-text">
+                                        Descartar
+
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--OPTIONS-->
+<div class="row d-flex justify-content-center mt-5 order-container">
+    <div class="col-11 option-box order-container__nav">
+        <div class="row order-tabs">
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer ms-1 me-1 disabled-tab"
+                [routerLink]="['orden-tab']" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [routerLink]="['orden-tab']">
+                        Orden
+                    </a>
+                </span>
+
+            </div>
+
+
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+            'not-allowed':order_id==null
+         }" [routerLink]="['xilofago-tab']" routerLinkActive="active-tab" *ngIf="order_type=='Xilofago'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                    'not-allowed':order_id==null
+                 }" [routerLink]="['xilofago-tab']">
+                        Xilófagos
+                    </a>
+                </span>
+
+            </div>
+
+
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['legionela-tab']" routerLinkActive="active-tab" *ngIf="order_type=='Legionela'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['legionela-tab']">
+                        Legionela
+                    </a>
+                </span>
+
+            </div>
+
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['monitoreo-tab']" routerLinkActive="active-tab" *ngIf="order_type=='General' || order_type=='Control de roedores'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['monitoreo-tab']">
+                        Roedores
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['fumigacion-tab']" routerLinkActive="active-tab" *ngIf="order_type=='General' || order_type=='Fumigación'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['fumigacion-tab']">
+                        Fumigacion
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['lampara-tab']" routerLinkActive="active-tab " *ngIf="order_type=='General' || order_type=='Monitoreo de voladores (lámparas)'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['lampara-tab']">
+                        Lámparas
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['trampa-tab']" routerLinkActive="active-tab" *ngIf="order_type=='General' || order_type=='Monitoreo de insectos'">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['trampa-tab']">
+                        Trampas
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['imagen-tab']" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['imagen-tab']">
+                        Imágenes
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['observacion-tab']" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['observacion-tab']">
+                        Observación
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-1 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer disabled-tab"
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" [routerLink]="['firma-tab']" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [ngClass]="{
+                        'not-allowed':order_id==null
+                     }" [routerLink]="['firma-tab']">
+                        Firmas
+                    </a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--END OPTIONS-->
+
+<!--CONTENT-->
+<div class="row justify-content-center">
+    <div class="col-11 card content-container">
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!--END CONTENT-->

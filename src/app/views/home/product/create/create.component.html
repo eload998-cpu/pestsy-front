@@ -1,0 +1,153 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">AÑADIR PRODUCTO</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 mt-5 mt-2">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form action="" #Form [formGroup]="form_model" id="create-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11  form-row m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="registration_code">Código del producto</label>
+                                        <input type="text" class="form-control" id="registration_code"
+                                            formControlName="registration_code" placeholder="registro sanitario"
+                                            name="registration_code" codeDirective maxlength="40">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombre</label>
+                                        <input type="text" class="form-control" id="name" formControlName="name"
+                                            name="name" maxlength="40">
+
+                                        <div *ngIf="model_form_control.name.invalid &&
+                                    model_form_control.name.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.name.invalid &&
+                                          model_form_control.name.touched
+                                      }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="dose">Ingrediente activo</label>
+                                        <input type="text" class="form-control" id="active_ingredient"
+                                            formControlName="active_ingredient" appOnlyLetters name="active_ingredient"
+                                            placeholder="" maxlength="40">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="dose">Concentración</label>
+                                        <input type="number" class="form-control" id="concentration"
+                                            formControlName="concentration" min="0" max="999" name="concentration"
+                                            placeholder="%">
+                                    </div>
+
+                                    <div *ngIf="model_form_control.concentration.invalid &&
+                                    model_form_control.concentration.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.concentration.invalid &&
+                                          model_form_control.concentration.touched
+                                      }">*</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="batch">Lote</label>
+                                        <input type="text" class="form-control" id="batch" formControlName="batch"
+                                            name="batch" codeDirective maxlength="40">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Fecha de expiración</label>
+                                        <input type="text" class="form-control" id="expirationDate" class="form-control"
+                                            formControlName="expiration_date" name="expiration_date" bsDatepicker>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a routerLink="/home/productos" class="form-btn">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Volver</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="form-btn"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Guardar</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

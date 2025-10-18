@@ -1,0 +1,742 @@
+<div class="back-container mt-3">
+    <a routerLink="/home/suscripciones" class="form-btn form-btn--back">
+        <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+        <span *ngIf="!is_mobile"> Volver</span>
+    </a>
+</div>
+
+<div class="subscriptions card animate__animated animate__fadeIn  animate__fast">
+
+
+
+    <div class="subscriptions__container">
+
+
+        <div class="subscriptions__detail subscriptions__item card">
+
+
+            <div class="form h-100 p-3">
+
+                <div id="nav-tab-card-receipt" class="mt-1 mt-xl-1 mt-xll-1">
+                    <div class="client-data">
+                        <span>{{authUser.full_name}}</span>
+                        <span *ngIf="authUser.cellphone">Teléfono: {{authUser.cellphone}}</span>
+                        <span *ngIf="authUser.active_subscription"><b>Su plan actual es:
+                                {{authUser.subscription.name}}</b></span>
+                        <span *ngIf="bank_transfer">&nbsp;</span>
+
+
+                    </div>
+                    <div class="header-data">
+                        <div class="date-label"><span>Fecha de inicio: {{formattedDate}}</span></div>
+                        <div class="date-label"><span>Fecha de finalización: {{userEndDate}}</span></div>
+                        <div class="date-label" *ngIf="bank_transfer"><span><b>Precio del dolar</b>:
+                                {{bankTransferData.price}} BS</span></div>
+
+                    </div>
+
+                </div>
+
+
+                <!--NORMAL PLAN-->
+                <div class="form__receipt">
+
+                    <div>
+                        <h4 class="text-center mt-4 mt-xl-4 mt-xll-4 ">Recibo de compra</h4>
+                    </div>
+
+                    <div class="mt-1 mt-xl-5 mt-xll-5">
+                        <div class="col-12 table-container">
+
+                            <div class="row d-flex justify-content-center ">
+                                <div class="col-11 table-container__content p-0">
+                                    <div class="wrapper">
+                                        <div class="Rtable  Rtable--collapse">
+                                            <div class="Rtable-row Rtable-row--head">
+                                                <div class="Rtable-cell head-cell column-heading grow">
+
+                                                    <div class="column-heading__container d-flex">
+                                                        <div class="column-heading__title">
+                                                            <span>Producto</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="Rtable-cell head-cell column-heading">
+                                                    <div class="column-heading__container d-flex">
+                                                        <div class="column-heading__title">
+                                                            <span>#</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="Rtable-cell head-cell column-heading">
+                                                    <div class="column-heading__container d-flex">
+                                                        <div class="column-heading__title">
+                                                            <span>Precio</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="Rtable-cell head-cell column-heading">
+                                                    <div class="column-heading__container d-flex">
+                                                        <div class="column-heading__title">
+                                                            <span>Total</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ng-container>
+                                                <div class="Rtable-row animate__animated animate__fadeIn">
+                                                    <div class="Rtable-cell head-cell grow">
+                                                        <div class="Rtable-cell--heading">Producto</div>
+
+                                                        <div class="Rtable-cell--content">
+
+                                                            <div class="title d-flex justify-content-center">
+
+                                                                <span>Producto</span>
+                                                            </div>
+                                                            <div class="content d-flex justify-content-center">
+
+                                                                <span> {{plan.name}}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Rtable-cell head-cell ">
+                                                        <div class="Rtable-cell--heading">#</div>
+
+                                                        <div class="Rtable-cell--content">
+
+                                                            <div class="title d-flex justify-content-center">
+
+                                                                <span>#</span>
+                                                            </div>
+                                                            <div class="content d-flex justify-content-center">
+
+                                                                <span> 1</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Rtable-cell head-cell ">
+                                                        <div class="Rtable-cell--heading">Precio</div>
+
+                                                        <div class="Rtable-cell--content">
+
+                                                            <div class="title d-flex justify-content-center">
+
+                                                                <span>Precio</span>
+                                                            </div>
+                                                            <div class="content d-flex justify-content-center">
+
+                                                                <span> ${{plan.price}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="Rtable-cell head-cell ">
+                                                        <div class="Rtable-cell--heading">Total</div>
+
+                                                        <div class="Rtable-cell--content">
+
+                                                            <div class="title d-flex justify-content-center">
+
+                                                                <span>Total</span>
+                                                            </div>
+                                                            <div class="content d-flex justify-content-center">
+                                                                <span *ngIf="!bank_transfer">${{plan.price }}</span>
+                                                                <span *ngIf="bank_transfer"> {{(plan.price *
+                                                                    bankTransferData.price).toFixed(2)}} BS</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </ng-container>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pe-xl-3 pe-xll-3">
+                        <div class="d-flex justify-content-end total">
+                            <p *ngIf="!bank_transfer"><b>Total</b>: <span class="text-danger">${{plan.price}}</span></p>
+                            <p *ngIf="bank_transfer"><b>Total</b>: <span class="text-danger">{{(plan.price *
+                                    bankTransferData.price).toFixed(2)}} BS</span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <!--END NORMAL PLAN-->
+
+
+
+            </div>
+        </div>
+
+
+        <div class="subscriptions__form subscriptions__item  card p-3 p-xl-3 p-xll-3">
+
+            <div class="list">
+                <ul class="nav bg-light nav-pills rounded nav-fill mb-3 card-list" role="tablist">
+                    <!--<li class="nav-item">
+                        <button class="nav-link" [ngClass]="{active:credit_card}" data-toggle="pill"
+                            (click)="showTab('credit_card')" type="button">
+                            <fa-icon [icon]="faCreditCard" class="icon-m me-1"></fa-icon>Credit card</button>
+                    </li>-->
+                    <li class="nav-item">
+                        <button class="nav-link" [ngClass]="{active:paypal}" data-toggle="pill" type="button"
+                            (click)="showTab('paypal')">
+                            <i class="fa fa-paypal"></i> Paypal</button>
+                    </li>
+                    <li class="nav-item" *ngIf="authUser.country_name=='Venezuela'">
+                        <button class="nav-link" [ngClass]="{active:bank_transfer}" data-toggle="pill"
+                            (click)="showTab('bank_transfer')" type="button">
+                            <fa-icon [icon]="faBank" class="icon-m"></fa-icon> Transferencia</button>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="nav-link" [ngClass]="{active:zinli}" data-toggle="pill"
+                            (click)="showTab('zinli')" type="button">
+                            <fa-icon [icon]="faBank" class="icon-m"></fa-icon> Zinli</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="form tab-content">
+
+                <!--CREDIT CARD-->
+                <!--  <div id="nav-tab-card-form" class="card-tab animate__animated animate__fadeIn  animate__fast"
+                    *ngIf="credit_card">
+                    <div>
+                        <label for="">Nombre completo</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control w-90">
+
+                        </div>
+                    </div>
+
+                    <div class="mt-3 mt-xl-3 mt-xll-3">
+                        <label for="">Numero de tarjeta</label>
+
+                        <div class="card-number d-flex">
+                            <input type="text" class="form-control w-90">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted">
+                                    <i class="fa fa-cc-visa"></i>  
+                                    <i class="fa fa-cc-amex"></i>  
+                                    <i class="fa fa-cc-mastercard"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-tab__expiration mt-3 mt-xl-3 mt-xll-3">
+                        <div>
+                            <label for="">Expiración</label>
+                            <div class="d-flex">
+                                <div class="d-flex">
+                                    <input type="text" class="form-control w-90">
+                                </div>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control w-90">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="">CVV</label>
+                            <div class="d-flex">
+                                <input type="text" class="form-control w-90">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-tab__submit d-flex justify-content-center mt-5 mt-xl-5 mt-xll-5">
+                        <button type="submit" class="form-btn">
+                            Pagar
+                        </button>
+                    </div>
+                </div>-->
+                <!--END CREDIT CARD-->
+
+                <!--PAYPAL-->
+                <div id="nav-tab-card-form" class="card-tab animate__animated animate__fadeIn  animate__fast"
+                    *ngIf="paypal">
+
+                    <div class="text-center">
+                        <h6 class="bold-text">Paga usando tu saldo Paypal</h6>
+                    </div>
+
+
+                    <div class="mt-3" *ngIf="authUser.active_subscription">
+
+                        <span>Esta cambiando su plan a <b>Plan {{plan.name}}</b>, el cambio de plan se hara efectivo
+                            inmediatamente
+                        </span>
+                    </div>
+
+
+
+
+                    <div class="mt-3 text-center">
+
+                        <div *ngIf="!this.authUser.active_subscription" class="paypal-btn" (click)="addPlan(plan.id)">
+                            <img src="assets/icons/paypal_mobile.png" alt="pagar con PayPal" />
+                        </div>
+                
+                        <div *ngIf="this.authUser.active_subscription" class="paypal-btn" (click)="changePlanMobile()">
+                            <img src="assets/icons/paypal_mobile.png" alt="pagar con PayPal" />
+                        </div>
+
+
+                        <div *ngIf="!this.authUser.active_subscription" class="mt-2">
+                            <credit-card-paypal-button [plan]="plan" ></credit-card-paypal-button>
+                        </div>
+                
+                        <!--     
+                       <ngx-paypal *ngIf="!this.authUser.active_subscription && !is_phone" [config]="payPalConfig"></ngx-paypal>
+
+                        <button *ngIf="this.authUser.active_subscription && !is_phone" class="btn btn-success btn-lg btn-block w-100"
+                            id="payment-button" (click)="changePlan()" type="button">Cambiar plan</button>
+                        -->
+                    
+                            
+
+                    </div>
+
+
+
+
+
+
+                </div>
+                <!--END PAYPAL-->
+
+
+                <!--BANK TRANSFER-->
+                <div id="nav-tab-card-form" class="card-tab animate__animated animate__fadeIn  animate__fast"
+                    *ngIf="bank_transfer && authUser.country_name=='Venezuela'">
+                    <div>
+
+                        <div>
+                            <h6>Datos para transferir</h6>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BANCO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Banesco</span>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div>
+                                <span><strong>BENEFICIARIO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Felipe Castillo</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>IDENTIFICACIÓN ASOCIADA A LA CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>24353147</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>Pago movil :</strong></span>
+                            </div>
+                            <div>
+                                <span>0424 5997036</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>ADJUNTE AQUI EL NÚMERO DE REFERENCIA </strong></span>
+                            </div>
+                            <div>
+                                <input type="text" [(ngModel)]="reference" class="form-control" name="reference_number">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <p>El sistema verificará su pago, este proceso puede tardar unos minutos. </p>
+                            </div>
+
+                        </div>
+                        <div class="card-tab__submit d-flex justify-content-center mt-5 mt-xl-5 mt-xll-5">
+                            <button [disabled]="reference.length<1" type="submit" (click)="sendBankTransfer()" class="form-btn">
+                                Enviar
+                            </button>
+                        </div>
+
+
+                    </div>
+
+
+                    <!--
+                    <div class="list">
+                        <ul class="nav bg-light nav-pills rounded nav-fill mb-3 card-list" role="tablist">
+
+                            <li class="nav-item">
+                                <button class="nav-link" [ngClass]="{active:bankTab=='banesco'}" data-toggle="pill"
+                                    type="button" (click)="showBankTab('banesco')">
+                                    Banesco</button>
+                            </li>
+                            <li class="nav-item " >
+                                <button class="nav-link" [ngClass]="{active:bankTab=='venezuela'}" data-toggle="pill" (click)="showBankTab('venezuela')"
+                                    type="button">
+                                Venezuela</button>
+                            </li>
+
+                            <li class="nav-item" >
+                                <button class="nav-link" [ngClass]="{active:bankTab=='provincial'}" data-toggle="pill" (click)="showBankTab('provincial')"
+                                    type="button">
+                              Provincial</button>
+                            </li>
+
+                            <li class="nav-item active">
+                                <button class="nav-link" [ngClass]="{active:bankTab=='mercantil'}"  data-toggle="pill" (click)="showBankTab('mercantil')"
+                                    type="button">
+                                     Mercantil</button>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+          
+                    <div *ngIf="bankTab == 'provincial'">
+
+                        <div>
+                            <h6>Datos para transferir</h6>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BANCO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Provincial</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>NUMERO DE CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>Cuenta corriente : 0108-0087-15-0100500331</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BENEFICIARIO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Felipe Castillo</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>IDENTIFICACIÓN ASOCIADA A LA CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>24353147</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>Pago movil :</strong></span>
+                            </div>
+                            <div>
+                                <span>0412 5134669</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>ADJUNTE AQUI EL NUMERO DE REFERENCIA :</strong></span>
+                            </div>
+                            <div>
+                                <input type="text" [(ngModel)]="reference" class="form-control" name="reference_number">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <p>El sistema verificará su pago, este proceso puede tardar 60 minutos
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="card-tab__submit d-flex justify-content-center mt-5 mt-xl-5 mt-xll-5">
+                            <button type="submit" (click)="sendBankTransfer()" class="form-btn">
+                                Enviar
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="bankTab == 'mercantil'">
+
+                        <div>
+                            <h6>Datos para transferir</h6>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BANCO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Mercantil</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>NUMERO DE CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>Cuenta corriente : 01050749901749184559</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BENEFICIARIO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Felipe Castillo</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>IDENTIFICACIÓN ASOCIADA A LA CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>24353147</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>Pago movil :</strong></span>
+                            </div>
+                            <div>
+                                <span>0412 5134669</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>ADJUNTE AQUI EL NUMERO DE REFERENCIA :</strong></span>
+                            </div>
+                            <div>
+                                <input type="text" [(ngModel)]="reference" class="form-control" name="reference_number">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <p>El sistema verificará su pago, este proceso puede tardar 60 minutos
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="card-tab__submit d-flex justify-content-center mt-5 mt-xl-5 mt-xll-5">
+                            <button type="submit" (click)="sendBankTransfer()" class="form-btn">
+                                Enviar
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="bankTab == 'venezuela'">
+
+                        <div>
+                            <h6>Datos para transferir</h6>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BANCO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Venezuela (BDV)</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>NUMERO DE CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>Cuenta corriente : 01020864510000391175</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>BENEFICIARIO :</strong></span>
+                            </div>
+                            <div>
+                                <span>Felipe Castillo</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>IDENTIFICACIÓN ASOCIADA A LA CUENTA :</strong></span>
+                            </div>
+                            <div>
+                                <span>24353147</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>Pago movil :</strong></span>
+                            </div>
+                            <div>
+                                <span>0424 5997036</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span><strong>ADJUNTE AQUI EL NUMERO DE REFERENCIA :</strong></span>
+                            </div>
+                            <div>
+                                <input type="text" [(ngModel)]="reference" class="form-control" name="reference_number">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <p>El sistema verificará su pago, este proceso puede tardar 60 minutos
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="card-tab__submit d-flex justify-content-center mt-5 mt-xl-5 mt-xll-5">
+                            <button type="submit" (click)="sendBankTransfer()" class="form-btn">
+                                Enviar
+                            </button>
+                        </div>
+
+
+                    </div>
+                -->
+
+
+
+                </div>
+                <!--END BANK TRANSFER-->
+
+
+                <!--ZINLI-->
+                <div id="nav-tab-card-form" class="card-tab animate__animated animate__fadeIn  animate__fast"
+                    *ngIf="zinli">
+                    <div class="text-center">
+                        <span><strong>Zinli es una de las billeteras más usadas en latinoamérica</strong></span>
+                    </div>
+
+                    <div>
+                        <div>
+
+                            <div class="mt-3">
+                                <span>Paga fácilmente utilizando Zinli, puedes recargarla desde cualquier banco de una
+                                    forma fácil y sencilla, si no tienes una cuenta aquí puedes ver los pasos para
+                                    crearla
+                                </span>
+                            </div>
+                            <div class="mt-1">
+                                <a
+                                    href="https://www.zinli.com/preguntas-frecuentes">https://www.zinli.com/preguntas-frecuentes</a>
+                            </div>
+
+
+                            <div class="mt-3">
+                                <strong>FORMAS DE PAGO</strong>
+                            </div>
+                            <div class="mt-3">
+                                <span>Realiza una transferencia a la siguiente cuenta</span>
+                            </div>
+
+                            <div>
+                                <span><strong>Correo : felcast999&#64;gmail.com</strong> </span>
+                            </div>
+
+
+                            <div>
+                                <div>
+                                    <span><strong>ADJUNTE AQUI EL NÚMERO DE REFERENCIA </strong></span>
+                                </div>
+                                <div>
+                                    <input type="text" [(ngModel)]="zinli_reference" class="form-control"
+                                        name="zinli_reference_number">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>El sistema verificará su pago, este proceso puede tardar unos minutos. </p>
+                        </div>
+
+                    </div>
+                    <div class="card-tab__submit d-flex justify-content-center mt-4">
+                        <button type="submit" (click)="sendZinliTransfer()" class="form-btn">
+                            Enviar
+                        </button>
+                    </div>
+
+
+
+
+
+                </div>
+                <!--END ZINLI-->
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</div>

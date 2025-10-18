@@ -1,0 +1,82 @@
+<div class="row h-100 header">
+    <div [ngClass]="
+    {
+      'col-md-3':toggleSideBar==false,
+      ' col-md-2 custom-md-1':toggleSideBar==true
+
+    }" (click)="toggleMobileSidebar()"
+        class="col-2 col-lg-1 col-xl-1 col-xll-1 mh-100 text-center d-flex justify-content-center header__content overflow-hidden p-0">
+
+        <!--<img src="assets/images/castle.svg" class="icon" alt="logo">-->
+
+    </div>
+
+
+    <div [ngClass]="
+    {
+        'offset-lg-1 offset-xl-1 offset-xll-1':toggleSideBar==false
+    }" *ngIf="!is_mobile"
+        class=" col-1 col-lg-1 col-xl-1 col-xll-1  mh-100 text-center d-flex justify-content-left header__content pointer"
+        (click)="toggleSide()">
+        <span class="icon-m">
+            <fa-icon class="arrow-icon" *ngIf="!toggleSideBar" [icon]="faAngleDoubleRight"></fa-icon>
+            <fa-icon class="arrow-icon" *ngIf="toggleSideBar" [icon]="faAngleDoubleLeft"></fa-icon>
+
+        </span>
+    </div>
+
+    <div [ngClass]="
+    {
+        'offset-lg-1 offset-xl-1 offset-xll-1':toggleSideBar==false
+    }" *ngIf="is_mobile"
+        class=" col-1 col-lg-1 col-xl-1 col-xll-1  mh-100 text-center d-flex justify-content-left header__content pointer"
+        (click)="toggleMobileSidebar()">
+        <span class="icon-m">
+            <fa-icon class="arrow-icon" *ngIf="!toggleMSidebar" [icon]="faAngleDoubleLeft"></fa-icon>
+            <fa-icon class="arrow-icon" *ngIf="toggleMSidebar" [icon]="faAngleDoubleRight"></fa-icon>
+
+        </span>
+    </div>
+
+    <div [ngClass]="
+    {
+        ' col-md-8 offset-lg-6 offset-xl-6 offset-xll-6':toggleSideBar==false,
+        ' col-md-9 custom-md-10 offset-lg-7 offset-xl-7 offset-xll-7':toggleSideBar==true
+
+    }" class="col-9 col-lg-3 col-xl-3 col-xll-3 header__profile-content mh-100">
+        <div class="row h-100">
+            <div
+                class="col-3 offset-4 col-md-3 offset-md-7 col-lg-3 offset-lg-5 col-xl-3 offset-xl-5 col-xll-3 offset-xll-3   d-flex justify-content-center align-center header__notifications">
+
+
+            </div>
+
+            <div class="col-5 col-md-2 col-lg-4 col-xl-4 col-xll-4 d-flex align-centern avatar-row">
+                <div class="row">
+                    <div class="col-8 col-md-7">
+                        <div class="rounded-div pointer" (click)="toggleDarkMode()">
+
+
+
+
+                            <fa-icon *ngIf="currentTheme=='dark'" [icon]="faSun" class="theme-icon"></fa-icon>
+                            <fa-icon *ngIf="currentTheme=='light'" [icon]="faMoon" class="theme-icon"></fa-icon>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-4 d-flex justify-content-center align-center pointer pe-sm-2"
+                        (click)="toogleProfile()">
+                        <span>
+                            <fa-icon [icon]="barsIcon" class="icon-m bars-icon"></fa-icon>
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

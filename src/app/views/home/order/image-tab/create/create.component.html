@@ -1,0 +1,27 @@
+<div class="row  animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+
+
+            <form [formGroup]="form_model"  >
+                <div class="row">
+
+                    <!--DESKTOP DEVICES-->
+
+                    <desktop-file-uploader *ngIf="!isMobile" [_crudService] ="_crudService" [order_id]="this.form_model.get('order_id').value"></desktop-file-uploader>
+
+                    <!--DESKTOP DEVICES-->
+
+
+                    <!--MOBILE DEVICES-->
+
+                    <mobile-file-uploader *ngIf="isMobile" [_crudService] ="_crudService" [order_id]="this.form_model.get('order_id').value"></mobile-file-uploader>
+
+                    <!--MOBILE DEVICES-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

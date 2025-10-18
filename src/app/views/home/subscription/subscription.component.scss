@@ -1,0 +1,383 @@
+@use "src/app/shared/css/mixins" as *;
+
+.top-margin {
+  @include respond(phone) {
+    margin-top: 25rem;
+  }
+
+
+
+
+
+}
+
+.bottom-margin {
+  @include respond(phone) {
+    margin-bottom: 16rem;
+  }
+
+
+
+}
+
+.subscriptions {
+  @include respond(desktop) {
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @include respond(phone) {
+    border: none !important;
+  }
+
+  &__container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1rem));
+    justify-content: space-evenly;
+    align-items: center;
+
+    @media(min-width: 64em) and (max-height: 56.25em) {
+      //900px
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      overflow-y: scroll !important;
+
+      .flip-card-1,
+      .flip-card-2 {
+        height: 85vh !important;
+      }
+
+
+
+    }
+
+    @media(min-width: 64em) and (max-height: 40.63em) {
+      //650px
+
+      .flip-card-1,
+      .flip-card-2 {
+        height: 100vh !important;
+      }
+
+    }
+
+    @include respond(phone) {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+  }
+
+  .plan-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+
+    &__header-span {
+      padding: 1rem 1.5rem;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+
+      &--1 {
+        background-image: linear-gradient(to right bottom,
+            rgba(#ffb900, 0.85),
+            rgba(#ff7730, 0.85));
+      }
+
+      &--2 {
+        background-image: linear-gradient(to right bottom,
+            rgba(#7ed56f, 0.85),
+            rgba(#28b485, 0.85));
+      }
+
+      &--3 {
+        background-image: linear-gradient(to right bottom,
+            rgba(#2998ff, 0.85),
+            rgba(#5643fa, 0.85));
+      }
+    }
+
+    &__header {
+      position: relative;
+    }
+
+    &__picture {
+      background-size: cover;
+      height: 23rem;
+      background-blend-mode: screen;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+      @media (max-height: 1000px) {
+        height: 15rem !important;
+      }
+
+      &--1 {
+        background-image: linear-gradient(to right bottom, #ffb900, #ff7730)
+      }
+
+      &--2 {
+        background-image: linear-gradient(to right bottom, #7ed56f, #28b485)
+      }
+
+      &--3 {
+        background-image: linear-gradient(to right bottom, #2998ff, #5643fa)
+      }
+    }
+
+    &__title {
+      position: absolute;
+      color: white;
+      bottom: 7rem !important;
+      left: 8.5rem;
+    }
+
+    &__details {
+      ul {
+        list-style: none;
+        margin: 0 auto;
+        color: #777777;
+
+        li {
+          text-align: center;
+          padding: 1rem;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #eee;
+          }
+        }
+      }
+    }
+  }
+
+  .flip-card-1 {
+    @include respond(phone) {
+      height: 80vh !important;
+    }
+
+    @include respond(large-phone) {
+      height: 60vh !important;
+    }
+  }
+
+  .flip-card-2 {
+
+
+
+    @include respond(phone) {
+      height: 85vh !important;
+    }
+
+    @include respond(small-phone) {
+      height: 112vh !important;
+    }
+
+    @include respond(large-phone) {
+      height: 88vh !important;
+    }
+
+    @media (max-width: 22.5em) and (min-height:48.75em) {
+
+      //EXTRA LARGE PHONES
+      height: 100vh !important;
+
+    }
+
+    @media (max-width: 23.44em) and (min-height:50em) {
+
+      //EXTRA LARGE PHONES
+      height: 96vh !important;
+
+    }
+  }
+
+  /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+  .flip-card {
+    background-color: transparent;
+    height: 70vh;
+    border: var(--subscriptions-border);
+    perspective: 1000px;
+
+    /* Remove this if you don't want the 3D effect */
+    @include respond(phone) {
+      margin-bottom: 2rem;
+
+      &:hover &-front {
+        transform: rotateY(0);
+      }
+    }
+
+    @media only screen and (max-width: 56.25em),
+    only screen and (hover: none) {}
+  }
+
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 1.5rem 4rem rgba(#000, 0.15);
+  }
+
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+
+    @include respond(phone) {
+      transform: rotateY(0) !important;
+    }
+  }
+
+  /* Position the front and back side */
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    /* Safari */
+    backface-visibility: hidden;
+
+    @media only screen and (max-width: 56.25em) {
+      position: relative !important;
+    }
+
+    &-1 {
+      background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+    }
+
+    &-2 {
+      background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+    }
+
+    &-3 {
+      background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+    }
+  }
+
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    background-color: #fff;
+    color: black;
+
+
+    @include respond(small-phone) {
+      height: 105% !important;
+    }
+
+
+
+  }
+
+  /* Style the back side */
+  .flip-card-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media only screen and (max-width: 56.25em) {
+      transform: rotateY(0deg) !important;
+      clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+      height: 55%;
+      top: -3rem;
+
+      align-items: initial !important;
+      padding-top: 5rem;
+    }
+
+    @include respond(large-phone) {
+      top: -4rem !important;
+
+    }
+  }
+
+  .price-label {
+    text-transform: uppercase;
+  }
+
+  .price-value {
+    font-size: 2rem;
+    font-weight: 100;
+
+    @include respond(big-desktop) {
+      font-size: 3rem !important;
+    }
+  }
+
+  .price-button {
+
+    &,
+    &:link,
+    &:visited {
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 4rem;
+      display: inline-block;
+      border-radius: 10rem;
+      transition: all 0.2s;
+      position: relative;
+
+      //Change for the <button> element
+      border: none;
+      cursor: pointer;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+
+      &::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+      }
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+    }
+
+    &--white {
+      background-color: #fff;
+      color: #777;
+
+      &::after {
+        background-color: #fff;
+      }
+    }
+
+    &::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 10rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all 0.4s;
+    }
+
+    &--animated {
+      animation: moveInBottom 0.5s ease-out 0.75s;
+      animation-fill-mode: backwards;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<!--DESKTOP DEVICES-->
+<div class="col-md-12  mt-2 " *ngIf="show_progress">
+    <div class="progress form-group mt-3">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress"></div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <span class="progress__label">Subiendo imágenes, por favor espere...</span>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="fileupload mt-5" appDragDropFileUpload (click)="fileField.click()"
+        (fileDropped)="upload($event)">
+        <span class="ddinfo">Suelta aqui tus imágenes</span>
+        <input type="file" name="images[]" #fileField (change)="upload($any($event).target.files)" hidden multiple />
+    </div>
+
+
+
+</div>
+
+
+<div class="col-md-12">
+    <div class="image-list  animate__animated animate__fadeIn" *ngFor="let file of fileImageArr; let i = index">
+        <div class="profile">
+            <img [src]="sanitize(file['url'])" alt="" />
+        </div>
+        <p>{{ file.name }}</p>
+    </div>
+    <p class="message">{{ msg }}</p>
+</div>
+<!--DESKTOP DEVICES-->

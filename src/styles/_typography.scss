@@ -1,0 +1,1598 @@
+$small-desktop-font: 0.7rem;
+$desktop-font: 0.8rem;
+$big-desktop-font: 1rem;
+$phone-font: .95rem;
+
+
+.content__item {
+  span {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.small-text {
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.dashboard-message__title {
+  font-family: "Inter Bold" !important;
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+    font-family: "Inter Bold" !important;
+  }
+}
+
+.sign-in-text {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+input,
+textarea,
+label,
+button,
+p,
+ul,
+a {
+
+  color: #000000;
+
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.text-center-mobile {
+  @include respond(phone) {
+    text-align: center;
+    justify-content: center !important;
+  }
+}
+
+.button-text {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.order-tabs {
+  a {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.info-content {
+  font-size: 0.8rem;
+}
+
+.bold-text {
+  font-family: "Inter Bold" !important;
+
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-family: "Inter Bold" !important;
+    font-size: 1rem !important;
+  }
+
+  line-height: 1.2;
+}
+
+.message-container {
+  font-size: 0.9rem;
+}
+
+.small-header {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  &--black {
+    color: #000;
+  }
+
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.medium-header {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+
+  font-weight: bold;
+}
+
+.global-form-label {
+  font-family: "Inter Bold" !important;
+  font-size: 0.9rem;
+
+  @include respond(phone) {
+    font-family: "Inter Bold" !important;
+  }
+}
+
+.logout-size {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+
+  color: #fff;
+  cursor: pointer;
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.list {
+  &__title a {
+    font-family: "Inter Bold" !important;
+
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+      font-family: "Inter Bold" !important;
+    }
+  }
+}
+
+
+
+.list__title,
+.list__title a {
+
+  font-weight: bold;
+
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: 0.8rem !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.sort__title {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+select {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.Rtable-cell {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+
+  .column-heading {
+    &__title {
+      span {
+        @include respond(tab-land) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(default-tablet) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(tab-port) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(small-desktop) {
+          font-size: $small-desktop-font !important;
+        }
+
+        @include respond(desktop) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(big-desktop) {
+          font-size: $big-desktop-font !important;
+        }
+
+        @include respond(phone) {
+          font-size: $phone-font !important;
+        }
+      }
+    }
+  }
+
+  .action-cell {
+    span {
+      @include respond(tab-land) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(default-tablet) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(tab-port) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-size: $phone-font !important;
+      }
+    }
+  }
+
+  &--heading {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+
+
+
+
+  &--content {
+    .title {
+      span {
+        @include respond(tab-land) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(default-tablet) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(tab-port) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(small-desktop) {
+          font-size: $small-desktop-font !important;
+        }
+
+        @include respond(desktop) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(big-desktop) {
+          font-size: $big-desktop-font !important;
+        }
+
+        @include respond(phone) {
+          font-size: $phone-font !important;
+        }
+
+        text-transform: uppercase;
+      }
+    }
+
+    .content span {
+      @include respond(tab-land) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(default-tablet) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(tab-port) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-size: $phone-font !important;
+      }
+    }
+  }
+
+  .action-icon {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font;
+    }
+  }
+}
+
+.form-btn {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.custom-btn {
+  font-size: $small-desktop-font !important;
+}
+
+label {
+  font-family: "Inter Bold" !important;
+
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-family: "Inter Bold" !important;
+    font-size: $phone-font !important;
+  }
+}
+
+input,
+select,
+b {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.back {
+  font-family: "Inter Bold" !important;
+  font-size: 1rem !important;
+  transition: all 0.2s;
+
+  @include respond(phone) {
+    font-family: "Inter Bold" !important;
+  }
+}
+
+.recovery-form {
+  &__title {
+    font-family: "Inter Bold" !important;
+    font-size: 1.5rem;
+    line-height: 1.2;
+
+    @include respond(phone) {
+      font-family: "Inter Bold" !important;
+    }
+  }
+}
+
+.register-form {
+  &__title {
+    font-family: "Inter Bold" !important;
+    font-size: 1.5rem;
+    line-height: 1.2;
+
+    @include respond(phone) {
+      font-family: "Inter Bold" !important;
+    }
+  }
+}
+
+.btn-text {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.pagination .page-item>button {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.search-input,
+.search-icon,
+.icon-m {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.bold-normal-text {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.ng-select.custom {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.no-data {
+  span {
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.ddinfo {
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.tab-row {
+  &--small-text {
+    font-size: 0.8rem;
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.image-list {
+  p {
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.tabs {
+  &__header {
+    font-family: "Inter Bold" !important;
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-family: "Inter Bold" !important;
+      font-size: $phone-font !important;
+    }
+  }
+
+  .total {
+    &__item {
+      font-family: "Inter Bold" !important;
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-family: "Inter Bold" !important;
+
+        font-size: $phone-font !important;
+      }
+    }
+  }
+}
+
+.graphic-dashboard {
+  &__item {
+    h6 {
+      font-family: "Inter Bold" !important;
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-family: "Inter Bold" !important;
+        font-size: $phone-font !important;
+      }
+    }
+  }
+
+  &__total {
+    .total {
+      font-family: "Inter Bold" !important;
+      font-size: 2rem;
+
+      @include respond(phone) {
+        font-family: "Inter Bold" !important;
+      }
+    }
+  }
+}
+
+.dashboard {
+  &__header {
+    &__item {
+      .button {
+        &__item {
+          @include respond(small-desktop) {
+            font-size: $small-desktop-font !important;
+          }
+
+          @include respond(desktop) {
+            font-size: $desktop-font !important;
+          }
+
+          @include respond(big-desktop) {
+            font-size: $big-desktop-font !important;
+          }
+
+          @include respond(phone) {
+            font-size: $phone-font !important;
+          }
+        }
+      }
+    }
+  }
+
+  .plan {
+    &__label {
+      font-family: "Inter Bold" !important;
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-size: $phone-font !important;
+      }
+    }
+
+    &__name {
+      font-family: "Inter Bold" !important;
+
+      @include respond(small-desktop) {
+        font-size: 1.2rem !important;
+      }
+
+      @include respond(desktop) {
+        font-size: 1.2rem !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: 1.5rem !important;
+      }
+
+
+      @include respond(phone) {
+        font-family: "Inter Bold" !important;
+      }
+    }
+  }
+}
+
+.list__tutorial,
+.list__tutorial-2 {
+  div {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.tour {
+  &__header {
+    h6 {
+      font-family: "Inter Bold" !important;
+
+      @include respond(phone) {
+        font-family: "Inter Bold" !important;
+      }
+    }
+  }
+}
+
+.tour__content {
+
+  p,
+  button {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.tutorial {
+  &__link {
+    font-size: $desktop-font !important;
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: .8rem !important;
+    }
+  }
+}
+
+.tour__buttons {
+  button {
+    font-size: 0.8rem !important;
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+  }
+}
+
+.help__option {
+  .option__label {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+}
+
+.help-modal {
+  &__header {
+    h6 {
+      font-family: "Inter Bold" !important;
+
+      @include respond(tab-land) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(default-tablet) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(tab-port) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(small-desktop) {
+        font-size: $small-desktop-font !important;
+      }
+
+      @include respond(desktop) {
+        font-size: $desktop-font !important;
+      }
+
+      @include respond(big-desktop) {
+        font-size: $big-desktop-font !important;
+      }
+
+      @include respond(phone) {
+        font-size: $phone-font !important;
+        font-family: "Inter Bold" !important;
+      }
+    }
+  }
+
+  &__content {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: $big-desktop-font !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font !important;
+    }
+  }
+
+  button {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: $small-desktop-font !important;
+    }
+
+    @include respond(desktop) {
+      font-size: 0.8rem !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: 0.8rem !important;
+    }
+
+    @include respond(phone) {
+      font-size: $phone-font;
+    }
+  }
+}
+
+.exit-btn {
+  @include respond(phone) {
+    padding: 4px 0.8em !important;
+  }
+}
+
+
+.help-modal__header {
+  h6 {
+
+    @include respond(desktop) {
+      font-size: 1.1rem !important;
+    }
+
+  }
+}
+
+.price-label {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.plan-card {
+
+  &__header-span {
+    @include respond(tab-land) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(default-tablet) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(tab-port) {
+      font-size: $desktop-font !important;
+    }
+
+    @include respond(small-desktop) {
+      font-size: 1.2rem !important;
+    }
+
+    @include respond(desktop) {
+      font-size: 1.2rem !important;
+    }
+
+    @include respond(big-desktop) {
+      font-size: 1.5rem !important;
+    }
+
+    @include respond(phone) {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  &__details {
+    ul {
+
+
+      li {
+        @include respond(tab-land) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(default-tablet) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(tab-port) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(small-desktop) {
+          font-size: $small-desktop-font !important;
+        }
+
+        @include respond(desktop) {
+          font-size: $desktop-font !important;
+        }
+
+        @include respond(big-desktop) {
+          font-size: $big-desktop-font !important;
+        }
+
+        @include respond(phone) {
+          font-size: $phone-font !important;
+        }
+      }
+    }
+  }
+}

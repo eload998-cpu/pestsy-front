@@ -1,0 +1,334 @@
+@use "src/app/shared/css/mixins" as *;
+
+$top-bar-height: 5vh;
+
+.profile-component {
+  @include respond(phone) {
+    width: 100%;
+
+  }
+}
+
+$color: #cbedd5;
+
+.show-tour-modal {
+  top: 10% !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+
+}
+
+.disable-body {
+  pointer-events: none !important;
+}
+
+.tour {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30vw;
+  opacity: 0;
+  transition: all 1s;
+
+  @include respond(phone) {
+    width: 70vw;
+  }
+
+  @include respond(tab-port) {
+    width: 60vw;
+  }
+
+  background-color: #fff;
+  border: 1px solid gainsboro;
+  z-index: 99;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
+  justify-content: center;
+
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-green-active);
+    color: #fff;
+  }
+
+  &__buttons {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 8rem));
+
+    @include respond(phone) {
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(5rem, 6rem));
+    }
+
+    .buttons {
+      &__item {
+        display: flex;
+        justify-content: end;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+//GLOBAL
+.f-height {
+  height: 100vh;
+}
+
+//END GLOBAL
+
+.top-row {
+  height: $top-bar-height;
+
+  @include respond(phone) {
+    height: 6vh !important;
+  }
+}
+
+.top-bar {
+  background-color: var(--color-background-primary);
+  z-index: 50;
+  height: $top-bar-height;
+
+  @include respond(phone) {
+    height: 6vh !important;
+  }
+
+  border-bottom: 1px solid #f0f1f6;
+}
+
+.left-bar {
+  background-color: var(--color-background-secondary);
+  height: 95vh;
+  border-right: 1px solid #f0f1f6;
+  transition: all 0.25s;
+  box-shadow: 1px 0px 7px;
+  position: relative;
+
+  @include respond(big-desktop) {
+    width: 13.666667% !important;
+  }
+}
+
+.no-sidebar {
+  margin-left: calc(-8.33333333% - 1%);
+
+  @include respond(tab-land) {
+    margin-left: calc(-11.33333333%);
+  }
+
+  @include respond(medium-tablet) {
+    margin-left: calc(-14.33333333%) !important;
+  }
+
+  @include respond(small-desktop) {
+    margin-left: calc(-11.33333333%);
+  }
+
+  @include respond(desktop) {
+    margin-left: calc(-11.33333333%);
+  }
+
+  @include respond(big-desktop) {
+    margin-left: calc(-8.33333333%);
+  }
+}
+
+.fixed_content {
+  width: 92.666667%;
+
+  @include respond(tab-port) {
+    width: 75.666667%;
+  }
+}
+
+.content {
+  //background-color:#F0F1F6;
+  height: 94vh;
+  overflow: auto;
+  transition: all 0.25s;
+  position: relative;
+
+  p {
+    color: var(--color-black);
+  }
+}
+
+.parent-container {
+  transition: all 0.2s;
+}
+
+.profile-rigth {
+  background-color: #fff;
+  position: fixed;
+  width: 20vw !important;
+  height: 100vh;
+  left: 80vw;
+  z-index: 99;
+
+  @include respond(tab-land) {
+    width: 30vw !important;
+  }
+
+  @include respond(tab-port) {
+    width: 30vw !important;
+  }
+
+  @include respond(phone) {
+    width: 70vw !important;
+  }
+}
+
+.profile {
+  background-color: #fff;
+  position: fixed;
+  width: 20vw !important;
+  height: 100vh;
+  left: 80vw;
+  z-index: 40;
+
+  @include respond(phone) {
+    width: 50vw !important;
+  }
+
+  @include respond(tab-land) {
+    width: 30vw !important;
+  }
+}
+
+.hidden-sidebar {
+  left: -50vw !important;
+}
+
+.hide-sidebar {
+  left: -50vw !important;
+  transition: all 0.5s;
+}
+
+.show-sidebar {
+  left: 0vw !important;
+  transition: all 0.5s;
+  border-right: 1px solid #888;
+  box-shadow: 0px 0px 10px;
+}
+
+.hidden-profile {
+  left: 100vw !important;
+}
+
+.hide-profile {
+  left: 100vw !important;
+  transition: all 0.5s;
+}
+
+.show-profile {
+  left: 80vw !important;
+  transition: all 0.5s;
+  border-left: 1px solid #888;
+  box-shadow: 0px 0px 10px;
+
+  @include respond(tab-port) {
+    left: 70vw !important;
+  }
+}
+
+//RESPONSIVES
+
+//XXL
+
+@media (min-width: 1440px) {}
+
+//XL
+@media (min-width: 1200px) and (max-width: 1430px) {
+  .profile {
+    width: 20vw !important;
+  }
+
+  .show-profile {
+    left: 80vw !important;
+  }
+}
+
+//LG
+@media (min-width: 992px) and (max-width: 1190px) {
+  .profile {
+    width: 20vw !important;
+  }
+
+  .show-profile {
+    left: 80vw !important;
+  }
+}
+
+//MD
+@media (min-width: 768px) and (max-width: 990px) {
+  .profile {
+    width: 30vw !important;
+    left: 70vw;
+  }
+
+  .show-profile {
+    left: 70vw !important;
+  }
+
+  .fixed_content {
+    width: 84.3%;
+  }
+}
+
+@media (min-width: 900px) and (max-height: 601px) {
+  .show-profile {
+    left: 80vw !important;
+  }
+}
+
+//SM
+@media (min-width: 576px) and (max-width: 760px) {}
+
+//XS
+@media (max-width: 575px) {
+  .fixed_content {
+    width: initial !important;
+  }
+
+  .show-profile {
+    left: 30vw !important;
+  }
+}
+
+//VERTICAL RESPONSIVE
+@media (max-width: 575px) and (max-height: 790px) {}
+
+//custom
+
+@media (min-width: 1536px) {}
+
+@media (width: 1176px) and (height: 664px) {
+  .fixed_content {
+    width: 93.666667%;
+  }
+}
+
+@media (width: 800px) and (height: 600px) {
+  .fixed_content {
+    width: 91.3%;
+  }
+
+  .profile {
+    width: 20vw !important;
+  }
+
+  .show-profile {
+    left: 80vw !important;
+  }
+}

@@ -1,0 +1,195 @@
+@use "src/app/shared/css/mixins" as *;
+
+.loader-div {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #e4e4e4;
+
+}
+
+.theme-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.shimmer-effect {
+  color: grey;
+  display: inline-block;
+  /* adding gradients */
+  -webkit-mask: linear-gradient(120deg, #000 25%, #0005, #000 75%) right/250% 100%;
+  /* shimmer effect animation */
+  animation: shimmer 2s infinite;
+  background-repeat: no-repeat;
+  width: 50px;
+}
+
+.red {
+  background-color: red;
+}
+
+.avatar-row {
+  align-items: center;
+
+  @include respond(tab-port) {
+    justify-content: right;
+  }
+}
+
+.align-center {
+  align-items: center;
+}
+
+.rounded-div {
+  border: 1.5px solid var(--color-gray);
+  width: 1.88rem;
+  height: 1.88rem;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  justify-items: center;
+  background-image: var(--rounded-div-bg-color);
+  box-shadow: 0 2px 2px #888888;
+
+
+}
+
+.theme-icon{
+  color: white;
+}
+
+.header {
+  border-bottom: 1px solid #888;
+  box-shadow: 0px 0px 7px;
+
+  &__content {
+    transition: all 0.25s;
+    align-items: center;
+  }
+
+  &__profile-content {
+    transition: all 0.25s;
+  }
+
+  .icon {
+    width: 40%;
+
+    @include respond(desktop) {
+      width: 20%;
+    }
+
+    object-fit: cover;
+  }
+
+  //IMAGES
+  .avatar {
+    height: 100%;
+    width: 100%;
+  }
+
+  //END IMAGES
+}
+
+.arrow-icon,
+.bars-icon {
+  color: var(--color-background-secondary);
+}
+
+//RESPONSIVES
+
+//XXL
+
+@media (min-width: 1440px) {
+  .header {
+    .icon {
+      margin-left: 1rem !important;
+    }
+  }
+}
+
+//XL
+@media (min-width: 1200px) and (max-width: 1430px) {
+  .header {
+    .icon {
+      margin-left: 1rem !important;
+    }
+  }
+}
+
+//LG
+@media (min-width: 992px) and (max-width: 1190px) {
+  .header {
+    .icon {
+      margin-left: initial !important;
+    }
+  }
+}
+
+//MD
+@media (min-width: 768px) and (max-width: 990px) {
+  .rounded-div {
+    width: 1.88rem;
+    height: 1.88rem;
+  }
+}
+
+//SM
+@media (min-width: 576px) and (max-width: 760px) {}
+
+//XS
+@media (max-width: 575px) {
+  .rounded-div {
+    width: 1.88rem;
+    height: 1.88rem;
+  }
+
+  .header {
+    &__content {
+      justify-content: center !important;
+    }
+
+    &__profile-content {}
+
+    .icon {
+      margin-left: initial !important;
+    }
+
+    //IMAGES
+    .avatar {}
+
+    //END IMAGES
+  }
+}
+
+//VERTICAL RESPONSIVE
+@media (max-width: 575px) and (max-height: 790px) {}
+
+//custom
+
+@media (min-width: 1536px) {}
+
+@media (max-width: 1176px) and (max-height: 664px) {}
+
+@media (width: 800px) and (height: 600px) {
+  .custom-md-10 {
+    width: 83.33333333% !important;
+  }
+
+  .custom-md-1 {
+    width: 8.33333333% !important;
+  }
+
+  .rounded-div {
+    width: 3.5vh;
+    height: 3.5vh;
+  }
+
+  .header__notifications {
+    justify-content: right !important;
+  }
+}

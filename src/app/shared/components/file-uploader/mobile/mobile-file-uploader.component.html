@@ -1,0 +1,31 @@
+<!--MOBILE DEVICES-->
+<div class="mt-5">
+
+    <div class="col-md-12  mt-2 " *ngIf="show_progress">
+        <div class="progress form-group mt-3">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <span class="progress__label">Subiendo imágenes, por favor espere...</span>
+        </div>
+
+    </div>
+
+    <div class="mobile-image-grid fileupload mt-5" (click)="takePicture()">
+        <span class="ddinfo">Haga click para añadir imágenes <br> o tomar fotos</span>
+
+
+    </div>
+
+
+    <div class="image-list animate__animated animate__fadeIn" *ngFor="let images of mobileImgArr">
+        <div>
+            <img [src]="images.url" class="imageThumbnail" alt="">
+
+        </div>
+    </div>
+</div>
+<!--MOBILE DEVICES-->

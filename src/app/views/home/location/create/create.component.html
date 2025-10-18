@@ -1,0 +1,132 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">AÑADIR UBICACIÓN</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 mt-5 mt-2">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form action="" #Form [formGroup]="form_model" id="create-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11  form-row m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombre</label>
+                                        <input type="text" class="form-control" id="name" formControlName="name"
+                                            name="name" maxlength="40">
+
+                                        <div *ngIf="model_form_control.name.invalid &&
+                                    model_form_control.name.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.name.invalid &&
+                                          model_form_control.name.touched
+                                      }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <div class="label-container">
+                                            <label for="is_legionella_label">Aplica a legionela</label>
+
+                                        </div>
+
+
+                                        <div class="radio-container">
+                                            <div class="form-check form-check-inline">
+
+                                                <input class="form-check-input" type="radio" name="is_legionella"
+                                                    formControlName="is_legionella" id="is_legionella_yes" value="true">
+                                                <label class="form-check-label" for="is_legionella_yes">Si</label>
+
+
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+
+                                                <input class="form-check-input" type="radio" name="is_legionella"
+                                                    formControlName="is_legionella" id="is_legionella_no" value="false">
+                                                <label class="form-check-label" for="is_legionella_no">No</label>
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a routerLink="/home/ubicaciones" class="form-btn">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Volver</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="form-btn"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Guardar</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

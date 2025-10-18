@@ -1,0 +1,372 @@
+<div class="row  animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form action="" #Form [formGroup]="form_model" id="create-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11 m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="pest_id">Tipo de xilófago </label>
+                                        <ng-select (input)="validateInput($event)" [items]="pests" [addTag]="true"
+                                            addTagText="¿Desea añadir este xelofago?" (change)="addPest($event)"
+                                            class="custom" bindLabel="common_name" bindValue="id"
+                                            formControlName="pest_id" name="pest_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="location_id">Ubicación</label>
+                                        <ng-select [items]="locations" [addTag]="true"
+                                            addTagText="¿Desea añadir esta ubicación?" (change)="addLocation($event)"
+                                            class="custom" bindLabel="name" bindValue="id" formControlName="location_id"
+                                            name="location_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="affected_element_id">Elementos afectados </label>
+                                        <ng-select (input)="validateInput($event)" [items]="affected_elements"
+                                            [addTag]="true" addTagText="¿Desea añadir este elemento?"
+                                            (change)="addAffectedElement($event)" class="custom" bindLabel="name"
+                                            bindValue="id" formControlName="affected_element_id"
+                                            name="affected_element_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="infestation_level">Nivel de infestación </label>
+                                        <select class="form-control" name="identification_type" id="identification_type"
+                                            formControlName="infestation_level">
+                                            <option selected disabled> -Selecciona una opción-</option>
+
+                                            <option *ngFor="let value of infestation_level" [value]="value">{{value}}
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="device_number">Tipo de construcción </label>
+                                        <ng-select (input)="validateInput($event)" [items]="construction_types"
+                                            [addTag]="true" addTagText="¿Desea añadir este elemento?"
+                                            (change)="addConstructionType($event)" class="custom" bindLabel="name"
+                                            bindValue="id" formControlName="construction_type_id"
+                                            name="construction_type_id">
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="nombres">Tratamiento aplicado</label>
+                                        <ng-select class="custom" [items]="aplications" [addTag]="true"
+                                            addTagText="¿Desea añadir esta aplicación?"
+                                            (change)="addApplication($event)" bindLabel="name" bindValue="id"
+                                            formControlName="aplication_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="product_id">Producto aplicado</label>
+                                        <ng-select class="custom" [addTag]="true"
+                                            addTagText="¿Desea añadir este elemento?" (change)="addProduct($event)"
+                                            [items]="products" bindLabel="name" bindValue="id"
+                                            formControlName="product_id" name="product_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="location_id">Fecha de tratamiento </label>
+                                        <input type="text" class="form-control" id="date" id="date" class="form-control"
+                                            [(bsValue)]="bsValue" name="treatment_date" bsDatepicker
+                                            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="location_id">Fecha de próxima revisión </label>
+                                        <input type="text" class="form-control" id="date" id="date" class="form-control"
+                                            [(bsValue)]="bsValue2" name="next_treatment_date" bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY',    minDate: bsValue
+                                        }">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Dosis</label>
+                                        <input type="text" class="form-control" id="dose" doseDirective name="dose"
+                                            [doseAllowDenominator]="false" [doseUnits]="['ml','g']"
+                                            placeholder="Ej: 12 ml, 10 g " formControlName="dose">
+
+
+                                        <div *ngIf="model_form_control.dose.touched &&
+                model_form_control.dose?.hasError('doseFormat')" class="message-container mt-2">
+                                            <span class="invalid">*</span>
+                                            Formato inválido. Usa: 12 ml, 10 g
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Área tratada</label>
+                                        <input type="number" class="form-control" formControlName="treated_area_value"
+                                            min="0" step="0.01" placeholder="Ej: 45.5">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Unidad</label>
+                                        <select class="form-control" name="treated_area_unit" id="treated_area_unit"
+                                            formControlName="treated_area_unit">
+                                            <option value="m2">m²</option>
+                                            <option value="m3">m³</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Verificación de eficacia</label>
+                                        <select class="form-control" name="effectiveness_verification" id="effectiveness_verification"
+                                            formControlName="effectiveness_verification">
+                                            <option value="Plaga controlada">Plaga controlada</option>
+                                            <option value="Plaga no controlada">Plaga no controlada</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-xll-12 mt-3"
+                                    *ngIf="model_form_control.calculated_total_amount.value">
+                                    <div class="form-group">
+                                        <small>
+                                            Cantidad total estimada: <b>{{
+                                                model_form_control.calculated_total_amount.value }}
+                                                {{
+                                                model_form_control.calculated_total_unit.value }}</b>
+                                        </small>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group text-center">
+
+                                        <span class="title"><b>Condiciones previas</b></span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Humedad</label>
+                                        <select class="form-control" name="pre_humidity" id="pre_humidity"
+                                            formControlName="pre_humidity">
+                                            <option value="baja">Baja</option>
+                                            <option value="normal">Normal</option>
+                                            <option value="alta">Alta</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Ventilación</label>
+                                        <select class="form-control" name="pre_ventilation" id="pre_ventilation"
+                                            formControlName="pre_ventilation">
+                                            <option value="adecuada">Adecuada</option>
+                                            <option value="deficiente">Deficiente</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Acceso</label>
+                                        <select class="form-control" name="pre_access" id="pre_access"
+                                            formControlName="pre_access">
+                                            <option value="libre">Libre</option>
+                                            <option value="restringido">Restringido</option>
+                                            <option value="bloqueado">Bloqueado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="pre_notes">Notas previas</label>
+                                        <textarea name="pre_notes" maxlength="100" id="pre_notes" class="form-control"
+                                            formControlName="pre_notes"
+                                            placeholder="Notas previas (opcional)"></textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group text-center">
+
+                                        <span class="title"><b>Condiciones posteriores</b></span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Humedad</label>
+                                        <select class="form-control" name="post_humidity" id="post_humidity"
+                                            formControlName="post_humidity">
+                                            <option value="baja">Baja</option>
+                                            <option value="normal">Normal</option>
+                                            <option value="alta">Alta</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Ventilación</label>
+                                        <select class="form-control" name="post_ventilation" id="post_ventilation"
+                                            formControlName="post_ventilation">
+                                            <option value="adecuada">Adecuada</option>
+                                            <option value="deficiente">Deficiente</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="dose">Acceso</label>
+                                        <select class="form-control" name="pre_access" id="post_access"
+                                            formControlName="post_access">
+                                            <option value="libre">Libre</option>
+                                            <option value="restringido">Restringido</option>
+                                            <option value="bloqueado">Bloqueado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="post_notes">Notas posteriores</label>
+                                        <textarea name="post_notes" maxlength="100" id="post_notes"
+                                            placeholder="Notas posteriores (opcional)" class="form-control"
+                                            formControlName="post_notes"></textarea>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="worker_id">Técnico que ejecuta </label>
+                                        <ng-select (input)="validateInput($event)" class="custom" [addTag]="isOperator ? false :true"
+                                            addTagText="¿Desea añadir a este técnico?" (change)="addWorker($event)"
+                                            [items]="workers" bindLabel="full_name" bindValue="id"
+                                            formControlName="worker_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-8 col-xll-8 mt-3">
+                                    <div class="form-group">
+                                        <label for="correctiveActions">Acciónes correctivas</label>
+                                        <ng-select [items]="correctiveActions" [addTag]="addCorrectiveAction"
+                                            [multiple]="true" addTagText="¿Desea añadir esta acción correctiva?"
+                                            class="custom" bindLabel="name" bindValue="id"
+                                            placeholder="Seleccione una o más acciones correctivas"
+                                            formControlName="correctiveActions">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="observation">Observaciones</label>
+                                        <textarea name="observation" maxlength="100" id="observation"
+                                            class="form-control" formControlName="observation"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a (click)="goBack()" class="form-btn">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Volver</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="form-btn"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Guardar</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+@use "src/app/shared/css/mixins" as *;
+
+.radio-container,
+.label-container {
+  @include respond(phone) {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.delete-buttons {
+  @include respond(desktop) {
+    justify-content: start !important;
+  }
+}
+
+#options_quantity{
+  height: 36px;
+}
+
+input,
+select {
+  padding: 0.2rem !important;
+}
+
+@include respond(phone) {
+  .mt-r {
+    margin-top: 0.5rem;
+  }
+}
+
+.form-row {
+  height: 40vh;
+  background-color: #FFF;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.btn {
+  border: 1px solid #ccc !important;
+  font-size: 0.9rem;
+}
+
+//RESPONSIVES
+
+//XXL
+
+@media (min-width: 1440px) {
+  .form-row {
+    height: 35vh;
+  }
+}
+
+//XL
+@media (min-width: 1200px) and (max-width: 1430px) {
+}
+
+//LG
+@media (min-width: 992px) and (max-width: 1190px) {
+}
+
+//MD
+@media (min-width: 768px) and (max-width: 990px) {
+}
+
+//SM
+@media (min-width: 576px) and (max-width: 760px) {
+  .mtb {
+    margin-top: 0.5rem;
+  }
+}
+
+//XS
+@media (max-width: 575px) {
+  .mtb {
+    margin-top: 1rem !important;
+  }
+
+  .form-row {
+    height: 50vh !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .mb-justify {
+    justify-content: center !important;
+  }
+
+  .form-button {
+    font-size: 0.7rem !important;
+  }
+}
+
+//VERTICAL RESPONSIVE
+@media (max-width: 575px) and (max-height: 790px) {
+}
+
+//custom
+
+@media (min-width: 1536px) {
+}
+
+@media (width: 1176px) and (height: 664px) {
+}
+
+@media (width: 800px) and (height: 600px) {
+  .bold-text {
+    font-size: 1.2rem;
+  }
+
+  .form-row {
+    height: 45vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .mtb {
+    margin-top: 0.5rem;
+  }
+}

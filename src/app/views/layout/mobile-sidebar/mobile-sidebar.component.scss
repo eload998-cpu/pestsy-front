@@ -1,0 +1,247 @@
+@use "src/app/shared/css/mixins" as *;
+
+
+.button-justify {
+  padding-top: 1rem;
+  justify-content: space-evenly;
+}
+
+//GLOBAL
+.hide-tutorial {
+  display: none;
+  pointer-events: none !important;
+}
+
+.basis {
+  flex-basis: 3rem;
+}
+
+.flex-sidebar-icon {
+  flex: 1;
+}
+
+.flex-sidebar-item {
+  flex: 2;
+}
+
+.mobile-side-bar-container {
+  margin-top: 6vh;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.active {
+  background-color: #76d293;
+  color: #fff !important;
+}
+
+.text-active {
+  color: #fff !important;
+}
+
+//END GLOBAL
+
+.list {
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &__element {
+    flex-shrink: 0;
+    position: relative !important;
+    height: 5vh;
+
+    .sidebar__element {
+      height: 100%;
+    }
+  }
+
+  .tutorial {
+    &__item {
+      pointer-events: all !important;
+    }
+
+    &__container {
+      flex-basis: 100%;
+      padding-top: 1rem;
+    }
+
+    &__link {
+      text-decoration: none;
+    }
+  }
+
+  .list__tutorial {
+    position: fixed;
+    margin-top: -2.5rem;
+    z-index: 999;
+    background-color: var(--tutorial-bg-color) !important;
+    color: black;
+    width: 53vw;
+    left: 43vw;
+
+    height: auto;
+    padding: 0.5rem;
+
+
+
+    &:after {
+      content: " ";
+      position: absolute;
+      left: -15px;
+      top: 8px;
+      border-top: 15px solid transparent;
+      border-right: 15px solid var(--tutorial-bg-color);
+      border-left: none;
+      border-bottom: 15px solid transparent;
+    }
+  }
+
+  &__title a {
+    text-decoration: none;
+    color: var(--color-black);
+  }
+}
+
+.align-center {
+  align-items: center;
+}
+
+.icon-m {
+  font-size: 2vh;
+}
+
+.separator {
+
+  &__wrapper {
+    width: 100%;
+  }
+
+  &__line {
+    border: 1px solid gainsboro;
+    height: 1px;
+    width: 90%;
+  }
+}
+
+//RESPONSIVES
+
+//XXL
+
+@media (min-width: 1440px) {
+  .list {
+    &__icon {
+      margin-right: initial !important;
+    }
+  }
+}
+
+//XL
+@media (min-width: 1200px) and (max-width: 1430px) {
+  .list {
+    &__icon {
+      margin-right: initial !important;
+    }
+  }
+}
+
+//LG
+@media (min-width: 992px) and (max-width: 1190px) {
+  .list {
+    &__title a {
+      font-size: 0.8rem !important;
+    }
+
+    &__icon {
+      margin-right: initial !important;
+    }
+  }
+}
+
+//MD
+@media (min-width: 768px) and (max-width: 990px) {}
+
+//SM
+@media (min-width: 576px) and (max-width: 760px) {}
+
+//XS
+@media (max-width: 575px) {
+  .list {
+    &__element {
+      padding: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    &__icon {
+      margin-right: initial !important;
+    }
+
+    &__title a {
+      text-decoration: none;
+      font-size: 0.7rem;
+    }
+  }
+}
+
+//VERTICAL RESPONSIVE
+@media (max-width: 575px) and (max-height: 790px) {}
+
+//custom
+
+@media (min-width: 1536px) {}
+
+@media (max-width: 1176px) and (max-height: 664px) {}
+
+@media (width: 800px) and (height: 600px) {
+  .list {
+    &__title a {
+      font-size: 0.9rem;
+    }
+
+    &__icon {
+      margin-right: initial !important;
+    }
+  }
+
+  .mt-b {
+    margin-top: 0.5rem !important;
+  }
+}
+
+
+.dropdown-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.dropdown-panel.open {
+  overflow: visible;
+  max-height: 500px;
+  opacity: 1;
+}
+
+
+.dropdown-caret {
+  position: absolute;
+  right: 1rem;
+}

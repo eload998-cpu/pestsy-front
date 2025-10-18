@@ -1,0 +1,363 @@
+<div class="dashboard">
+
+    <div class="dashboard__header dashboard__header--green mt-3">
+
+        <div class="dashboard__header__item">
+
+            <div class="dashboard-message mb-2 mb-xl-0 mb-xll-0" *ngIf="subscription_expired">
+
+                <h6 class="dashboard-message__title animate__animated animate__fadeIn"> <fa-icon class="icon__item"
+                        [icon]="faInfoCircle"></fa-icon>
+                    <a class="no-styled-link" routerLink="/home/suscripciones"
+                        *ngIf="authUser.subscription.name == 'Premium'"> Su suscripción ha expirado, renuévela para
+                        continuar utilizando el servicio</a>
+
+                    <a class="no-styled-link" routerLink="/home/suscripciones"
+                        *ngIf="authUser.subscription.name != 'Premium'"> Su cuota mensual gratuita de órdenes de
+                        servicio ha sido alcanzada. Renueve su plan o espere al próximo mes para continuar.</a>
+                </h6>
+            </div>
+
+            <div class="dashboard-message mb-2 mb-xl-0 mb-xll-0"
+                *ngIf="about_expire && authUser.subscription.name == 'Premium'">
+
+                <h6 class="dashboard-message__title animate__animated animate__fadeIn"> <fa-icon class="icon__item"
+                        [icon]="faInfoCircle"></fa-icon>
+
+
+                    <a class="no-styled-link" routerLink="/home/suscripciones"> Su plan está por expirar, renuévelo para
+                        continuar utilizando el servicio</a>
+                </h6>
+            </div>
+
+            <div class="button">
+                <a class="button__item" routerLink="/home/ordenes/orden-tab">
+                    Crear Orden
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form action="" #Form [formGroup]="form_model" id="dashboard-form" (ngSubmit)="onSubmit()">
+        <div class="dashboard__container" [ngClass]="{'move-top':!subscription_expired}">
+
+
+            <div class="dashboard__item">
+
+                <div class="graphic mt-3 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0 mt-xll-0" *ngIf="series.length">
+                    <highcharts-chart class="animate__animated animate__fadeIn" [Highcharts]="highcharts"
+                        [options]="linechart" style="width: 100%; height: 400px; display: block;">
+                    </highcharts-chart>
+
+
+                </div>
+
+                <div class="mt-3 mt-sm-0 mt-lg-0 mt-xl-0 no-data animate__animated animate__fadeIn"
+                    *ngIf="!series.length">
+
+                    <div class="no-data__container">
+                        <img [ngClass]="{
+                            'hide':!graphic_completed
+                        }" (load)="imageCompleted('graphic')" src="assets/images/no-graphic.webp" alt="">
+                        <div class="loader-div shimmer-effect" *ngIf="!graphic_completed"></div>
+
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <span class="graphic-message">No hay data para mostrar</span>
+                    </div>
+                </div>
+                <div class="graphic-dashboard">
+
+                    <div class="graphic-dashboard__item">
+                        <div class="graphic-dashboard__header mt-3">
+                            <h6>¿Qué desea graficar?</h6>
+                        </div>
+
+                        <div class="form">
+                            <div class="form__item" *ngIf="authUser">
+                                <select formControlName="filter_type" name="filter_type" class="form-control" id=""
+                                    (change)="changeType($event)">
+                                    <option value="">- seleccione -</option>
+                                    <option value="orders" selected>Órdenes</option>
+                                    <option value="clients" selected>Clientes</option>
+                                    <option value="workers" selected>Técnicos</option>
+                                    <option value="operators" *ngIf="authUser.subscription.name!='Fumigador'" selected>
+                                        Operadores</option>
+                                    <option value="system_users" *ngIf="authUser.subscription.name!='Fumigador'"
+                                        selected>Usuarios</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form__item">
+                                <select formControlName="period_filter" name="period_filter" class="form-control" id=""
+                                    #periodSelect>
+                                    <option value="daily">Diario</option>
+                                    <option value="weekly">Semanal</option>
+                                    <option value="biweekly">Quincenal</option>
+                                    <option value="monthly">Mensual</option>
+                                    <option value="annual">Anual</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form__item">
+                                <button class="action-icon" type="submit">
+                                    <fa-icon class="icon__item" [icon]="faSearch"></fa-icon>
+
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="graphic-dashboard__header mt-3">
+                            <h6>Periodo</h6>
+                        </div>
+
+
+                        <div class="period-form animate__animated animate__fadeIn"
+                            *ngIf="periodSelect.value=='daily' || periodSelect.value=='weekly' || periodSelect.value=='biweekly'">
+                            <div class="period-form__item">
+                                <input formControlName="date_1" type="text" class="form-control" id="date"
+                                    class="form-control" [(bsValue)]="bsValue1" name="date_1" bsDatepicker
+                                    [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+                            </div>
+
+                            <div class="period-form__item">
+                                <input formControlName="date_2" type="text" class="form-control" id="date"
+                                    class="form-control" [(bsValue)]="bsValue2" name="date_2" bsDatepicker
+                                    [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+                            </div>
+                        </div>
+
+                        <div class="period-form animate__animated animate__fadeIn"
+                            *ngIf="periodSelect.value=='monthly' || periodSelect.value=='biannual'">
+                            <div class="period-form__item">
+                                <select formControlName="month_1" name="month1" class="form-control" id="" #monthRange1>
+                                    <option *ngFor="let month of monthRange" [value]="month.name">{{month.value}}
+                                    </option>
+
+                                </select>
+                            </div>
+
+                            <div class="period-form__item">
+                                <select formControlName="month_2" name="month2" class="form-control" id="" #monthRange2>
+                                    <option *ngFor="let month of monthRange" [value]="month.name">{{month.value}}
+                                    </option>
+
+                                </select>
+                            </div>
+
+                            <div class="period-form__item">
+                                <select formControlName="month_year" name="month_year" class="form-control" id=""
+                                    #annualRange>
+                                    <option *ngFor="let year of getYears()" value="{{ year }}"> {{year}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="period-form animate__animated animate__fadeIn" *ngIf="periodSelect.value=='annual'">
+                            <div class="period-form__item">
+                                <select formControlName="annual_1" name="annual_1" class="form-control" id=""
+                                    #annualRange1>
+                                    <option *ngFor="let year of getYears()" value="{{ year }}"> {{year}} </option>
+                                </select>
+                            </div>
+
+                            <div class="period-form__item">
+                                <select formControlName="annual_2" name="annual_2" class="form-control" id=""
+                                    #annualRange2>
+                                    <option *ngFor="let year of getYears()" value="{{ year }}"> {{year}} </option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                        <div class="graphic-dashboard__icon mt-3">
+                            <div class="image">
+                                <img [ngClass]="{
+                                    'hide':!pie_completed
+                                }" (load)="imageCompleted('pie')" class="image__item" src="assets/images/pie-chart.svg"
+                                    alt="">
+                                <div class="loader-div shimmer-effect" *ngIf="!pie_completed"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="graphic-dashboard__header graphic-dashboard__header--center mt-1">
+                            <h6>Órdenes Totales</h6>
+                        </div>
+
+                        <div class="graphic-dashboard__total  mt-1 mb-2">
+                            <span class="total" [countUp]="total_orders" [duration]="duration">350</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="tabs" *ngIf="authUser">
+                    <div class="tabs__item pointer" (click)="redirect('clientes')">
+                        <div class="tabs__header">
+                            Clientes
+                        </div>
+
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faUsers"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_clients" [duration]="duration">100</span>
+                        </div>
+                    </div>
+                    <div class="tabs__item pointer" (click)="redirect('obreros')">
+                        <div class="tabs__header">
+                            Técnicos
+                        </div>
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faCogs"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_workers" [duration]="duration">100</span>
+                        </div>
+                    </div>
+
+                    <div class="tabs__item pointer" *ngIf="authUser.subscription.name!='Fumigador'"
+                        (click)="redirect('obreros')">
+                        <div class="tabs__header">
+                            Operadores
+                        </div>
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faMale"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_operators" [duration]="duration">100</span>
+                        </div>
+                    </div>
+
+                    <div class="tabs__item pointer" *ngIf="authUser.subscription.name!='Fumigador'"
+                        (click)="redirect('clientes')">
+                        <div class="tabs__header">
+                            Usuarios
+                        </div>
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faUser"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_system_users" [duration]="duration">100</span>
+                        </div>
+                    </div>
+                    <div class="tabs__item pointer" (click)="redirect('dispositivos')">
+                        <div class="tabs__header">
+                            Dispositivos
+                        </div>
+
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faSignLanguage"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_devices" [duration]="duration">100</span>
+                        </div>
+                    </div>
+
+                    <div class="tabs__item pointer" (click)="redirect('productos')">
+                        <div class="tabs__header">
+                            Productos
+                        </div>
+                        <div class="tabs__content">
+                            <div class="icon">
+                                <fa-icon class="icon__item" [icon]="faFlask"></fa-icon>
+                            </div>
+                        </div>
+
+                        <div class="total">
+                            <span class="total__item" [countUp]="total_products" [duration]="duration">100</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="plan mt-sm-2 mt-lg-2 mt-xll-2 mt-xl-2 mb-3">
+                    <div class="plan__item">
+                        <div class="plan__header mt-5">
+                            <div class="plan__name">Plan actual</div>
+                            <div class="mt-2" *ngIf="authUser"><strong>{{authUser.subscription.name}}</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="plan__content" *ngIf="authUser">
+                            <div class="content__item mt-xl-3 mt-xll-3"
+                                *ngIf="authUser.subscription.name =='Fumigador'">
+                                <span class="ms-xl-2 ms-xll-2 mt-3 mt-xl-0 mt-xll-0 d-flex justify-content-center">
+                                    Órdenes del plan :&nbsp; <strong>{{authUser.subscription.order_quantity}}</strong>
+                                </span>
+
+
+                            </div>
+
+                            <div class="content__item mt-xl-3 mt-xll-3"
+                                *ngIf="authUser.subscription.name =='Fumigador'">
+                                <span class="ms-xl-2 ms-xll-2 mt-3 mt-xl-0 mt-xll-0 d-flex justify-content-center">
+                                    Órdenes restantes :&nbsp; <strong>{{order_quantity}}</strong>
+
+                                </span>
+                            </div>
+
+                            <div class="content__item mt-xl-3 mt-xll-3" *ngIf="authUser.subscription.name =='Premium'">
+                                <span class="ms-xl-2 ms-xll-2 mt-3 mt-xl-0 mt-xll-0 d-flex justify-content-center">
+                                    Fecha de inicio: &nbsp;<strong>{{startDate}}</strong>
+                                </span>
+
+
+                            </div>
+
+                            <div class="content__item mt-xl-3 mt-xll-3" *ngIf="authUser.subscription.name =='Premium'">
+                                <span class="ms-xl-2 ms-xll-2 mt-3 mt-xl-0 mt-xll-0 d-flex justify-content-center">
+                                    Fecha de expiro: &nbsp;<strong>{{endDate}}</strong>
+                                </span>
+
+
+                            </div>
+
+                            <div class="content__item mt-xl-5 mt-xll-5" *ngIf="authUser">
+
+                                <div *ngIf="canRenew"
+                                    class="plan__button d-flex justify-content-center renev-container mt-5 mt-xl-2 mt-xll-2">
+                                    <a class="renev-button" routerLink="/home/suscripciones">Renovar</a>
+                                </div>
+
+
+                                <div *ngIf="!authUser.active_subscription && authUser.pending_transaction"
+                                    class="d-flex justify-content-center text-center pending-transaction-message p-3 mt-5 mt-sm-0 mt-lg-0 mt-xl-0">
+                                    <span>Su suscripción esta en proceso de activación.<br> Por favor espere unos
+                                        minutos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+
+</div>

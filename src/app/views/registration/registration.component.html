@@ -1,0 +1,407 @@
+<div class="row d-flex justify-content-center" id="container">
+
+
+    <div class=" col-10 col-md-10 col-lg-10 col-xl-5 col-xll-5 mh-100 register-form" data-aos="fade-up"
+        data-aos-duration="2500">
+
+
+        <form action="" #registerForm [formGroup]="form_model" id="register-form" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+
+                <div class="col-12 mt-5">
+                    <div class="">
+                        <h6 class="text-center register-form__title">REGISTRO</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <div class="d-flex justify-content-center">
+                    <span class="sign-in-text">Iniciar sesión con</span>
+                </div>
+
+                <div class="social-media__buttons mt-3 mt-xl-3 mt-xll-3">
+
+                    <div class=" d-flex justify-content-center" (click)="googleOauth()">
+
+                        <div class="google">
+                            <div class="google__container">
+                                <div class="google__logo">
+                                    <img class="google__icon" src="assets/icons/svg/google.svg" alt="">
+                                </div>
+                                <div class="google__text">
+                                    <span>Acceder con Google</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--
+                    <div class=" d-flex justify-content-center mt-2 mb-4 mt-md-0 mt-lg-0 mt-xl-0 mt-xll-0 mb-lg-0 mb-xl-0 mb-xll-0" (click)="facebookOauth()">
+
+                        <div class="facebook">
+                            <div class="facebook__container">
+                                <div class="facebook__logo">
+                                    <i aria-colspan="facebook__icon" style="font-size: 1.5rem !important;" class="fa fa-facebook-official me-2" aria-hidden="true"></i>
+                                </div>
+                                <div class="facebook__text">
+                                    <span>Acceder con Facebook</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                -->
+
+                </div>
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-5 ">
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperFirstName>
+                            <span class="icon-container mt-2" #userIcon1>
+                                <fa-icon [icon]="faUser" class="icon-m"></fa-icon>
+                            </span>
+                            <input type="text" class="input-wrapper__input"
+                                (focus)="focusFunction(userIcon1,wrapperFirstName)"
+                                (focusout)="focusOutFunction(userIcon1,wrapperFirstName)" placeholder="Nombre"
+                                formControlName="first_name" name="first_name" maxlength="30" appOnlyLetters>
+                            <div *ngIf="model_form_control.first_name.invalid &&
+                         model_form_control.first_name.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                             invalid:
+                               model_form_control.first_name.invalid &&
+                               model_form_control.first_name.touched
+                           }">*</span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperLastName>
+                            <span class="icon-container mt-2" #userIcon2>
+                                <fa-icon [icon]="faUser" class="icon-m"></fa-icon>
+                            </span>
+                            <input type="text" class="input-wrapper__input"
+                                (focus)="focusFunction(userIcon2,wrapperLastName)"
+                                (focusout)="focusOutFunction(userIcon2,wrapperLastName)" placeholder="Apellido"
+                                formControlName="last_name" name="last_name" maxlength="30" appOnlyLetters>
+
+                            <div *ngIf="model_form_control.last_name.invalid &&
+                               model_form_control.last_name.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                                   invalid:
+                                     model_form_control.last_name.invalid &&
+                                     model_form_control.last_name.touched
+                                 }">*</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-4 mt-md">
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperEmail>
+                            <span class="icon-container mt-2" #emailIcon>
+                                <fa-icon [icon]="faEnvelope" class="icon-m"></fa-icon>
+                            </span>
+                            <input type="text" class="input-wrapper__input"
+                                (focus)="focusFunction(emailIcon,wrapperEmail)"
+                                (focusout)="focusOutFunction(emailIcon,wrapperEmail)" placeholder="Correo"
+                                formControlName="email" maxlength="50" name="email">
+                            <div *ngIf="model_form_control.email.invalid &&
+                               model_form_control.email.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                                   invalid:
+                                     model_form_control.email.invalid &&
+                                     model_form_control.email.touched
+                                 }">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperPhone>
+                            <span class="icon-container mt-2" #phoneIcon>
+                                <fa-icon [icon]="faPhone" class="icon-m"></fa-icon>
+                            </span>
+                            <input type="text" class="input-wrapper__input"
+                                (focus)="focusFunction(phoneIcon,wrapperEmail)"
+                                (focusout)="focusOutFunction(phoneIcon,wrapperEmail)" appOnlyNumber
+                                placeholder="Teléfono" formControlName="cellphone" maxlength="30" name="cellphone">
+                            <div *ngIf="model_form_control.cellphone.invalid &&
+                             model_form_control.cellphone.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                                 invalid:
+                                   model_form_control.cellphone.invalid &&
+                                   model_form_control.cellphone.touched
+                               }">*</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-4  mt-md">
+
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperCountry>
+                            <span class="icon-container mt-2" #globeIconC>
+                                <fa-icon [icon]="faGlobe" class="icon-m"></fa-icon>
+                            </span>
+
+
+
+                            <ng-select class="input-wrapper__input custom"
+                                (focus)="focusFunction(globeIconC,wrapperCountry)"
+                                (focusout)="focusOutFunction(globeIconC,wrapperCountry)" name="country_id"
+                                formControlName="country_id" placeholder="Escribe tu pais..." [clearable]="false"
+                                [items]="countriesBuffer" bindLabel="name" bindValue="id" [loading]="loadingCountries"
+                                [loadingText]="'Cargando Paises...'" (change)="onChangeCountrySelector($event)"
+                                [typeahead]="inputCountry$" (scrollToEnd)="fetchMoreCountries(selectCountry.searchTerm)"
+                                [virtualScroll]="true" maxlength="30" #selectCountry>
+                            </ng-select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperState>
+                            <span class="icon-container mt-2" #globeIconS>
+                                <fa-icon [icon]="faGlobe" class="icon-m"></fa-icon>
+                            </span>
+                            <ng-select class="input-wrapper__input custom"
+                                (focus)="focusFunction(globeIconS,wrapperState)"
+                                (focusout)="focusOutFunction(globeIconS,wrapperState)" name="state_id"
+                                formControlName="state_id" placeholder="Escribe tu estado..." [clearable]="false"
+                                [items]="statesBuffer" bindLabel="name" bindValue="id" [loading]="loadingStates"
+                                [loadingText]="'Cargando Estados...'" (change)="onChangeStateSelector($event)"
+                                [typeahead]="inputState$" (scrollToEnd)="fetchMoreStates(selectState.searchTerm)"
+                                [virtualScroll]="true" maxlength="30" #selectState>
+                            </ng-select>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-4  mt-md">
+
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperCity>
+                            <span class="icon-container mt-2" #globeIconCT>
+                                <fa-icon [icon]="faGlobe" class="icon-m"></fa-icon>
+                            </span>
+                            <ng-select class="input-wrapper__input custom"
+                                (focus)="focusFunction(globeIconCT,wrapperCity)"
+                                (focusout)="focusOutFunction(globeIconCT,wrapperCity)" name="city_id"
+                                formControlName="city_id" placeholder="Escribe tu ciudad..." [clearable]="false"
+                                [items]="citiesBuffer" bindLabel="name" bindValue="id" [loading]="loadingCities"
+                                [loadingText]="'Cargando Ciudad...'" [typeahead]="inputCity$"
+                                (scrollToEnd)="fetchMoreCities(selectCity.searchTerm)" [virtualScroll]="true"
+                                maxlength="30" #selectCity>
+                            </ng-select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperCompany>
+                            <span class="icon-container mt-2" #companyIcon>
+                                <fa-icon [icon]="faBuilding" class="icon-m"></fa-icon>
+                            </span>
+                            <input type="text" class="input-wrapper__input"
+                                (focus)="focusFunction(companyIcon,wrapperCompany)"
+                                (focusout)="focusOutFunction(companyIcon,wrapperCompany)"
+                                placeholder="Nombre de tu compañía" formControlName="company_name" maxlength="30"
+                                name="company_name">
+                            <div *ngIf="model_form_control.company_name.invalid &&
+                            model_form_control.company_name.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                                invalid:
+                                  model_form_control.company_name.invalid &&
+                                  model_form_control.company_name.touched
+                              }">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-4  mt-md">
+
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperPassword>
+                            <span class="icon-container mt-2" #passwordIcon1>
+                                <fa-icon [icon]="faLock" class="icon-m"></fa-icon>
+                            </span>
+
+                            <span class="icon-password" (click)="showPassword()" >
+                                <fa-icon [icon]="faEye" class="icon-m"></fa-icon>
+                            </span>
+                            <input [type]="displayPassword ? 'text':'password'" class="input-wrapper__input"
+                                (focus)="focusFunction(passwordIcon1,wrapperPassword)"
+                                (focusout)="focusOutFunction(passwordIcon1,wrapperPassword)" placeholder="Contraseña"
+                                formControlName="password" maxlength="30" name="password">
+                            
+                            
+                            
+                            <div *ngIf="model_form_control.password.invalid &&
+                            model_form_control.password.touched" class="message-container mt-2">
+                                Este campo es requerido
+                                <span [ngClass]="{
+                                invalid:
+                                  model_form_control.password.invalid &&
+                                  model_form_control.password.touched
+                              }">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9  input-wrapper started" #wrapperConfirmPassword>
+                            <span class="icon-container mt-2" #passwordIcon2>
+                                <fa-icon [icon]="faLock" class="icon-m"></fa-icon>
+                            </span>
+
+                            <span class="icon-password" (click)="showConfirmPassword()" >
+                                <fa-icon [icon]="faConfirmEye" class="icon-m"></fa-icon>
+                            </span>
+                            <input [type]="displayConfirmPassword ? 'text':'password'" class="input-wrapper__input"
+                                (focus)="focusFunction(passwordIcon2,wrapperConfirmPassword)"
+                                (focusout)="focusOutFunction(passwordIcon2,wrapperConfirmPassword)"
+                                placeholder="Repita su contraseña" formControlName="password_confirmation"
+                                maxlength="30" name="password_confirmation">
+
+                            <div class="message-container mt-2">
+
+
+                                <span *ngIf="model_form_control.password_confirmation.invalid &&
+                                model_form_control.password_confirmation.touched" class="small-text float-start">Este
+                                    campo es requerido<span [ngClass]="{
+                                    invalid:
+                                      model_form_control.password_confirmation.invalid &&
+                                      model_form_control.password_confirmation.touched
+                                  }">*</span></span>
+
+                                <span *ngIf="passwordMatchError" class="small-text float-start">Contraseñas distintas<span [ngClass]="{
+                                    invalid:passwordMatchError 
+                                  }">*</span></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12  col-md-6 col-lg-6 col-xl-6 col-xll-6">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-9">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row register-form__content d-flex justify-content-center mt-4  mt-md" id="remember-container">
+                <div class="col-10">
+
+                    <div class="row form-button-container mt-4 mt-xxl-3 mt-xl-3 mt-lg-3">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex">
+                            <div class="form-button-1 d-flex  align-items-center">
+                                <div>
+
+                                    <a routerLink="/login" class="login-btn link" type="button">Volver</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-button-2 d-flex ">
+                                <button class="login-btn" type="submit" [disabled]="form_model.invalid || sendingForm"
+                                    [ngClass]="
+                                {
+                                    'login-btn':form_model.valid,
+                                    'disabled-btn':form_model.invalid
+                                }">Registrarme</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+        </form>
+
+    </div>
+
+
+</div>

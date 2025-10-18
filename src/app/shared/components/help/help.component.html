@@ -1,0 +1,21 @@
+<div class="help " *ngIf="is_necessary">
+
+    <div class="help__option option" [ngClass]="{'hide-options':!show_options}">
+        <div *ngFor="let item of help_items;let i = index" [style.animation-delay]="(i/5)+'s'"
+            class="option__item animate__animated pointer" [ngClass]="{
+                'animate__fadeInRight':show_options,
+                'animate__fadeOutRight':!show_options
+            }">
+            <span class="option__label " (click)="selectOption(item.value)">
+                {{item.name}}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center help-icon-container">
+        <img src="assets/icons/help.svg" (click)="showOptions()" class="help__item pointer" alt="help icon">
+
+    </div>
+</div>

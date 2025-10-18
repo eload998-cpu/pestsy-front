@@ -1,0 +1,107 @@
+<div class="row " [ngClass]="
+    {
+      'disable-body':disable_body
+    }">
+
+    <div [ngClass]="
+    {
+      'hide-sidebar':toggleMobileSideBar==false,
+      'show-sidebar':toggleMobileSideBar==true,
+      'hidden-sidebar':toggleMobileSideBar==null  
+    }" #mobileSidebarContainer class="profile d-flex p-0">
+        <app-mobile-sidebar [start_tutorial]="start_tutorial" (disable_body)="getDisableBody($event)" *ngIf="isMobile"
+            style="display: flex; flex-grow: 1;"></app-mobile-sidebar>
+    </div>
+
+    <div class="f-height parent-container col-12">
+        <div class="row">
+
+            <div class="col-12 header top-bar">
+                <app-header (toogleValue)="getToggleValue($event)" [closeProfile]="toggleProfile"
+                    [closeSide]="toggleMobileSideBar" (toogleSideBarValue)="getToggleSideBarValue($event)"
+                    (toogleMoSideBarValue)="getToggleMobileSidebar($event)"></app-header>
+            </div>
+
+            <div class="col-12" #body>
+                <div class="row">
+                    <div [ngClass]="
+             {
+               
+               'no-sidebar':toggleSideBar==true
+             }" class="f-height left-bar col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xll-2 d-none d-sm-block">
+                        <app-sidebar [start_tutorial]="start_tutorial" [toggleSideBar]="toggleSideBar" (disable_body)="getDisableBody($event)"></app-sidebar>
+                    </div>
+                    <div [ngClass]="
+             {
+               ' col-sm-9 col-md-9 col-lg-10 col-xl-10 col-xll-10':toggleSideBar==false,
+               'fixed_content':toggleSideBar==true
+   
+             }" class="col-12  content" id="style-2" #content (click)="closeSide()">
+
+                        <div class="row">
+
+                            <div class="col-12" [@routeAnimations]="getRouteAnimationData()">
+                                <router-outlet></router-outlet>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div [ngClass]="
+     {
+       'hide-profile':toggleProfile==false,
+       'show-profile':toggleProfile==true,
+       'hidden-profile':toggleProfile==null
+   
+     }" #profileContainer class="profile-rigth d-flex">
+        <app-profile (closeProfile)="getCloseProfile($event)" class="profile-component" ></app-profile>
+    </div>
+
+
+    <app-help></app-help>
+
+    <help-modal></help-modal>
+
+    <div [ngClass]="
+    {
+        'show-tour-modal':!tutorial_done
+    }" class="tour p-0">
+
+
+        <div class="tour__header p-2">
+            <h6 class="text-center">
+                Bienvenido a petsy
+            </h6>
+        </div>
+
+        <div class="m-3">
+            <div class="tour__content">
+                <p class="text-center">
+                    En este tour aprenderas como funciona cada pestaña de nuestra aplicación
+                </p>
+            </div>
+
+            <div class="tour__buttons buttons">
+
+
+                <div class="buttons__item">
+                    <button class="action-icon" (click)="skipTutorial()">Omitir</button>
+                </div>
+                <div class="buttons__item ms-2">
+                    <button class="action-icon" (click)="showTutorial()">Continuar</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

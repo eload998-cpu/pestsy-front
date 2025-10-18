@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Pestsy | Control de plagas</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Soluciones eficientes de control de plagas entregadas a sus clientes. Administre y realice un seguimiento de los pedidos sin problemas con nuestra aplicación de control de plagas fácil de usar. Mantenga a sus clientes satisfechos y mantenga un ambiente libre de plagas.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <link rel="preload" href="assets/images/pre-loader.gif" as="image">
+
+  <!-- Light Mode -->
+  <meta name="theme-color" content="#ccecf4" media="(prefers-color-scheme: light)">
+  <!-- Dark Mode -->
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <script src="https://www.paypal.com/sdk/js?client-id=AVu7kV-SxJyaZO3LuyAzmOEHa1lbpMbyZDvf8BUdGse8qs-tSo6ariu92gby_CarSCMNNYnF9F70Q1Qp&components=buttons,funding-eligibility"></script>
+  <script>
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (document.body) {
+        document.body.classList.add('dark-mode');
+
+      }
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

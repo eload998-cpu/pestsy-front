@@ -1,0 +1,70 @@
+
+<div class="row  table-content">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header" >
+
+                            <h6 class="bold-text">ÓRDENES</h6>
+                           
+                        </div>
+                    </div>
+
+        
+                </div>
+        
+            </div>
+
+        
+        </div>
+  
+    </div>
+    
+</div>
+
+<!--OPTIONS-->
+<div class="row d-flex justify-content-center mt-5 order-container">
+    <div class="col-11 option-box order-container__nav ms-4">
+        <div class="row order-tabs">
+            <div class="col-4 col-md-2 col-xl-2 col-xll-1 order-element d-flex justify-content-center align-items-center pointer ms-1 me-1 disabled-tab" 
+            [routerLink]="['completadas-tab']" 
+            routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [routerLink]="['completadas-tab']" >
+                        Completadas
+                    </a>
+                </span>
+                
+            </div>
+
+            <div class="col-4 col-md-2 col-xl-2 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+            *ngIf ="role =='operator' || role =='administrator' || role =='super_administrator' || role =='fumigator'" 
+            [routerLink]="['pendientes-tab']" 
+            routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href=""
+                     [routerLink]="['pendientes-tab']" 
+                   >
+                        Pendientes
+                    </a>
+                </span>
+                
+        </div>
+    </div>
+   
+</div>
+
+<!--END OPTIONS-->
+
+<!--CONTENT-->
+<div class="row justify-content-center">
+    <div class="col-11 card content-container">
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!--END CONTENT-->

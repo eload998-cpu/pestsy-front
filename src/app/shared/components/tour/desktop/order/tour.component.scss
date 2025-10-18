@@ -1,0 +1,511 @@
+@use "src/app/shared/css/mixins" as *;
+//Tutorial styles
+
+:host(.tour-step) {
+    .hide-tutorial {
+        display: none;
+    }
+
+    .tutorial {
+
+
+        &__item {
+            pointer-events: all !important;
+        }
+
+    }
+
+    .show-tutorial {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    .list__tutorial {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 25vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            left: -15px;
+            top: 5px;
+            border-top: 15px solid transparent;
+            border-right: 15px solid var(--tutorial-bg-color);
+            border-left: none;
+            border-bottom: 15px solid transparent;
+        }
+    }
+
+    .list__tutorial-2 {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 25vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            right: -14px;
+            top: 5px;
+            border-top: 15px solid transparent;
+            border-right: none;
+            border-left: 15px solid var(--tutorial-bg-color);
+            border-bottom: 15px solid transparent;
+        }
+    }
+
+
+}
+
+
+//SET THE POSITION OF THE TUTORIAL ELEMENTS HERE
+:host(.component-order-tab) {
+
+    .fumigation-tab {
+
+        &__1 {
+
+
+            margin-top: -1rem;
+
+            @include respond(small-desktop) {
+                left: 47vw;
+            }
+
+            @include respond(desktop) {
+                left: 34vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 31vw;
+            }
+
+
+        }
+
+        &__2 {
+            margin-top: -1rem;
+
+            @include respond(small-desktop) {
+                left: 60vw;
+            }
+
+            @include respond(desktop) {
+                left: 41vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 38vw;
+            }
+
+        }
+
+        &__3 {
+            margin-top: -1rem;
+
+            @include respond(small-desktop) {
+                left: 73vw;
+            }
+
+            @include respond(desktop) {
+                left: 47vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 44vw;
+            }
+
+        }
+
+        &__4 {
+            margin-top: -1rem;
+
+            @include respond(desktop) {
+                left: 54vw;
+            }
+
+            @include respond(big-desktop) {
+
+                left: 51vw;
+            }
+
+        }
+
+        &__5 {
+
+            @include respond(small-desktop) {
+                left: 20vw;
+            }
+
+            @include respond(desktop) {
+                left: 34vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 30vw;
+            }
+
+        }
+
+        &__6 {
+
+            @include respond(small-desktop) {
+                left: 32vw;
+            }
+
+            @include respond(desktop) {
+                left: 47vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 43vw;
+            }
+
+        }
+
+        &__7 {
+
+            @include respond(small-desktop) {
+                left: 45vw;
+            }
+
+            @include respond(desktop) {
+                left: 60vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 56vw;
+            }
+
+        }
+    }
+
+
+
+}
+
+
+:host(.component-create-order) {
+
+    .fumigation-tab {
+
+        &__1 {
+            @include respond(default-tablet) {
+                left: 28vw;
+                width: 35vw;
+            }
+
+            @include respond(tab-land) {
+                left: 28vw;
+            }
+
+            @include respond(small-desktop) {
+                left: 39vw;
+            }
+
+            @include respond(desktop) {
+                margin-top: 1rem;
+                left: 38vw;
+            }
+
+            @include respond(big-desktop) {
+                margin-top: 1rem;
+                left: 38vw;
+            }
+
+        }
+
+        &__2 {
+
+            @include respond(small-desktop) {
+                top: 62vw;
+                left: 44vw;
+            }
+
+            @include respond(desktop) {
+                left: 56vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 54vw;
+            }
+
+        }
+
+    }
+
+
+
+}
+
+
+:host(.component-list-order) {
+
+    .fumigation-tab {
+
+        &__1 {
+
+            @include respond(small-desktop) {
+                left: 55vw;
+            }
+
+
+            @include respond(desktop) {
+                left: 55vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 55vw;
+            }
+
+        }
+
+        &__2 {
+
+            @include respond(small-desktop) {
+                left: 59vw;
+            }
+
+            @include respond(desktop) {
+                left: 59vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 57vw;
+            }
+
+        }
+
+        &__1--operator {
+
+            @include respond(small-desktop) {
+                left: 57vw;
+            }
+
+
+            @include respond(desktop) {
+                left: 57vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 55vw;
+            }
+
+        }
+
+        &__2--operator {
+
+            @include respond(small-desktop) {
+                left: 61vw;
+            }
+
+            @include respond(desktop) {
+                left: 61vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 59vw;
+            }
+
+        }
+
+    }
+
+
+
+}
+
+:host(.component-client-table) {
+
+    .client {
+
+        &__1 {
+
+            @include respond(small-desktop) {
+                left: 59vw;
+            }
+
+            @include respond(desktop) {
+                left: 59vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 56vw;
+            }
+
+        }
+
+        &__2 {
+
+            @include respond(small-desktop) {
+                left: 59vw;
+            }
+
+            @include respond(desktop) {
+                left: 59vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 56vw;
+            }
+        }
+
+        &__3 {
+
+            @include respond(small-desktop) {
+                left: 59vw;
+            }
+
+            @include respond(desktop) {
+                left: 59vw;
+            }
+
+            @include respond(big-desktop) {
+                left: 56vw;
+            }
+        }
+    }
+
+
+
+}
+
+:host(.component-worker-table) {
+
+    .worker {
+
+        &__1 {
+
+            @include respond(small-desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(big-desktop) {
+                margin-top: -1rem;
+                left: 55vw;
+            }
+
+        }
+
+        &__2 {
+
+            @include respond(small-desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(big-desktop) {
+                margin-top: -1rem;
+                left: 55vw;
+            }
+        }
+
+        &__3 {
+
+            @include respond(small-desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(big-desktop) {
+                margin-top: -1rem;
+                left: 55vw;
+            }
+        }
+
+        &__4 {
+
+            @include respond(small-desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(desktop) {
+                margin-top: -1rem;
+                left: 57vw;
+            }
+
+            @include respond(big-desktop) {
+                margin-top: -1rem;
+                left: 55vw;
+            }
+        }
+    }
+
+
+
+}
+
+:host(.component-sidebar) {
+    .list__tutorial {
+        position: fixed;
+        display: none;
+
+        @include respond(default-tablet) {
+            left: 28vw;
+            width: 35vw;
+        }
+
+        @include respond(tab-land) {
+            left: 28vw;
+        }
+
+        @include respond(small-desktop) {
+            left: 19vw;
+        }
+
+        @include respond(desktop) {
+            left: 18vw;
+        }
+
+        @include respond(big-desktop) {
+            left: 15vw;
+        }
+
+        margin-top: -3rem;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+
+        width: 25vw;
+        height: auto;
+        padding: 10px;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            border-top: 15px solid transparent;
+            border-right: 15px solid var(--tutorial-bg-color);
+            border-left: none;
+            border-bottom: 15px solid transparent;
+        }
+    }
+}
+
+//End tutorial styles

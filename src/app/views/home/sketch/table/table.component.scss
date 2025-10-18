@@ -1,0 +1,423 @@
+@use "src/app/shared/css/mixins" as *;
+
+$gray-color: #f9fafc;
+
+.arrow-icon {
+  height: 1rem;
+}
+
+.unselected {
+  opacity: 0.5;
+}
+
+.selected {
+  opacity: 1;
+}
+
+.opaque {
+  opacity: 0.5;
+}
+
+.small-spinner {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  translate: -50% -50%;
+}
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.search-input {
+  padding-left: 2rem;
+}
+
+.btn {
+  border: 1px solid #ccc !important;
+  font-size: 0.9rem !important;
+}
+
+.container {
+  background-color: #fff;
+}
+
+
+.arrow-icon {
+  height: 1rem;
+  filter: invert(1);
+}
+
+/**********************************************************
+  ************SORT*/
+
+.sort {
+  &__container {
+    margin-top: 1rem;
+  }
+
+  &_type {
+    &_asc {
+      transform: rotate(0deg);
+      transition: all 0.2s;
+    }
+
+    &_desc {
+      transform: rotate(180deg);
+      transition: all 0.2s;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    width: 90%;
+    border: 1px solid gainsboro;
+    padding: 0.5rem;
+
+    select {
+      height: 90%;
+    }
+  }
+
+  &__item {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__order {
+    flex-basis: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .order {
+      &__item {
+        width: 50%;
+
+        @include respond(default-tablet) {
+          width: 45%;
+        }
+      }
+
+      &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+/****************************************
+  *********END SORT*/
+
+.wrapper {
+  width: 100%;
+
+  @media (max-width: 56.25em) and (min-device-height: 56.25em) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
+  }
+}
+
+.paginator {
+  &_type {
+    &_desktop {
+      display: flex;
+    }
+
+    &_tablet {
+      display: none;
+    }
+
+    &_mobile {
+      display: none;
+    }
+  }
+}
+
+.is-striped {
+  background-color: rgba(233, 200, 147, 0.2);
+}
+/* Table column sizing
+  ================================== */
+.head-cell {
+  width: 50%;
+}
+.action-cell {
+  width: 50%;
+}
+
+.title {
+  display: none !important;
+}
+
+/* Apply styles
+  ================================== */
+.Rtable {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+  .Rtable-row {
+    width: 100%;
+    display: flex;
+
+    .no-data {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .Rtable-cell {
+      box-sizing: border-box;
+      flex-grow: 1;
+      padding: 0.8em 1.2em;
+      overflow: hidden; // Or flex might break
+      list-style: none;
+
+      &.column-heading {
+        background-color: var(--color-green-active);
+        color: white;
+        padding: 0.7em;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .column-heading {
+        &__container {
+          display: flex !important;
+          justify-content: space-evenly !important;
+          align-items: center;
+          flex-basis: 30% !important;
+        }
+      }
+
+      .Rtable-cell--heading {
+        display: none;
+      }
+    }
+
+    .action-content {
+      .title {
+        &--action {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .action {
+        &__container {
+          flex-basis: 100%;
+
+          @include respond(desktop) {
+            flex-basis: 85% !important;
+          }
+
+          @include respond(big-desktop) {
+            flex-basis: 65% !important;
+          }
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+
+        }
+      }
+
+      flex-wrap: wrap;
+      @include respond(desktop) {
+        flex-basis: 70%;
+      }
+      flex-basis: 90%;
+    }
+  }
+}
+
+.table {
+  &-container {
+    @include respond(desktop) {
+      margin-top: 2rem;
+    }
+  }
+}
+
+/* Responsive tablets
+  ==================================== */
+@media (max-width: 56.25em) and (min-device-height: 56.25em) {
+  .paginator {
+    &_type {
+      &_tablet {
+        display: flex;
+      }
+    }
+  }
+
+  .action {
+    &-content {
+      display: flex !important;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: space-around;
+      flex-basis: 65% !important;
+    }
+  }
+  .is-striped {
+    background-color: white;
+  }
+
+  .Rtable--collapse {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    box-shadow: none;
+
+    .Rtable-row {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1em;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+      .Rtable-cell {
+        width: 100% !important;
+        display: flex;
+        align-items: center;
+        padding: 0 !important;
+
+        .Rtable-cell--heading {
+          display: inline-block;
+          flex: 1;
+          max-width: 120px;
+          min-width: 120px;
+          color: #fff;
+          background-color: var(--color-green-active);
+          font-weight: 700;
+          border-right: 1px solid #ccc;
+          margin-right: 1em;
+          padding: 1rem;
+        }
+
+        .Rtable-cell--content {
+          flex: 2;
+          padding-left: 0;
+        }
+      }
+    }
+
+    .Rtable-row--head {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 37.5625em) and (min-device-height: 56.25em) {
+  .action {
+    &-content {
+      display: flex !important;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: space-around;
+      flex-basis: 90% !important;
+    }
+  }
+}
+/* Responsive phones
+  ==================================== */
+@media (max-width: 37.5em) {
+  .paginator {
+    &_type {
+      &_desktop {
+        display: none;
+      }
+
+      &_tablet {
+        display: none;
+      }
+
+      &_mobile {
+        display: flex;
+      }
+    }
+  }
+
+  .action {
+    &__container {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  .is-striped {
+    background-color: white;
+  }
+  .title {
+    display: block !important;
+    text-align: center;
+    background-color: var(--color-green-active);
+    color: #fff;
+    padding: 0.25rem;
+  }
+
+  .Rtable--collapse {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    box-shadow: none;
+
+    .Rtable-row {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1em;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+      .Rtable-cell {
+        width: 100% !important;
+        display: flex;
+        align-items: center;
+        padding: 0.8em 1.2em !important;
+        &--heading {
+          display: none !important;
+        }
+
+        .Rtable-cell--content {
+          flex: 2;
+          padding-left: 0 !important;
+
+          .content {
+            padding-top: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .Rtable-row--head {
+      display: none;
+    }
+  }
+}
+
+// Non-Flex modernizer fallback
+.no-flexbox .Rtable {
+  display: block;
+
+  &.Rtable-cell {
+    width: 100%;
+  }
+}

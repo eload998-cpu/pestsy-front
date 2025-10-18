@@ -1,0 +1,98 @@
+@use "src/app/shared/css/mixins" as *;
+
+.show-options {
+  left: initial !important;
+  right: 0 !important;
+}
+
+.hide-options {
+  pointer-events: none;
+}
+
+.help-icon-container {
+  width: 80%;
+
+}
+
+.help {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  background-color: var(--color-green-active);
+  border-radius: 100%;
+  border: 1px solid gainsboro;
+  z-index: 90;
+  position: fixed;
+  transition: all 0.2s;
+
+  top: 85%;
+  left: 95%;
+
+  &__option {
+    position: absolute;
+    overflow: hidden;
+    right: 0 !important;
+    bottom: 7vh;
+    display: flex;
+    flex-direction: column-reverse;
+    grid-gap: 0.8rem;
+    z-index: 99;
+
+    @include respond(desktop) {
+      width: 20vw;
+    }
+
+    @include respond(small-desktop) {
+      width: 20vw;
+    }
+
+    @include respond(tab-port) {
+      width: 30vw;
+    }
+
+    @include respond(phone) {
+      width: 60vw;
+    }
+
+    .option {
+      &__item {
+        border-start-end-radius: 13px;
+        border-end-end-radius: 13px;
+        border-end-start-radius: 13px;
+        border-start-start-radius: 13px;
+        background-color: #e6e7ec;
+        border: 1px solid gainsboro;
+        text-align: center;
+      }
+    }
+  }
+
+  @include respond(phone) {
+    width: 3rem;
+    height: 3rem;
+    top: 88%;
+    left: 83%;
+  }
+
+  @include respond(tab-port) {
+    left: 90%;
+    top: 90%;
+  }
+
+  @include respond(big-desktop) {}
+
+  img {
+    object-fit: contain;
+    width: 70%;
+    filter: brightness(0) invert(1);
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.2, 1.2);
+    }
+  }
+}

@@ -1,0 +1,1165 @@
+<div class="d-flex flex-column mobile-side-bar-container flex-grow-1 list">
+
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_dashboard')"
+        (click)="selectMenu(1,'/home/tablero')">
+        <!--DASHBOARD-->
+        <div class="sidebar__element d-flex pointer " [ngClass]="{
+            'active':(router.url.includes('/tablero'))
+        }" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBarChart"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item">
+                <span class="list__title">
+                    <a routerLink="/home/tablero" [ngClass]="{
+                        'text-active':(router.url.includes('/tablero'))
+                    }">Tablero</a>
+                </span>
+            </div>
+
+        </div>
+
+
+        <!--Step 13-->
+
+        <app-mobile-tour *ngIf="tourStep === 13 && start_tutorial" [step]="13" [componentName]="'sidebar'"
+            [notAllowedRoles]="'system_user, operator'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-1']"
+            [text]="'En esta pestaña podrá gestionar toda la información de su negocio'" [showPrevButton]="false"
+            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+
+        <!--End Step 13-->
+        <!--END DASHBOARD-->
+    </div>
+
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_client')"
+        (click)="selectMenu(1,'/home/clientes')">
+
+        <!--CLIENTS-->
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/clientes'))
+    }" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="usersIcon"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item">
+                <span class="list__title">
+                    <a routerLink="/home/clientes" [ngClass]="{
+                    'text-active':(router.url.includes('/clientes'))
+                }">Clientes</a>
+                </span>
+            </div>
+
+        </div>
+
+
+        <!--Step 14-->
+
+        <app-mobile-tour *ngIf="tourStep === 14 && start_tutorial" [step]="14" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-2']"
+            [text]="'En esta pestaña podrá gestionar sus clientes'" [onNext]="goToNextStep.bind(this)"
+            [hiddeButton]="hideClientPrevButton" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 14-->
+        <!--END CLIENTS-->
+    </div>
+
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_worker')"
+        (click)="selectMenu(2,'/home/obreros')">
+
+        <!--WORKERS-->
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/obreros'))
+    }" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faCogs"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item">
+                <span class="list__title">
+                    <a routerLink="/home/obreros" [ngClass]="{
+                    'text-active':(router.url.includes('/obreros'))
+                }">Técnicos</a>
+                </span>
+            </div>
+
+        </div>
+
+
+        <!--Step 15-->
+
+        <app-mobile-tour *ngIf="tourStep === 15 && start_tutorial" [step]="15" [componentName]="'sidebar'"
+            [notAllowedRoles]="'operator'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-3']"
+            [text]="'En esta pestaña podrá gestionar toda la información de sus técnicos'"
+            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 15-->
+        <!--END WORKERS-->
+
+    </div>
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('create_order')"
+        (click)="selectMenu(3,'/home/ordenes')">
+
+        <!--CREATE ORDERS-->
+
+        <div class="sidebar__element d-flex pointer " [ngClass]="{
+        'active':(router.url.includes('/ordenes'))
+    }" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faWrench"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/ordenes" [ngClass]="{
+                    'text-active':(router.url.includes('/ordenes'))
+                }">Crear orden</a>
+                </span>
+            </div>
+
+        </div>
+
+
+
+        <!--Step 16-->
+
+        <app-mobile-tour *ngIf="tourStep === 16 && start_tutorial" [step]="16" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-4']"
+            [text]="'En esta pestaña podrá crear sus órdenes de servicio'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 16-->
+
+        <!--END CREATE ORDERS-->
+    </div>
+
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_order')"
+        (click)="selectMenu(4,'/home/listar-ordenes')">
+
+        <!--LIST ORDERS-->
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/listar-ordenes'))
+    }" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faCheckSquare"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item">
+                <span class="list__title">
+                    <a routerLink="/home/listar-ordenes" [ngClass]="{
+                    'text-active':(router.url.includes('/listar-ordenes'))
+                }">Órdenes</a>
+                </span>
+            </div>
+
+        </div>
+
+        <!--Step 17-->
+
+        <app-mobile-tour *ngIf="tourStep === 17 && start_tutorial" [step]="17" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-5']"
+            [text]="'En esta pestaña podrá ver sus órdenes de servicio'" [onNext]="goToNextStep.bind(this)"
+            [hiddeButton]="hideOrderButton" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 17-->
+        <!--END LIST ORDERS-->
+    </div>
+
+
+
+
+
+
+
+    <!--INVENTORY-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_pest')">
+
+        <!--INVENTORY-->
+
+        <div class="sidebar__element d-flex pointer" (click)="displayDropDown('inventory')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBox"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item" style="position: relative;">
+                <span class="list__title">
+                    Inventario
+                </span>
+
+                <span class="dropdown-caret">
+                    <fa-icon class="icon-m " [icon]="!inventoryDropDownState ? faCaretRight : faCaretDown"></fa-icon>
+
+                </span>
+            </div>
+
+
+
+        </div>
+        <!--END INVENTORY-->
+
+
+    </div>
+
+    <div class="dropdown-panel" [ngClass]="{'open': inventoryDropDownState}">
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_pest')">
+
+            <!--PESTS-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/plagas'))
+    }" (click)="selectMenu(6,'/home/plagas')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faBug"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item">
+                    <span class="list__title">
+                        <a routerLink="/home/plagas" [ngClass]="{
+                    'text-active':(router.url.includes('/plagas'))
+                }">Plagas</a>
+                    </span>
+                </div>
+
+            </div>
+            <!--END PESTS-->
+
+            <!--Step 18-->
+
+            <app-mobile-tour *ngIf="tourStep === 18 && start_tutorial" [step]="18" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-6']"
+                [text]="'En esta pestaña podrá gestionar las plagas que suele controlar'"
+                [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 18-->
+        </div>
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_device')">
+
+            <!--DEVICES-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/dispositivos'))
+    }" (click)="selectMenu(8,'/home/dispositivos')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faSignLanguage"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/dispositivos" [ngClass]="{
+                    'text-active':(router.url.includes('/dispositivos'))
+                }">Dispositivos</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--Step 19-->
+
+            <app-mobile-tour *ngIf="tourStep === 19 && start_tutorial" [step]="19" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-6']"
+                [text]="'En esta pestaña podrá gestionar sus dispositivos'" [onNext]="goToNextStep.bind(this)"
+                [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 19-->
+            <!--END DEVICES-->
+        </div>
+
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_product')">
+
+            <!--PRODUCTS-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+       'active':(router.url.includes('/productos'))
+   }" (click)="selectMenu(9,'/home/productos')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faFlask"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item">
+                    <span class="list__title">
+                        <a routerLink="/home/productos" [ngClass]="{
+                   'text-active':(router.url.includes('/productos'))
+               }">Productos</a>
+                    </span>
+                </div>
+
+            </div>
+            <!--Step 20-->
+
+            <app-mobile-tour *ngIf="tourStep === 20 && start_tutorial" [step]="20" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-7']"
+                [text]="'En esta pestaña podrá gestionar sus productos'" [onNext]="goToNextStep.bind(this)"
+                [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 20-->
+            <!--END PRODUCTS-->
+        </div>
+
+
+
+
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_aplication')">
+
+            <!--APLICATIONS-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+           'active':(router.url.includes('/aplicaciones'))
+       }" (click)="selectMenu(10,'/home/aplicaciones')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faBuilding"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/aplicaciones" [ngClass]="{
+                       'text-active':(router.url.includes('/aplicaciones'))
+                   }">M. Aplicación</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--Step 21-->
+
+            <app-mobile-tour *ngIf="tourStep === 21 && start_tutorial" [step]="21" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-8']"
+                [text]="'En esta pestaña podrá gestionar los métodos de aplicación'" [onNext]="goToNextStep.bind(this)"
+                [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 21-->
+
+            <!--END APLICATIONS-->
+        </div>
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_aplication')">
+
+            <!--DISINFECCTION-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+           'active':(router.url.includes('/desinfecciones'))
+       }" (click)="selectMenu(11,'/home/desinfecciones')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faBolt"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/desinfecciones" [ngClass]="{
+                       'text-active':(router.url.includes('/desinfecciones'))
+                   }">Desinfecciones</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--Step 22-->
+
+            <app-mobile-tour *ngIf="tourStep === 22 && start_tutorial" [step]="22" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-9']" [text]="'En esta pestaña podrá gestionar sus metodos de
+                    desinfección'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 22-->
+
+            <!--END DISINFECTION-->
+        </div>
+
+
+
+    </div>
+    <!--END INVENTORY-->
+
+    <!--INVENTORY LOCATION-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_pest')">
+
+
+        <div class="sidebar__element d-flex pointer" (click)="displayDropDown('inventory-location')"
+            style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faLocationArrow"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item">
+                <span class="list__title">
+                    Locaciones
+                </span>
+
+                <span class="dropdown-caret">
+                    <fa-icon class="icon-m "
+                        [icon]="!inventoryLocationDropDownState ? faCaretRight : faCaretDown"></fa-icon>
+
+                </span>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="dropdown-panel" [ngClass]="{'open': inventoryLocationDropDownState}">
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_location')">
+
+            <!--LOCATIONS-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+       'active':(router.url.includes('/ubicaciones'))
+   }" (click)="selectMenu(12,'/home/ubicaciones')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faMapMarker"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/ubicaciones" [ngClass]="{
+                   'text-active':(router.url.includes('/ubicaciones'))
+               }">Ubicaciones</a>
+                    </span>
+                </div>
+
+            </div>
+
+
+
+            <!--Step 23-->
+
+            <app-mobile-tour *ngIf="tourStep === 23 && start_tutorial" [step]="23" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-10']" [text]="'En esta pestaña podrá gestionar las ubicaciones que
+                    usualmente
+                    inspecciona'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 23-->
+            <!--END LOCATIONS-->
+        </div>
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_aplication')">
+
+            <!--AFFECTED ELEMENT-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+           'active':(router.url.includes('/elementos-afectados'))
+       }" (click)="selectMenu(13,'/home/elementos-afectados')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faObjectGroup"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/elementos-afectados" [ngClass]="{
+                       'text-active':(router.url.includes('/elementos-afectados'))
+                   }">Elementos</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--Step 24-->
+
+            <app-mobile-tour *ngIf="tourStep === 24 && start_tutorial" [step]="24" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-11']"
+                [text]="'En esta pestaña podrá gestionar elementos afectados'" [onNext]="goToNextStep.bind(this)"
+                [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 24-->
+
+            <!--END AFFECTED ELEMENT-->
+        </div>
+
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_aplication')">
+
+            <!--CONSTRUCTION TYPE-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+           'active':(router.url.includes('/tipo-de-construccion'))
+       }" (click)="selectMenu(14,'/home/tipo-de-construccion')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faTint"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item ">
+                    <span class="list__title">
+                        <a routerLink="/home/tipo-de-construccion" [ngClass]="{
+                       'text-active':(router.url.includes('/tipo-de-construccion'))
+                   }">Construcciones</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--Step 25-->
+
+            <app-mobile-tour *ngIf="tourStep === 25 && start_tutorial" [step]="25" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-12']" [text]="'En esta pestaña podrá gestionar los tipos de
+                    construcción'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 25-->
+
+            <!--END CONSTRUCTION TYPE-->
+        </div>
+
+
+        <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_aplication_place')">
+
+            <!--CORRECTIVE ACTION-->
+
+            <div class="sidebar__element d-flex pointer" [ngClass]="{
+      'active':(router.url.includes('/acciones-correctivas'))
+  }" (click)="selectMenu(16,'/home/acciones-correctivas')" style="flex: 0 0 2rem;">
+                <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                    <span class="">
+                        <fa-icon class="icon-m" [icon]="faCheckCircle"></fa-icon>
+
+                    </span>
+                </div>
+
+                <div class="d-flex align-center flex-sidebar-item">
+                    <span class="list__title">
+                        <a routerLink="/home/acciones-correctivas" [ngClass]="{
+                  'text-active':(router.url.includes('/acciones-correctivas'))
+              }">A. Correctivas </a>
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!--Step 26-->
+
+            <app-mobile-tour *ngIf="tourStep === 26 && start_tutorial" [step]="26" [componentName]="'sidebar'"
+                [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-13']" [text]="'En esta pestaña podrá gestionar las acciones
+                    correctivas'" [finishTour]="finishButton" [onNext]="goToNextStep.bind(this)"
+                [onPrev]="goToPrevStep.bind(this)" [onFinish]="finish.bind(this)">
+            </app-mobile-tour>
+
+
+            <!--End Step 26-->
+            <!--END CORRECTIVE ACTION-->
+        </div>
+    </div>
+    <!--END INVENTORY LOCATION-->
+
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_file')">
+
+        <!--FILES-->
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+      'active':(router.url.includes('/archivos'))
+  }" (click)="selectMenu(17,'/home/archivos')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faSitemap"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/archivos" [ngClass]="{
+                  'text-active':(router.url.includes('/archivos'))
+              }">Archivos</a>
+                </span>
+            </div>
+
+        </div>
+
+
+        <!--Step 27-->
+
+        <app-mobile-tour *ngIf="tourStep === 27 && start_tutorial" [step]="29" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-14']"
+            [text]="'En esta pestaña podrá compartir archivos y documentos'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)" [finishTour]="true" [onFinish]="finish.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 27-->
+        <!--END FILES-->
+    </div>
+
+
+    <!--PERMISSIONS-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_permission','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/permiso'))
+    }" (click)="selectMenu(12,'/home/permiso')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faShield"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/permiso" [ngClass]="{
+                    'text-active':(router.url.includes('/permiso'))
+                }">Permisos</a>
+                </span>
+            </div>
+        </div>
+
+
+        <!--Step 28-->
+
+        <app-mobile-tour *ngIf="tourStep === 28 && start_tutorial" [step]="28" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-15']" [text]="'En esta pestaña podrá descargar los permisos usados en el
+                control de plagas'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 28-->
+
+    </div>
+    <!--END PERMISSIONS-->
+
+
+    <!--MINSALUD-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_min_salud','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/min-salud'))
+    }" (click)="selectMenu(13,'/home/min-salud')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faHospital"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/min-salud" [ngClass]="{
+                    'text-active':(router.url.includes('/min-salud'))
+                }">Min Salud</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 29-->
+
+        <app-mobile-tour *ngIf="tourStep === 29 && start_tutorial" [step]="29" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-16']" [text]="'Descargue aqui todo lo relacionado con el
+                ministerio de salud'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 29-->
+    </div>
+    <!--END MINSALUD-->
+
+
+    <!--MSDS-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_msds','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/msds'))
+    }" (click)="selectMenu(14,'/home/msds')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBuilding"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/msds" [ngClass]="{
+                    'text-active':(router.url.includes('/msds'))
+                }">Msds</a>
+                </span>
+            </div>
+
+        </div>
+
+        <!--Step 30-->
+
+        <app-mobile-tour *ngIf="tourStep === 30 && start_tutorial" [step]="30" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-17']" [text]="'Descargue aqui las hojas de datos de
+                seguridad'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 30-->
+    </div>
+    <!--END MSDS-->
+
+
+    <!--TECHNICAL SHEET-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_technical_sheet','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/ficha-tecnica'))
+    }" *ngIf="_permissionService.checkPermission('list_technical_sheet','system_user')"
+            (click)="selectMenu(15,'/home/ficha-tecnica')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faFileText"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/ficha-tecnica" [ngClass]="{
+                    'text-active':(router.url.includes('/ficha-tecnica'))
+                }">Ficha</a>
+                </span>
+            </div>
+
+        </div>
+
+
+
+        <!--Step 31-->
+
+        <app-mobile-tour *ngIf="tourStep === 31 && start_tutorial" [step]="31" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-18']" [text]="'Descargue aqui todo lo relacionado con fichas
+                técnicas'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 31-->
+    </div>
+    <!--END TECHNICAL SHEET-->
+
+
+    <!--TECHNICAL STAFF-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_technical_staff','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/personal-tecnico'))
+    }" *ngIf="_permissionService.checkPermission('list_technical_staff','system_user')"
+            (click)="selectMenu(16,'/home/personal-tecnico')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="usersIcon"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/personal-tecnico" [ngClass]="{
+                    'text-active':(router.url.includes('/personal-tecnico'))
+                }">Personal</a>
+                </span>
+            </div>
+
+        </div>
+
+
+
+        <!--Step 32-->
+
+        <app-mobile-tour *ngIf="tourStep === 32 && start_tutorial" [step]="32" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-19']" [text]="'Descargue aqui todo lo relacionado con el
+                personal técnico'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 32-->
+    </div>
+    <!--END TECHNICAL STAFF-->
+
+
+    <!--LABEL-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_label','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/etiqueta'))
+    }" (click)="selectMenu(17,'/home/etiqueta')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faTags"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/etiqueta" [ngClass]="{
+                    'text-active':(router.url.includes('/etiqueta'))
+                }">Etiqueta</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 33-->
+
+        <app-mobile-tour *ngIf="tourStep === 33 && start_tutorial" [step]="33" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-20']" [text]="'Descargue aqui todo lo relacionado
+                con las
+                etiquetas asociadas a productos'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 33-->
+    </div>
+    <!--END LABEL-->
+
+    <!--SKETCH-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_sketch','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+            'active':(router.url.includes('/croquis'))
+        }" (click)="selectMenu(18,'/home/croquis')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBook"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/croquis" [ngClass]="{
+                        'text-active':(router.url.includes('/croquis'))
+                    }">Croquis</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 34-->
+
+        <app-mobile-tour *ngIf="tourStep === 34 && start_tutorial" [step]="34" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-21']" [text]="'Descargue aqui todo lo relacionado
+                con los
+                croquis de las áreas tratadas'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 34-->
+    </div>
+    <!--END SKETCH-->
+
+
+    <!--MIP-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_mip','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+            'active':(router.url.includes('/mip'))
+        }" (click)="selectMenu(19,'/home/mip')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBug"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/mip" [ngClass]="{
+                        'text-active':(router.url.includes('/mip'))
+                    }">Mip</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 35-->
+
+        <app-mobile-tour *ngIf="tourStep === 35 && start_tutorial" [step]="35" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-22']" [text]="'Descargue aqui todo lo relacionado
+                con el manejo integrado de plagas'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 35-->
+    </div>
+    <!--END MIP-->
+
+    <!--REPORT-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_report','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/informes'))
+    }" (click)="selectMenu(20,'/home/informes')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faIdCard"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/informes" [ngClass]="{
+                    'text-active':(router.url.includes('/informes'))
+                }">Informes</a>
+                </span>
+            </div>
+        </div>
+
+        <!--Step 36-->
+
+        <app-mobile-tour *ngIf="tourStep === 36 && start_tutorial" [step]="36" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-23']" [text]="'Descargue aqui todos los informes de
+                las actividades realizadas'" [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 36-->
+    </div>
+    <!--END REPORT-->
+
+    <!--TREND-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_trend','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/tendencias'))
+    }" (click)="selectMenu(21,'/home/tendencias')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faBullhorn"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/tendencias" [ngClass]="{
+                    'text-active':(router.url.includes('/tendencias'))
+                }">Tendencias</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 37-->
+
+        <app-mobile-tour *ngIf="tourStep === 37 && start_tutorial" [step]="37" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-24']" [text]="'Descargue aqui todas las
+                actualizaciones y noticias sobre el manejo integrado de plagas'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 37-->
+    </div>
+    <!--END TREND-->
+
+
+    <!--PLAN-->
+    <div class="list__element p-0" *ngIf="_permissionService.checkPermission('list_management_plan','system_user')">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+        'active':(router.url.includes('/planes'))
+    }" (click)="selectMenu(22,'/home/planes')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faIdBadge"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/planes" [ngClass]="{
+                    'text-active':(router.url.includes('/planes'))
+                }">Planes</a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <!--Step 38-->
+
+        <app-mobile-tour *ngIf="tourStep === 38 && start_tutorial" [step]="38" [componentName]="'sidebar'"
+            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','sidebar-step-25']" [text]="'Descargue aqui toda la
+                documentación
+                relacionada con los planes de trabajo'" [onNext]="goToNextStep.bind(this)"
+            [onPrev]="goToPrevStep.bind(this)" [finishTour]="true" [onFinish]="finish.bind(this)">
+        </app-mobile-tour>
+
+
+        <!--End Step 38-->
+    </div>
+    <!--END PLAN-->
+
+
+    <!--SEPARATOR-->
+
+    <div class="list__element p-0 separator">
+
+        <div class="sidebar__element d-flex pointer" style="flex: 0 0 2rem;">
+
+
+            <div class="d-flex align-center justify-content-center flex-sidebar-item ">
+                <div class="separator__line"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--END SEPARATOR-->
+
+
+
+
+    <!--CONTACT US-->
+    <div class="list__element p-0">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+            'active':(router.url.includes('/contacto'))
+        }" *ngIf="_permissionService.checkPermission('create_aplication')" (click)="selectMenu(24,'/home/contacto')"
+            style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faEnvelope"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/contacto" [ngClass]="{
+                    'text-active':(router.url.includes('/contacto'))
+                }">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--END CONTACT US-->
+
+
+
+    <!--CONFIGURATION -->
+    <div class="list__element p-0">
+
+        <div class="sidebar__element d-flex pointer" [ngClass]="{
+                'active':(router.url.includes('/configuraciones'))
+            }" *ngIf="_permissionService.checkPermission('list_configuration')"
+            (click)="selectMenu(24,'/home/configuraciones')" style="flex: 0 0 2rem;">
+            <div class=" d-flex justify-content-center align-center sidebar__icon flex-sidebar-icon">
+                <span class="">
+                    <fa-icon class="icon-m" [icon]="faCog"></fa-icon>
+
+                </span>
+            </div>
+
+            <div class="d-flex align-center flex-sidebar-item ">
+                <span class="list__title">
+                    <a routerLink="/home/configuraciones" [ngClass]="{
+                        'text-active':(router.url.includes('/configuraciones'))
+                    }">Configuración</a>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--END CONFIGURATION-->
+
+
+
+
+
+
+
+</div>

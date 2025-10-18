@@ -1,0 +1,52 @@
+:root {
+  --color-black: #161616;
+  --color-red: red;
+  --color-gray: #F0F1F6;
+  --color-green-ligth: #55c57a;
+  --color-green-active: #76D293;
+  --color-gray-light: #f4f0ec;
+  --color-background: #f3f4f6;
+  --color-background-primary: #76D292;
+  --color-background-secondary: white;
+  --color-active: #76D292;
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --active-link-color: #76D293;
+  --active-link-text-color: #fff;
+  --renew-dashboard-div-bg-color: linear-gradient(135deg, #333, #555);
+  --disabled-tab-bg: #ebebe4;
+  --disabled-tab-text-color: #c6c6c6;
+  --app-background-color: linear-gradient(to right bottom, #fffcff, #d5fefd);
+  --subscriptions-border: 1px solid #f1f1f1;
+  --dashboard-icon-border-value: none;
+  --renew-dashboard-button-border-value: none;
+  --addOrder-dashboard-button-border-value: none;
+  --login-form-bg-color: linear-gradient(to right bottom, #fffcff, #d5fefd);
+  --tutorial-bg-color: #bbf0e0;
+  --rounded-div-bg-color: radial-gradient(circle at center top, #55c57a 50%, #379e60 60%);
+  --drag-and-drop-bg-color: #f8f8f8;
+  --modal-font-color:#212529;
+
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --active-link-color: #ffffff;
+  --active-link-text-color: #000000;
+  --renew-dashboard-div-bg-color: #000000;
+  --disabled-tab-bg: #000000;
+  --disabled-tab-text-color: #fff;
+  --app-background-color: #000000;
+  --subscriptions-border: none;
+  --dashboard-icon-border-value: 1px solid #ffffff;
+  --renew-dashboard-button-border-value: 1px solid #ffffff;
+  --addOrder-dashboard-button-border-value: 1px solid #ffffff;
+  --login-form-bg-color: none;
+  --tutorial-bg-color: #2B2B2B;
+  --rounded-div-bg-color: radial-gradient(circle at center top, #4b4b4b 50%, #2f2f2f 70%);
+  --drag-and-drop-bg-color: #000000;
+  --modal-font-color:#fff;
+
+
+}

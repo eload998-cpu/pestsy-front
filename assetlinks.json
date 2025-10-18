@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.castilloapp.pestsy",
+               "sha256_cert_fingerprints": ["3B:FC:B4:FA:DF:C5:F9:6B:C7:F6:59:36:1F:2F:CF:98:BE:C3:1C:D3:EA:BB:A8:ED:A8:A8:32:ED:D2:9B:98:AE"] }
+}]

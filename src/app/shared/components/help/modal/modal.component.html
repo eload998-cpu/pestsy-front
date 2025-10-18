@@ -1,0 +1,62 @@
+<div class="help-modal  p-0" [ngClass]="{
+    'show-help-modal animate__animated animate__fadeInDown':modal.status,
+    'animate__animated animate__fadeOut':modal.status==0
+    
+}">
+
+
+    <div class="help-modal__header p-2">
+        <h6 class="text-center animate__animated animate__fadeIn  animate__fast mt-3">
+            {{modal.title}}
+        </h6>
+
+        <span class="close-icon pointer" (click)="closeModal()">
+            <fa-icon class="close-modal-icon" [icon]="faTimes"  ></fa-icon>
+
+        </span>
+
+    </div>
+
+    <div class="m-2">
+        <div class="help-modal__content">
+            <p class="text-center animate__animated animate__fadeIn  animate__fast">
+                {{modal.content[modal.current]}}
+            </p>
+        </div>
+
+    </div>
+
+    <div class="help-modal__image animate__animated animate__fadeIn  animate__fast" *ngIf="modal.src[modal.current]">
+        <img class="image " [src]="modal.src[modal.current]" alt="">
+    </div>
+
+    <div class="help__paginator d-flex justify-content-center mb-5 mt-4">
+
+        <div class="help-paginator-container d-flex justify-content-evenly">
+            <div class="d-flex justify-content-center align-items-center help-button-item pointer"
+                (click)="changeModal('previous')">
+                <a class="help-paginator-container__item" href="javascript:void(0)">Anterior</a>
+            </div>
+            <div class="d-flex justify-content-center align-items-center help-button-item pointer"
+                (click)="changeModal('next')">
+                <a class="help-paginator-container__item" href="javascript:void(0)">Siguiente</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--
+    <div class="help-modal__exit d-flex  m-2 mt-3 mb-5 mt-sm-0 mt-lg-0 mt-xl-0 mt-xll-0 mb-sm-3 mb-lg-3 mb-xl-3 mb-xll-3">
+        <button type="button" (click)="closeModal()" class="action-icon exit-btn">
+            <fa-icon class="icon-m add-icon" [icon]="faTimes" *ngIf="isMobile" ></fa-icon>
+            <span *ngIf="!isMobile">
+                Salir
+            </span>
+          
+            </button>
+    </div>
+
+-->
+
+</div>

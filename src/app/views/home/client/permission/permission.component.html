@@ -1,0 +1,207 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">AÑADIR PERMISOS</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="form">
+
+    <div class="grid-row permission">
+
+        <div class="permission__container">
+
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Órdenes</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedOrders">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('order',selectedOrders)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="permission__item">
+
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Clientes</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedClients">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('client',selectedClients)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Técnicos</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedWorkers">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('worker',selectedWorkers)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Plagas</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedPests">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('pest',selectedPests)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Dispositivos</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedDevices">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('device',selectedDevices)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Productos</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedProducts">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('product',selectedProducts)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Ubicaciones</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedLocations">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('location',selectedLocations)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">aplicaciones</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedAplications">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('aplication',selectedAplications)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+            <div class="permission__item">
+                <div class="select">
+                    <div class="select__container">
+                        <label for="nombres">Lugares</label>
+                        <ng-select class="custom" [items]="value_array" bindLabel="name" bindValue="value"
+                            [multiple]="true" [closeOnSelect]="false" [(ngModel)]="selectedAplicationPlaces">
+                        </ng-select>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <button class="action-icon" (click)="add('aplication_place',selectedAplicationPlaces)">
+                        <fa-icon [icon]="faPlus" class="icon-m" title="Agregar"></fa-icon>
+
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="permission_buttons">
+
+            <div class="permission_buttons__item">
+                <a routerLink="/home/aplicaciones" class="form-btn">
+                    <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                    Volver</a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-11 d-flex justify-content-center pagination-wrapper">
+        <ul class="pagination" >
+            <li class="page-item " *ngFor="let link of links">
+                <button class="page-link"
+                 type="button"
+                 [ngClass]="{
+                    'active':link.active,
+                    'disabled':(link.url==null || link.disabled)
+                 }"
+                 [disabled]="link.disabled"
+                 (click)="changePage(link.url)"
+                 >{{link.label}}</button>
+            </li>
+
+          </ul>
+    </div>
+</div>
+

@@ -1,0 +1,515 @@
+@use "src/app/shared/css/mixins" as *;
+$small-desktop-font: 0.7rem;
+$desktop-font: 0.8rem;
+$big-desktop-font: 0.9rem;
+$phone-font: .95rem;
+
+.paypal-btn {
+  background-color: #eeeeee;
+  border-radius: 2rem;
+  padding: .9rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e2e2e2;
+  }
+
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  color: #0d6efd !important;
+  background-color: initial !important;
+  border: 1px solid !important;
+}
+
+#payment-button {
+  background-color: var(--color-active);
+}
+
+.back-container {
+  justify-content: end;
+  align-items: center;
+  display: flex;
+
+  @include respond(phone) {
+    justify-content: end !important;
+    margin-bottom: 1.5rem;
+  }
+
+  @include respond(tab-port) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.form-btn--back {
+  width: 10% !important;
+
+  @include respond(phone) {
+    width: 40% !important;
+  }
+
+  @include respond(tab-port) {
+    width: 20% !important;
+  }
+}
+
+p,
+span {
+  @include respond(tab-land) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(default-tablet) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(tab-port) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(small-desktop) {
+    font-size: $small-desktop-font !important;
+  }
+
+  @include respond(desktop) {
+    font-size: $desktop-font !important;
+  }
+
+  @include respond(big-desktop) {
+    font-size: $big-desktop-font !important;
+  }
+
+  @include respond(phone) {
+    font-size: $phone-font !important;
+  }
+}
+
+.w-90 {
+  width: 90% !important;
+}
+
+.form-btn {
+  width: 50%;
+}
+
+.total {
+  @include respond(phone) {
+    justify-content: center !important;
+  }
+}
+
+.subscriptions {
+  &__item {
+    height: 60vh;
+
+    @include respond(phone) {
+      height: 100vh;
+    }
+
+    @include respond(large-phone) {
+      height: 85vh;
+    }
+  }
+
+  @include respond(desktop) {
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 33rem));
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 80em) {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 31rem)) !important;
+
+    }
+
+    @include respond(small-desktop) {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 24rem)) !important;
+
+    }
+
+  }
+
+  &__form {
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content max-content;
+  }
+
+  #nav-tab-card-form {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #nav-tab-card-receipt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include respond(phone) {
+      grid-template-columns: 1fr !important;
+    }
+
+    .client-data {
+      display: grid;
+      grid-template-columns: 1fr;
+
+      span {
+        display: flex;
+
+        @include respond(phone) {
+          justify-content: center;
+        }
+      }
+    }
+
+    .header-data {
+      display: block;
+
+      .date-label {
+        text-align: right;
+
+        @include respond(phone) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 10rem));
+    justify-content: center;
+
+    @include respond(phone) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  .card-tab {
+    &__expiration {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      @include respond(phone) {
+        grid-template-columns: minmax(min-content, max-content) !important;
+      }
+    }
+  }
+}
+
+.grow {
+  @include respond(desktop) {
+    flex-grow: 100 !important;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  box-shadow: initial !important;
+
+  @media (max-width: 56.25em) and (min-device-height: 56.25em) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
+  }
+}
+
+.is-striped {
+  background-color: rgba(233, 200, 147, 0.2);
+}
+
+/* Table column sizing
+================================== */
+.head-cell {
+  width: 20%;
+}
+
+.action-cell {
+  width: 40%;
+}
+
+.title {
+  display: none !important;
+}
+
+/* Apply styles
+================================== */
+.Rtable {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+  .Rtable-row {
+    width: 100%;
+    display: flex;
+
+    .no-data {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .Rtable-cell {
+      box-sizing: border-box;
+      flex-grow: 1;
+      padding: 0.8em 1.2em;
+      overflow: hidden; // Or flex might break
+      list-style: none;
+
+      &.column-heading {
+        background-color: var(--color-active);
+        color: white;
+        padding: 0.7em;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .column-heading {
+        &__container {
+          display: flex !important;
+          justify-content: space-around !important;
+          align-items: center;
+          flex-basis: 70% !important;
+        }
+      }
+
+      .Rtable-cell--heading {
+        display: none;
+      }
+    }
+
+    .action-content {
+      .title {
+        &--action {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .action {
+        &__container {
+          flex-basis: 100%;
+
+          @include respond(desktop) {
+            flex-basis: 85% !important;
+          }
+
+          @include respond(big-desktop) {
+            flex-basis: 65% !important;
+          }
+
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+
+      flex-wrap: wrap;
+
+      @include respond(desktop) {
+        flex-basis: 70%;
+      }
+
+      flex-basis: 90%;
+    }
+  }
+}
+
+.table {
+  &-container {
+    @include respond(desktop) {
+      margin-top: 2rem;
+    }
+  }
+}
+
+/* Responsive tablets
+==================================== */
+@media (max-width: 56.25em) and (min-device-height: 56.25em) {
+  .paginator {
+    &_type {
+      &_tablet {
+        display: flex;
+      }
+    }
+  }
+
+  .action {
+    &-content {
+      display: flex !important;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: space-around;
+      flex-basis: 65% !important;
+    }
+  }
+
+  .is-striped {
+    background-color: white;
+  }
+
+  .Rtable--collapse {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    box-shadow: none;
+
+    .Rtable-row {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1em;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+      .Rtable-cell {
+        width: 100% !important;
+        display: flex;
+        align-items: center;
+        padding: 0 !important;
+
+        .Rtable-cell--heading {
+          display: inline-block;
+          flex: 1;
+          max-width: 120px;
+          min-width: 120px;
+          color: #fff;
+          background-color: var(--color-green-active);
+          font-weight: 700;
+          border-right: 1px solid #ccc;
+          margin-right: 1em;
+          padding: 1rem;
+        }
+
+        .Rtable-cell--content {
+          flex: 2;
+          padding-left: 0;
+        }
+      }
+    }
+
+    .Rtable-row--head {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 37.5625em) and (min-device-height: 56.25em) {
+  .action {
+    &-content {
+      display: flex !important;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: space-around;
+      flex-basis: 90% !important;
+    }
+  }
+}
+
+/* Responsive phones
+==================================== */
+@media (max-width: 37.5em) {
+  .paginator {
+    &_type {
+      &_desktop {
+        display: none;
+      }
+
+      &_tablet {
+        display: none;
+      }
+
+      &_mobile {
+        display: flex;
+      }
+    }
+  }
+
+  .action {
+    &__container {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  .is-striped {
+    background-color: white;
+  }
+
+  .title {
+    display: block !important;
+    text-align: center;
+    background-color: var(--color-green-active);
+    color: #fff;
+    padding: 0.25rem;
+  }
+
+  .Rtable--collapse {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    box-shadow: none;
+
+    .Rtable-row {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1em;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+      .Rtable-cell {
+        width: 100% !important;
+        display: flex;
+        align-items: center;
+        padding: 0.8em 1.2em !important;
+
+        &--heading {
+          display: none !important;
+        }
+
+        .Rtable-cell--content {
+          flex: 2;
+          padding-left: 0 !important;
+
+          .content {
+            padding-top: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .Rtable-row--head {
+      display: none;
+    }
+  }
+}
+
+// Non-Flex modernizer fallback
+.no-flexbox .Rtable {
+  display: block;
+
+  &.Rtable-cell {
+    width: 100%;
+  }
+}

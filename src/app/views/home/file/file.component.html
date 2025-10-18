@@ -1,0 +1,120 @@
+
+<div class="row  table-content">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header" >
+
+                            <h6 class="bold-text">ARCHIVOS</h6>
+                           
+                        </div>
+                    </div>
+
+        
+                </div>
+        
+            </div>
+
+        
+        </div>
+  
+    </div>
+    
+</div>
+
+<!--OPTIONS-->
+<div class="row d-flex justify-content-center mt-5 order-container">
+    <div class="col-11 option-box order-container__nav">
+        <div class="row order-tabs ms-1">
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer ms-1 me-1 disabled-tab" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [routerLink]="['permisos-tab']" >
+                        Permisos
+                    </a>
+                </span>
+                
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+            [routerLink]="['fichas-tecnicas-tab']" 
+            routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href=""
+                     [routerLink]="['fichas-tecnicas-tab']" 
+                   >
+                        Fichas
+                    </a>
+                </span>
+                
+           </div>
+
+           <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+           [routerLink]="['etiqueta-tab']" 
+           routerLinkActive="active-tab">
+               <span class="order-element--small-text">
+                   <a href=""
+                    [routerLink]="['etiqueta-tab']" 
+                  >
+                       Etiquetas
+                   </a>
+               </span>
+               
+          </div>
+
+          <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+           [routerLink]="['msds-tab']" 
+           routerLinkActive="active-tab">
+               <span class="order-element--small-text">
+                   <a href=""
+                    [routerLink]="['msds-tab']" 
+                  >
+                       MSDS
+                   </a>
+               </span>
+               
+          </div>
+
+          <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+          [routerLink]="['personal-tecnico-tab']" 
+          routerLinkActive="active-tab">
+              <span class="order-element--small-text">
+                  <a href=""
+                   [routerLink]="['personal-tecnico-tab']" 
+                 >
+                      Personal
+                  </a>
+              </span>
+              
+         </div>
+
+         <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+         [routerLink]="['min-salud-tab']" 
+         routerLinkActive="active-tab">
+             <span class="order-element--small-text">
+                 <a href=""
+                  [routerLink]="['min-salud-tab']" 
+                >
+                     MinSalud
+                 </a>
+             </span>
+             
+        </div>
+
+    </div>
+   
+</div>
+
+<!--END OPTIONS-->
+
+<!--CONTENT-->
+<div class="row justify-content-center">
+    <div class="col-11 card content-container">
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!--END CONTENT-->

@@ -1,0 +1,211 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row d-flex justify-content-end">
+
+
+                    <div class="col-6">
+                        <div class="buttons text-center">
+
+
+                            <a routerLink="nuevo" class="custom-btn">
+                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+                                <span class="btn-text">Nuevo</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="row animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="row paginator_type_tablet justify-content-end">
+            <div class="col-12 col-sm-10 col-md-10">
+                <div class="d-flex sort justify-content-center sort__container">
+
+                    <div class="sort__wrapper">
+                        <div class="sort__item sort__title">
+                            Ordenar por:
+                        </div>
+                        <div class="sort__item sort__field">
+                            <select class="form-control" disabled name="" id="" #orderSelect>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="sort__order">
+                            <div class="order order__container  animate__animated animate__fadeIn" [ngClass]="{
+                                'sort_type_desc':!mobile_asc,
+                                'sort_type_asc':mobile_asc
+
+                            }">
+                                <img class="order__item" src="assets/icons/svg/up-bold-arrow.svg" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="row paginator_type_mobile justify-content-center">
+            <div class="col-12">
+                <div class="d-flex sort justify-content-center sort__container">
+
+                    <div class="sort__wrapper">
+                        <div class="sort__item sort__title">
+                            Ordenar por:
+                        </div>
+                        <div class="sort__item sort__field">
+                            <select class="form-control" disabled name="" id="" #orderSelect>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="sort__order">
+                            <div class="order order__container  animate__animated animate__fadeIn" [ngClass]="{
+                                    'sort_type_desc':!mobile_asc,
+                                    'sort_type_asc':mobile_asc
+
+                                }">
+                                <img class="order__item" src="assets/icons/svg/up-bold-arrow.svg" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-12">
+                <app-paginator [data]="paginate_data" (page)="getPage($event)"></app-paginator>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-12 table-container">
+
+        <div class="row d-flex justify-content-center ">
+            <div class="col-11 table-container__content">
+                <div class="wrapper">
+                    <div class="Rtable  Rtable--collapse">
+                        <div class="Rtable-row Rtable-row--head">
+                            <div class="Rtable-cell head-cell column-heading">
+
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>NOMBRE</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div
+                            *ngIf="canShowAction()"
+                            class="Rtable-cell head-cell column-heading">ACCIÓN</div>
+                        </div>
+                        <ng-container *ngIf="records.length; else noData">
+                            <div class="Rtable-row animate__animated animate__fadeIn"
+                                *ngFor="let record of records; let i = index">
+                                <div class="Rtable-cell Rtable-cell head-cell ">
+                                    <div class="Rtable-cell Rtable-cell--heading">NOMBRE</div>
+
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>Nombre</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span> {{record.name}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div 
+                                    *ngIf="canShowAction()"
+                                    class="Rtable-cell head-cell d-flex justify-content-center">
+                                    <div class="Rtable-cell Rtable-cell--heading">ACCIÓN</div>
+
+                                    <div
+                                        class="Rtable-cell Rtable-cell--content action-content d-flex  justify-content-center">
+                                        <div class="title title--action d-flex justify-content-center">
+                                            <span>ACCIÓN</span>
+
+                                        </div>
+
+                                        <div class="action__container">
+                                            <div class="">
+                                                <button (click)="delete(record.id,paginate_data.current_page,paginate_data.data.length)" class="action-icon">
+                                                    <fa-icon [icon]="faTrash" class="icon-m" title="Eliminar"></fa-icon>
+
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row paginator_type_desktop">
+    <div class="col-12">
+        <app-paginator [data]="paginate_data" (page)="getPage($event)"></app-paginator>
+    </div>
+</div>
+
+<ng-template #noData>
+    <div class="Rtable-row animate__animated animate__fadeIn">
+        <div class="no-data">
+            <span>No hay registros</span>
+        </div>
+    </div>
+</ng-template>

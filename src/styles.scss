@@ -1,0 +1,187 @@
+/* You can add global styles to this file, and also import other style files */
+@use "src/app/shared/css/variable" as *;
+@use "src/app/shared/css/mixins" as *;
+
+
+/* Dark Mode */
+
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover,
+[data-theme="dark"] input:-webkit-autofill:focus,
+[data-theme="dark"] textarea:-webkit-autofill,
+[data-theme="dark"] select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
+[data-theme="dark"] {
+
+  body,
+  form,
+  input,
+  button:not(.tour-button),
+  label,
+  p,
+  textarea,
+  ul,
+  li,
+  a:not(.tour-link),
+  div:not(.flip-container, .flip-price-label-container, .flip-price-value-container, .flip-price-button-container, .tour-div, .tutorial__container) {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--text-color) !important;
+
+
+
+  }
+
+  .fileupload {
+    &:hover {
+      background-color: #000000;
+
+      @include respond(phone) {
+        background-color: initial !important;
+
+      }
+    }
+  }
+
+
+  .tour-link {
+    color: var(--active-link-color) !important;
+  }
+
+  .tour-button {
+    background-color: var(--tutorial-bg-color) !important;
+    color: var(--active-link-color) !important;
+    border-color: var(--text-color) !important;
+
+
+  }
+
+  .tour-div,
+  .tutorial__container {
+    background-color: var(--tutorial-bg-color) !important;
+    color: var(--text-color) !important;
+  }
+
+
+  select {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--text-color) !important;
+
+  }
+
+  span:not(.invalid) {
+    color: var(--text-color) !important;
+
+  }
+
+  ng-select.custom:not(.ng-select-opened) .ng-input {
+    opacity: 0 !important;
+  }
+
+  ng-select.custom.ng-select-opened .ng-input {
+    opacity: 1 !important;
+  }
+
+  ng-select.custom .ng-select-container .ng-value-container .ng-placeholder {
+    color: gray !important;
+  }
+
+
+
+
+  /*
+
+ng-select.custom .ng-select-container {
+  color: red !important;
+}
+*/
+
+
+  .order__item {
+    filter: invert(1);
+
+  }
+
+  .order__container {
+    width: 90% !important;
+  }
+
+
+  .hide-options {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+  }
+
+}
+
+
+.fileupload {
+  &:hover {
+    background-color: #F8F8F8;
+
+    @include respond(phone) {
+      background-color: initial !important;
+
+    }
+
+  }
+}
+
+
+.toastr-error-list {
+  li {
+    color: #fff !important;
+
+  }
+}
+
+
+.ddinfo {
+  font-weight: bold;
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.icon-password {
+  cursor: pointer;
+}
+
+//XS
+@media (max-width: 575px) {
+  .text-center-mobile {
+    text-align: center !important;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    /* setting up mask position at left side */
+    -webkit-mask-position: left;
+  }
+}
+
+ng-select .ng-option {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
+ng-select .ng-value-label {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}

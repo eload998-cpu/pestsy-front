@@ -1,0 +1,427 @@
+<div class="row">
+    <div class="col-12 mt-3">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-11 search-container search-container--no-bordered   d-flex align-items-center mt-3">
+                <div class="row w-100">
+                    <div class="col-12">
+                        <div class="row justify-content-end">
+
+
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 relative search-container__box">
+                                <span class="absolute search-icon">
+                                    <fa-icon [icon]="faSearch" class="icon-m"></fa-icon>
+
+                                </span>
+                                <input type="text" class="form-control search-input" [(ngModel)]="search_input"
+                                    (ngModelChange)="onSearch($event)" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-label">
+                        <div
+                            class="filter-label__content mt-3 mt-xll-0 mt-lg-0 mt-xl-0 mt-xll-0 ms-lg-1 ms-xl-1 ms-xll-1 mb-lg-1 mb-xl-1 mb-xll-1">
+                            <span class="small-text">
+                                <b>
+                                    Periodo
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="filter-container">
+                        <div class="filter-container__start_date">
+                            <input [(ngModel)]="bsValue1" type="text" class="form-control date-input" id="date"
+                                name="date_1" bsDatepicker
+                                [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+                        </div>
+                        <div class="filter-container__end_date">
+                            <input [(ngModel)]="bsValue2" type="text" class="form-control date-input" id="date"
+                                name="date_2" bsDatepicker
+                                [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+                        </div>
+
+                        <div class="filter-container__button">
+                            <button class="action-icon" type="submit" (click)="filter($event)">
+                                <fa-icon class="icon__item" [icon]="faSearch"></fa-icon>
+
+                            </button>
+
+                            <button
+                                class="action-icon ms-xl-3 ms-lg-3 ms-md-3 ms-sm-3 mt-2 mt-xl-0 mt-lg-0 mt-md-0 mt-sm-0 mb-3 mb-xl-0 mb-lg-0 mb-md-0 mb-sm-0"
+                                type="submit" (click)="reset()">
+                                <fa-icon class="icon__item" [icon]="faRefresh"></fa-icon>
+
+                            </button>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="row animate__animated animate__fadeIn record" #lastRecord [attr.data-last]="true">
+
+    <div class="col-12">
+
+        <div class="row paginator_type_tablet justify-content-end">
+            <div class="col-12 col-sm-10 col-md-10">
+                <div class="d-flex sort justify-content-center sort__container">
+
+                    <div class="sort__wrapper">
+                        <div class="sort__item sort__title">
+                            Ordenar por:
+                        </div>
+                        <div class="sort__item sort__field">
+                            <select class="form-control" name="" id="" [(ngModel)]="orderSelect">
+                                <option value="order_number">Nro</option>
+                                <option value="client_name">Cliente</option>
+                                <option value="service_type">Servicio</option>
+                                <option value="date">Fecha</option>
+                            </select>
+                        </div>
+                        <div class="sort__order">
+                            <div class="order order__container  animate__animated animate__fadeIn" [ngClass]="{
+                                'sort_type_desc':!mobile_asc,
+                                'sort_type_asc':mobile_asc
+
+                            }" (click)="sortResponsive()">
+                                <img class="order__item" src="assets/icons/svg/up-bold-arrow.svg" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="row paginator_type_mobile justify-content-center">
+            <div class="col-12">
+                <div class="d-flex sort justify-content-center sort__container">
+
+                    <div class="sort__wrapper">
+                        <div class="sort__item sort__title">
+                            Ordenar por:
+                        </div>
+                        <div class="sort__item sort__field">
+                            <select class="form-control" name="" id="" [(ngModel)]="orderSelect">
+                                <option value="order_number">Nro</option>
+                                <option value="client_name">Cliente</option>
+                                <option value="service_type">Servicio</option>
+                                <option value="date">Fecha</option>
+
+                            </select>
+                        </div>
+                        <div class="sort__order">
+                            <div class="order order__container  animate__animated animate__fadeIn" [ngClass]="{
+                                    'sort_type_desc':!mobile_asc,
+                                    'sort_type_asc':mobile_asc
+
+                                }" (click)="sortResponsive()">
+                                <img class="order__item" src="assets/icons/svg/up-bold-arrow.svg" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-12">
+                <app-paginator [data]="paginate_data" (page)="getPage($event)"></app-paginator>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-12 table-container" id="htmlData" #scrollHost>
+
+        <div class="row d-flex justify-content-center ">
+            <div class="col-11 table-container__content">
+                <div class="wrapper">
+                    <div class="Rtable  Rtable--collapse">
+                        <div class="Rtable-row Rtable-row--head">
+                            <div class="Rtable-cell head-cell column-heading">
+
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>NRO</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3"
+                                            (click)="sort('order_number','ASC',$event)">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow selected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2"
+                                            (click)="sort('order_number','DESC',$event)">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="Rtable-cell head-cell column-heading">
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>CLIENTE</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3"
+                                            (click)="sort('client_name','ASC',$event)">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2"
+                                            (click)="sort('client_name','DESC',$event)">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="Rtable-cell head-cell column-heading">
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>SERVICIO</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3"
+                                            (click)="sort('service_type','ASC',$event)">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2"
+                                            (click)="sort('service_type','DESC',$event)">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="Rtable-cell head-cell column-heading">
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>FECHA</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3"
+                                            (click)="sort('date','ASC',$event)">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2"
+                                            (click)="sort('date','DESC',$event)">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Rtable-cell head-cell column-heading">ACCIÓN</div>
+                        </div>
+                        <ng-container *ngIf="records.length; else noData">
+                            <div class="Rtable-row animate__animated animate__fadeIn"
+                                *ngFor="let record of records; let first = first;let last = last" [ngClass]="{
+                                'stand_out':first
+
+                            }">
+                                <div class="Rtable-cell head-cell ">
+                                    <div class="Rtable-cell--heading">NRO</div>
+
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>NRO</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span> {{record.order_number}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Rtable-cell head-cell ">
+                                    <div class="Rtable-cell--heading">CLIENTE</div>
+
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>CLIENTE</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span> {{record.client_name}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Rtable-cell head-cell ">
+                                    <div class="Rtable-cell--heading">SERVICIO</div>
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>SERVICIO</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span>{{(record.service_type) ? record.service_type: 'Sin definir'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="Rtable-cell head-cell ">
+                                    <div class="Rtable-cell--heading">FECHA</div>
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>FECHA</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span>{{record.parsed_date}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="Rtable-cell head-cell d-flex justify-content-evenly">
+                                    <div class="Rtable-cell--heading">ACCIÓN</div>
+
+                                    <div
+                                        class="Rtable-cell--content action-content d-flex justify-content-evenly w-100">
+                                        <div class="title title--action d-flex justify-content-center">
+                                            <span>ACCIÓN</span>
+
+                                        </div>
+
+                                        <div class="action__container">
+                                            <div class=""
+                                                *ngIf="_authService.hasRole('administrator') || _authService.hasRole('super_administrator') || _authService.hasRole('operator') || _authService.hasRole('fumigator')">
+                                                <button (click)="resend(record.id)" type="button" class="action-icon">
+                                                    <fa-icon [icon]="faEnvelope" class="icon-m"
+                                                        title="Reenviar"></fa-icon>
+                                                </button>
+                                            </div>
+
+
+                                            <div class="">
+
+                                                <!--Step 11-->
+
+                                                <app-tour *ngIf="!is_mobile && tourStep === 11 && first" [step]="11"
+                                                    [componentName]="'list-order'" [classes]="downloadClassDesktop"
+                                                    [text]="'Para descargar la orden, haga clic en el icono de descarga.'"
+                                                    [onNext]="goToNextStep" [onPrev]="goToPrevStep"
+                                                    [showPrevButton]="false">
+                                                </app-tour>
+
+                                                <app-mobile-tour *ngIf="is_mobile && tourStep === 11 && first"
+                                                    [step]="11" [componentName]="'list-order'"
+                                                    [classes]="downloadClassMobile"
+                                                    [text]="'Para descargar la orden, haga clic en el icono de descarga.'"
+                                                    [onNext]="goToNextStep" [onPrev]="goToPrevStep"
+                                                    [showPrevButton]="false">
+
+                                                </app-mobile-tour>
+
+                                                <!--End Step 11-->
+                                                <button (click)="download(record.id)" type="button"
+                                                    id="completed-orders-download-button" class="action-icon">
+                                                    <fa-icon [icon]="faCloudDownload" class="icon-m"
+                                                        title="Descargar"></fa-icon>
+                                                </button>
+                                            </div>
+
+                                            <div class="" *ngIf="!is_mobile">
+
+                                                <!--Step 12-->
+
+                                                <app-tour *ngIf="tourStep === 12 && first" [step]="12"
+                                                    [componentName]="'list-order'"
+                                                    [classes]="downloadClassDesktopOperator"
+                                                    [text]="'Para previsualizar la orden, haga clic en este icono'"
+                                                    [onNext]="goToNextStep" [onPrev]="goToPrevStep">
+                                                </app-tour>
+
+
+
+                                                <!--End Step 12-->
+                                                <button (click)="preview(record.id)" type="button" class="action-icon">
+                                                    <fa-icon [icon]="faEye" class="icon-m"
+                                                        title="Previsualizar"></fa-icon>
+                                                </button>
+                                            </div>
+
+                                            <div class="" *ngIf="_permissionService.checkPermission('delete_order')">
+                                                <button
+                                                    (click)="delete(record.id,paginate_data.current_page,paginate_data.data.length)"
+                                                    class="action-icon">
+                                                    <fa-icon [icon]="faTrash" class="icon-m" title="Eliminar"></fa-icon>
+
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row paginator_type_desktop">
+    <div class="col-12">
+        <app-paginator [data]="paginate_data" (page)="getPage($event)"></app-paginator>
+    </div>
+</div>
+
+<ng-template #noData>
+    <div class="Rtable-row animate__animated animate__fadeIn">
+        <div class="no-data">
+            <span>No hay registros</span>
+        </div>
+    </div>
+</ng-template>

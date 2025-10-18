@@ -1,0 +1,373 @@
+<div class="row" id="view-top">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-md-4 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">CREAR ORDEN</h6>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 col-xl-6 col-xll-6 " *ngIf="order_id">
+                        <div class="row buttons-row">
+                            <div class="col-4 col-md-3 col-xl-4 col-xll-4 d-flex justify-content-center">
+                                <!--Step 8-->
+
+                                <app-tour *ngIf="!is_mobile && tourStep === 8" [step]="8" [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__5']"
+                                    [text]="'Haga clic para finalizar la orden, se enviará un correo electrónico al cliente con la información de la orden y las fotos adjuntas.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-tour>
+
+                                <app-mobile-tour *ngIf="is_mobile && tourStep === 8" [step]="8"
+                                    [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__5']"
+                                    [text]="'Haga clic para finalizar la orden, se enviará un correo electrónico al cliente con la información de la orden y las fotos adjuntas.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-mobile-tour>
+
+                                <!--End Step 8-->
+                                <button type="submit" class="custom-btn custom-btn--large" (click)="finish()">
+                                    <fa-icon [icon]="faCheckSquare" class="icon-m"></fa-icon>
+
+
+                                    <span *ngIf="!is_mobile" class="btn-text">
+                                        Finalizar
+
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-4 col-md-3 col-xl-4 col-xll-4 d-flex justify-content-center">
+
+                                <!--Step 9-->
+
+                                <app-tour *ngIf="!is_mobile && tourStep === 9" [step]="9" [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__6']"
+                                    [text]="'Si desea editar la orden más tarde, puede pasarla a órdenes pendientes.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-tour>
+
+                                <app-mobile-tour *ngIf="is_mobile && tourStep === 9" [step]="9"
+                                    [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__6']"
+                                    [text]="'Si desea editar la orden más tarde, puede pasarla a órdenes pendientes.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-mobile-tour>
+
+                                <!--End Step 9-->
+                                <button type="submit" class="custom-btn custom-btn--large" (click)="pending()">
+                                    <fa-icon [icon]="faClock" class="icon-m"></fa-icon>
+                                    <span *ngIf="!is_mobile" class="btn-text">
+                                        Pendiente
+
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="col-4 col-md-3 col-xl-4 col-xll-4 d-flex justify-content-center">
+                                <!--Step 10-->
+
+                                <app-tour *ngIf="!is_mobile && tourStep === 10" [step]="10"
+                                    [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__7']"
+                                    [text]="'Si desea descartar la orden, puede hacerlo desde aquí.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-tour>
+
+                                <app-mobile-tour *ngIf="is_mobile && tourStep === 10" [step]="10"
+                                    [componentName]="'order-tab'"
+                                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__7']"
+                                    [text]="'Si desea descartar la orden, puede hacerlo desde aquí.'"
+                                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                                </app-mobile-tour>
+
+                                <!--End Step 10-->
+                                <button type="submit" class="custom-btn custom-btn--large" (click)="discard()">
+                                    <fa-icon [icon]="faTrash" class="icon-m"></fa-icon>
+                                    <span *ngIf="!is_mobile" class="btn-text">
+                                        Descartar
+
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--OPTIONS-->
+<div class="row d-flex justify-content-center mt-5 order-container">
+    <div class="col-11 option-box order-container__nav">
+        <div class="row order-tabs" #orderTabs>
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer ms-1 me-1 "
+                [ngClass]="{'active-tab':active_tab == 'orden-tab','disabled-tab':active_tab != 'orden-tab'}"
+                (click)="changeTab('orden-tab')">
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)">
+                        Orden
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+            'not-allowed':order_id==null,
+           
+         }" (click)="changeTab('xilofago-tab')" *ngIf="order_type=='Xilofago'">
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)" [ngClass]="{
+                     'not-allowed':order_id==null,
+                     'active-tab':active_tab == 'xilofago-tab',
+                     'disabled-tab':active_tab != 'xilofago-tab'
+                 }">
+                        Xilófagos
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+        'not-allowed':order_id==null
+     }" *ngIf="order_type=='Legionela'">
+
+
+                <span class="order-element--small-text" (click)="changeTab('legionela-tab')">
+                    <a href="javascript:void(0)" [ngClass]="{
+                'not-allowed':order_id==null,
+                'active-tab':active_tab == 'legionela-tab',
+                'disabled-tab':active_tab != 'legionela-tab'
+             }">
+                        Legionela
+                    </a>
+                </span>
+
+            </div>
+
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" *ngIf="order_type=='General' || order_type=='Control de roedores'"
+                (click)="changeTab('monitoreo-tab')">
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)" [ngClass]="{
+                'not-allowed':order_id==null,
+                'active-tab':active_tab == 'monitoreo-tab',
+                'disabled-tab':active_tab != 'monitoreo-tab'
+             }">
+                        Roedores
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null,
+             }" *ngIf="order_type=='General' || order_type=='Fumigación'" (click)="changeTab('fumigacion-tab')">
+
+                <!--Step 3-->
+
+
+                <app-tour *ngIf="!is_mobile && tourStep === 4" [step]="4" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                    [text]="'Utilice estas pestañas para añadir información adicional a la orden'"
+                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                </app-tour>
+
+
+                <app-mobile-tour *ngIf="is_mobile && tourStep === 4" [step]="4" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                    [text]="'Utilice estas pestañas para añadir información adicional a la orden'"
+                    [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                </app-mobile-tour>
+
+                <!--End Step 3-->
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'fumigacion-tab',
+                        'disabled-tab':active_tab != 'fumigacion-tab'
+                     }">
+                        Fumigacion
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null
+             }" *ngIf="order_type=='General' || order_type=='Monitoreo de voladores (lámparas)'"
+                (click)="changeTab('lampara-tab')">
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'lampara-tab',
+                        'disabled-tab':active_tab != 'lampara-tab'
+                     }">
+                        Lámparas
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null,
+               
+             }" *ngIf="order_type=='General' || order_type=='Monitoreo de insectos'" (click)="changeTab('trampa-tab')">
+                <span class="order-element--small-text">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'trampa-tab',
+                        'disabled-tab':active_tab != 'trampa-tab'
+                     }">
+                        Trampas
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null,
+               
+             }">
+
+                <!--Step 4-->
+
+
+                <app-tour *ngIf="!is_mobile && tourStep === 5" [step]="5" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__2']"
+                    [text]="'Añada fotos e imágenes a la orden para
+                        documentar el trabajo realizado.'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-tour>
+
+                <app-mobile-tour *ngIf="is_mobile && tourStep === 5" [step]="5" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__2']"
+                    [text]="'Añada fotos e imágenes a la orden para
+                        documentar el trabajo realizado.'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-mobile-tour>
+
+
+                <!--End Step 4-->
+                <span [ngClass]="{
+                'not-allowed':order_id==null,
+                'active-tab':active_tab == 'imagen-tab',
+             }" class="order-element--small-text" (click)="changeTab('imagen-tab')">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'imagen-tab',
+                        'disabled-tab':active_tab != 'imagen-tab'
+                     }">
+                        Imágenes
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 "
+                [ngClass]="{
+                'not-allowed':order_id==null,
+       
+             }">
+
+                <!--Step 5-->
+
+                <app-tour *ngIf="!is_mobile && tourStep === 6" [step]="6" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__3']"
+                    [text]="'Añada observaciones y
+                        recomendaciones.<br>&nbsp;'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-tour>
+
+                <app-mobile-tour *ngIf="is_mobile && tourStep === 6" [step]="6" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__3']"
+                    [text]="'Añada observaciones y
+                        recomendaciones.<br>&nbsp;'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-mobile-tour>
+
+                <!--End Step 5-->
+                <span class="order-element--small-text" (click)="changeTab('observacion-tab')">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'observacion-tab',
+                        'disabled-tab':active_tab != 'observacion-tab'
+                     }">
+                        Observación
+                    </a>
+                </span>
+
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer "
+                [ngClass]="{
+                'not-allowed':order_id==null,
+                
+             }">
+
+                <!--Step 6-->
+
+                <app-tour *ngIf="!is_mobile && tourStep === 7" [step]="7" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__4']"
+                    [text]="'Firme la orden para finalizar el proceso.
+                        Puede firmar con el dedo o con el mouse.'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-tour>
+
+                <app-mobile-tour *ngIf="is_mobile && tourStep === 7" [step]="7" [componentName]="'order-tab'"
+                    [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__4']"
+                    [text]="'Firme la orden para finalizar el proceso.
+                        Puede firmar con el dedo o con el mouse.'" [onNext]="goToNextStep.bind(this)"
+                    [onPrev]="goToPrevStep.bind(this)">
+                </app-mobile-tour>
+
+                <!--End Step 6-->
+                <span class="order-element--small-text" (click)="changeTab('firma-tab')">
+                    <a href="javascript:void(0)" [ngClass]="{
+                        'not-allowed':order_id==null,
+                        'active-tab':active_tab == 'firma-tab',
+                        'disabled-tab':active_tab != 'firma-tab'
+                     }">
+                        Firmas
+                    </a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--END OPTIONS-->
+
+<!--CONTENT-->
+<div class="row justify-content-center">
+    <div class="col-11 card content-container">
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!--END CONTENT-->

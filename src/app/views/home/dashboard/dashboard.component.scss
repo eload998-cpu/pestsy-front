@@ -1,0 +1,450 @@
+@use "src/app/shared/css/mixins" as *;
+
+.icon__item {
+  font-size: 1rem !important;
+}
+
+
+.pending-transaction-message {
+  border: 1px solid gainsboro;
+  padding: .5rem;
+  border-radius: 10px;
+}
+
+.loader-div {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  background-color: #e4e4e4;
+
+  @include respond(phone) {
+    width: 7rem;
+    height: 7rem;
+
+    border-radius: 50%;
+  }
+}
+
+.dashboard-message {
+  margin-left: auto;
+  margin-right: auto;
+
+  color: white;
+
+  &__title {
+    font-weight: bold !important;
+    text-decoration: underline;
+    text-align: center;
+
+    @include respond(phone) {
+      padding: 0 2rem !important;
+    }
+  }
+}
+
+.shimmer-effect {
+  color: grey;
+  display: inline-block;
+  /* adding gradients */
+  -webkit-mask: linear-gradient(120deg, #000 25%, #0005, #000 75%) right/250% 100%;
+  /* shimmer effect animation */
+  animation: shimmer 2s infinite;
+  background-repeat: no-repeat;
+  width: 150px;
+
+  @include respond(phone) {
+    width: 7rem;
+  }
+}
+
+.graphic-message {
+  font-weight: bold;
+}
+
+.no-data {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  border: 1px solid gainsboro;
+  background-color: #fff;
+  z-index: 10;
+
+  @include respond(phone) {
+    height: 50vh;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  img {
+    width: 10rem;
+    object-fit: cover;
+
+    @include respond(phone) {
+      width: 7rem;
+    }
+  }
+}
+
+.dashboard {
+  .icon__item {
+    @include respond(phone) {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__header {
+    height: 15vh;
+
+    @include respond(phone) {
+      height: 17vh !important;
+    }
+
+    &--green {
+      background-color: var(--color-green-active);
+    }
+
+    z-index: 1;
+
+    &__item {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      @include respond(phone) {
+        justify-content: center;
+        flex-direction: column !important;
+      }
+
+      @include respond(default-tablet) {
+        justify-content: center;
+      }
+
+      .button {
+        &__item {
+          border: var(--addOrder-dashboard-button-border-value);
+          padding: 0.8rem 2rem;
+          margin-right: 2.5rem;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          text-decoration: none;
+          background-color: #fff;
+          color: black;
+          transition: all 0.1s;
+
+          &:hover {
+            padding: 1rem 2rem;
+          }
+
+          @include respond(phone) {
+            margin-right: initial;
+          }
+
+          @include respond(default-tablet) {
+            margin-right: initial;
+          }
+        }
+      }
+    }
+  }
+
+  .renev-button {
+    border: var(--renew-dashboard-button-border-value);
+    padding: 0.8rem 2rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-decoration: none;
+    background-color: #fff;
+    color: black;
+    transition: all 0.1s;
+    border-radius: 8px;
+
+    @include respond(phone) {
+      margin-right: initial;
+    }
+
+    @include respond(default-tablet) {
+      margin-right: initial;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    margin-top: -1rem;
+    height: 25vh;
+    z-index: 10;
+
+    @include respond(phone) {
+      margin-top: 1rem;
+    }
+  }
+
+  .move-top {
+    margin-top: -1rem !important;
+  }
+
+  &__item {
+    width: 98%;
+    display: grid;
+    grid-template-columns: minmax(5rem, 2.5fr) minmax(5rem, 1fr);
+
+    @include respond(phone) {
+      grid-template-columns: minmax(19rem, 1fr);
+    }
+
+    @include respond(default-tablet) {
+      grid-template-columns: minmax(19rem, 1fr);
+    }
+
+    justify-items: center;
+
+    .graphic {
+      width: 100%;
+      border: 1px solid gainsboro;
+
+      @include respond(phone) {
+        grid-row: 2 / 2;
+      }
+
+      @include respond(default-tablet) {
+        grid-row: 2 / 2;
+      }
+    }
+
+    .graphic-dashboard {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      @include respond(phone) {
+        grid-row: 1 / 1;
+      }
+
+      @include respond(default-tablet) {
+        grid-row: 1 / 1;
+      }
+
+      &__total {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+      }
+
+      &__icon {
+        height: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+          &__item {
+            width: 100%;
+            height: 7vw;
+
+            @include respond(phone) {
+              height: 10vh;
+            }
+
+            @include respond(default-tablet) {
+              height: 10vh;
+            }
+          }
+        }
+      }
+
+      &__item {
+        border: 1px solid gainsboro;
+        background-color: #fff;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
+
+        width: 90%;
+      }
+
+      &__header {
+        display: flex;
+        justify-content: left;
+        margin-left: 1rem;
+
+        &--center {
+          justify-content: center !important;
+        }
+      }
+
+      .form {
+        display: grid;
+        justify-items: center;
+        width: 100%;
+        grid-template-columns: 1.7fr 1fr 1fr;
+
+        @include respond(phone) {
+          grid-template-columns: 1fr;
+        }
+
+        @include respond(default-tablet) {
+          grid-template-columns: 1fr;
+        }
+
+        &__item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 90%;
+
+          @include respond(phone) {
+            margin-top: 0.5rem;
+          }
+
+          @include respond(default-tablet) {
+            margin-top: 0.5rem;
+          }
+        }
+      }
+
+      .period-form {
+        display: grid;
+        justify-items: center;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+
+        @include respond(phone) {
+          grid-template-columns: 1fr !important;
+        }
+
+        @include respond(default-tablet) {
+          grid-template-columns: 1fr !important;
+        }
+
+        &__item {
+          width: 90%;
+
+          @include respond(phone) {
+            margin-top: 1rem;
+          }
+
+          @include respond(default-tablet) {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+
+    .tabs {
+      margin-top: 1rem;
+      margin-bottom: 4rem;
+      width: 100%;
+      display: grid;
+      grid-gap: 1rem;
+      justify-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+      &__item {
+        width: 100%;
+        border: 1px solid gainsboro;
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        @include respond(desktop) {
+          max-height: 23vh;
+        }
+      }
+
+      &__header,
+      .icon,
+      .total {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .icon {
+        background-color: var(--color-green-active);
+
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        border: var(--dashboard-icon-border-value);
+        padding: 1rem;
+
+        &__item {
+          color: #fff;
+          width: 1.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .plan {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid gainsboro;
+    width: 90%;
+    height: 110% !important;
+    border-radius: 12px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+    &__item {
+      width: 95%;
+      height: 98%;
+    }
+
+    @include respond(phone) {
+      height: 90% !important;
+      margin-bottom: 15rem !important;
+    }
+
+    color: #fff;
+    background: var(--renew-dashboard-div-bg-color);
+
+    &__header {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    &__content {
+      @include respond(desktop) {
+        padding: 0 1rem;
+      }
+
+      .content {
+        &__item {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+
+          @include respond(phone) {
+            grid-template-columns: 1fr !important;
+
+            & span {
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .action-icon {
+    @include respond(phone) {
+      width: 40%;
+    }
+
+    @include respond(default-tablet) {
+      width: 30%;
+    }
+  }
+}

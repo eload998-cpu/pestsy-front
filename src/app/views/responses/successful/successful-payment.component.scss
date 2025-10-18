@@ -1,0 +1,84 @@
+@use "src/app/shared/css/mixins" as *;
+
+
+.shimmer-effect {
+  color: grey;
+  display: inline-block;
+  /* adding gradients */
+  -webkit-mask: linear-gradient(120deg, #000 25%, #0005, #000 75%) right/250%
+    100%;
+  /* shimmer effect animation */
+  animation: shimmer 2s infinite;
+  background-repeat: no-repeat;
+  width: 150px;
+}
+
+.loader-div {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #e4e4e4;
+
+}
+
+body{
+  background-image: linear-gradient(to right bottom, #fffcff, #d5fefd);
+
+}
+
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-box{
+  background-image: linear-gradient(to right bottom, #fffcff, #d5fefd);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 31.25rem;
+  height: 31.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__tittle{
+    width: 80%;
+    text-align: center
+  }
+
+  &__icon{
+    display: flex;
+    justify-content: center;
+    img{
+      width: 90%;
+    }
+  }
+
+}
+
+
+.close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.2rem;
+  min-width: 7.5rem;
+  height: 3.1rem;
+  border-radius: 25px;
+  border: 1px solid #c2cee0;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.2;
+  opacity: 0.6;
+  transition: all 0.4s;
+}
+
+.close-btn:hover {
+  background-image: linear-gradient(to bottom, #fffcff, #d5fefd);
+  opacity: 1;
+}
+

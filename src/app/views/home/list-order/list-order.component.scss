@@ -1,0 +1,71 @@
+.hide{
+    opacity: 0;
+}
+
+.show{
+    opacity: 1;
+}
+
+button{
+    font-size: .9rem;
+}
+
+.order-tabs{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+
+    
+}
+
+.not-allowed{
+    cursor: not-allowed;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.active-tab{
+    opacity: 1 !important;
+
+}
+
+.disabled-tab{
+    opacity: .5;
+   
+}
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+
+.order-container{
+
+    &__nav{
+
+        .order-element{
+            border: 1px solid gainsboro;
+            height: 2.2rem;
+
+            &:hover{
+                background-color: ghostwhite;
+            }
+
+            &--small-text{
+                font-size: .8rem;
+            }
+        }
+    }
+}
+
+

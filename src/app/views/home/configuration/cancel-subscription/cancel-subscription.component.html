@@ -1,0 +1,97 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 mt-5 mt-2">
+
+        <div class="rowd-flex justify-content-center align-items-center bottom-margin">
+
+            <div class="col-11  form-row m-auto p-5">
+
+                <div class="row h-100">
+                    <div class="col-12">
+
+                        <div class="w-100 h-100 d-flex" style="align-items: center;">
+                            <div class="row ">
+
+                                <div class="col-12">
+
+                                    <p>
+                                        Cancelar suscripción y todos los pagos recurrentes, esta acción no es
+                                        reversible, así que por favor proceda con cautela.<br>
+
+
+                                        Una vez cancele su suscripción:
+                                    </p>
+
+                                    <ul class="mt-2">
+                                        <li>No se realizarán más cobros a su tarjeta o cuenta asignada</li>
+                                        <li>Una vez su plan expire, deberá adquirir uno nuevo manualmente</li>
+                                    </ul>
+
+
+                                </div>
+
+                                <div class="col-12">
+                                    <textarea class="form-control" required name="" #reasonField="ngModel"
+                                        [(ngModel)]="reason" id="reason"
+                                        [ngClass]="{ 'is-invalid': reasonField.invalid && reasonField.touched }"
+                                        placeholder="Motivo de la cancelación"></textarea>
+                                    <div *ngIf="reasonField.invalid && reasonField.touched"
+                                        class="invalid-feedback d-block">
+                                        Este campo es obligatorio.
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="w-100 d-flex justify-content-center">
+                                    <div class="col-12 col-xll-3 col-xl-3 col-sm-8 col-md-8 ">
+
+                                        <div class="d-flex w-100 justify-content-center">
+                                            <button [disabled]="reason==''" type="submit" class="form-btn"
+                                                (click)="onSubmit()">
+                                                <fa-icon [icon]="faClose" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Cancelar suscripción</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

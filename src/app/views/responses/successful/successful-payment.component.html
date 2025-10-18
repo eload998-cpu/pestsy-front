@@ -1,0 +1,23 @@
+<div class="container">
+
+    <div class="payment-box">
+
+        <div class="payment-box__tittle">
+            <h3>Suscripción completada con exito</h3>
+
+        </div>
+
+        <div class="payment-box__icon mt-5 mb-5">
+            <img 
+            src="assets/images/gifs/action-completed.gif" (load)="imageCompleted()" alt="">
+
+        <div class="loader-div shimmer-effect" *ngIf="!image_completed"></div>
+        </div>
+        <div class="payment-box__button">
+            <button class="close-btn" (click)="closeWindow()" type="button">Cerrar</button>
+        </div>
+
+  
+    </div>
+
+</div>

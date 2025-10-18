@@ -1,0 +1,99 @@
+<div class="subscriptions card">
+    <div class="subscriptions__container">
+
+
+        <div class="subscriptions__item mt-5 mt-xl-0 mt-xll-0  " id="premium_plan" *ngIf="premium_plan">
+            <div class="flip-card flip-card-2">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="plan-card__header">
+                            <div class="plan-card__picture plan-card__picture--3">
+                                &nbsp;
+                            </div>
+
+                            <div class="plan-card__title">
+                                <span
+                                    class="plan-card__header-span plan-card__header-span--3">{{premium_plan.name}}</span>
+                            </div>
+                        </div>
+
+                        <div class="plan-card__details">
+                            <ul>
+                                <li>Órdenes Ilimitadas</li>
+                                <li>Acceso completo a todas las funcionalidades de la app</li>
+                                <li>Comparta archivos y noticias con sus clientes</li>
+                                <li>Sus clientes podran consultar las ordenes de servicio</li>
+                                <li>Sus técnicos podrán crear ordenes de servicio para usted</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flip-card-back flip-card-back-3">
+                        <div class="flip-container">
+                            <div class="flip-price-label-container"><span class="price-label">Por tan solo</span></div>
+                            <div class="flip-price-value-container"><span
+                                    class="price-value">{{premium_plan.price}}$/mes</span></div>
+                            <div class="flip-price-button-container"><button
+                                    class="price-button price-button--white mt-3 mt-xl-0 mt-xll-0"
+                                    [disabled]="((this.authUser.subscription.name =='Premium') && this.authUser.active_subscription)"
+                                    routerLink="/home/suscripciones/pago/{{premium_plan.id}}">{{((this.authUser.subscription.name
+                                    =='Premium') && this.authUser.active_subscription)?"Adquirido":"Adquirir"}}</button>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--
+        <div class="subscriptions__item top-margin bottom-margin" id="fumigator_plan" *ngIf="fumigator_plan">
+            <div class="flip-card flip-card-1 mt-5 mt-xl-0 mt-xll-0">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <div class="plan-card__header">
+                        <div class="plan-card__picture plan-card__picture--2">
+                            &nbsp;
+                        </div>
+    
+                        <div class="plan-card__title">
+                            <span class="plan-card__header-span plan-card__header-span--2" >{{fumigator_plan.name}}</span>
+                        </div>
+                    </div>
+    
+                    <div class="plan-card__details  mt-xl-0 mt-xll-0">
+                        <ul>
+                            <li>300 Órdenes</li>
+                            <li>Almacenamiento Ilimitado</li>
+    
+                        </ul>
+                    </div>
+                  </div>
+                  <div class="flip-card-back flip-card-back-2">
+
+                    <div class="flip-container">
+                        <div class="flip-price-label-container"><span class="price-label">Por tan solo</span></div>
+                        <div class="flip-price-value-container"><span class="price-value">{{fumigator_plan.price}}$/mes</span></div>
+                        <div class="flip-price-button-container"><button class="price-button price-button--white mt-3 mt-xl-0 mt-xll-0" [disabled]="((this.authUser.subscription.name =='Fumigador') && this.authUser.active_subscription)" routerLink="/home/suscripciones/pago/{{fumigator_plan.id}}">{{((this.authUser.subscription.name =='Fumigador') && this.authUser.active_subscription)?"Adquirido":"Adquirir"}}</button></div>
+
+
+
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+
+        </div>
+        -->
+
+
+
+
+
+    </div>
+
+</div>

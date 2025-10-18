@@ -1,0 +1,76 @@
+<div class="row animate__animated animate__fadeIn  table-content">
+   
+  <div class="config-container">
+
+
+    <!--DELETE ACCOUNT-->
+    <div class="config-container__element" (click)="redirect('home/configuraciones/eliminar-cuenta')">
+        <div class="ms-0 ms-lg-3 ms-xl-3 ms-xll-3  mt-3 config-element__title">
+            <h6 class="bold-text">Eliminar cuenta
+            </h6>
+        </div>
+        <div class="config-element__description d-flex">
+            <div class="ms-0 ms-lg-3 ms-xl-3 ms-xll-3 description__item small-text">
+                Elimina la cuenta y toda tu información de la aplicación
+            </div>
+            <div class="me-5 icon__item">
+                <span class="icon ">
+                    <fa-icon class="arrow-icon" [icon]="faArrowRight "></fa-icon>
+
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--END DELETE ACCOUNT-->
+
+    <!--CANCEL SUBSCRIPTION-->
+    <div class="config-container__element" *ngIf="authUser.active_subscription" (click)="redirect('home/configuraciones/cancelar-suscripcion')">
+        <div class="ms-0 ms-lg-3 ms-xl-3 ms-xll-3 mt-3 config-element__title">
+            <h6 class="bold-text">Cancelar suscripción
+            </h6>
+        </div>
+        <div class="config-element__description d-flex">
+            <div class=" ms-0 ms-lg-3 ms-xl-3 ms-xll-3 description__item small-text">
+                Cancele su suscripción actual
+            </div>
+            <div class="me-5 icon__item">
+                <span class="icon ">
+                    <fa-icon class="arrow-icon" [icon]="faArrowRight "></fa-icon>
+
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--END CANCEL SUBSCRIPTION-->
+
+
+
+    
+    <!--RECURRING PAYMENTS
+    <div class="config-container__element" *ngIf="authUser.recurring_payment_url" (click)="redirect('home/configuraciones/pagos-recurrentes')">
+        <div class="mt-3 config-element__title">
+            <h6>Activar suscripción
+            </h6>
+        </div>
+        <div class="config-element__description d-flex">
+            <div class="description__item small-text">
+                Active su suscripcion y maneje sus pagos automaticamente
+            </div>
+            <div class="me-5 icon__item">
+                <span class="icon ">
+                    <fa-icon class="arrow-icon" [icon]="faArrowRight "></fa-icon>
+
+                </span>
+            </div>
+        </div>
+    </div>
+
+  END RECURRING PAYMENTS-->
+</div>
+</div>
+
+
+
+

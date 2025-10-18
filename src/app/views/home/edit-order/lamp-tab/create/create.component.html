@@ -1,0 +1,279 @@
+<div class="row  animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form [formGroup]="form_model" class="lamp-tab-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11  m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="station_number">Número de estación</label>
+                                        <input type="text" placeholder="Ej:LT-1 (Lampara trampa 1) "
+                                            stationCodeDirective maxlength="5" class="form-control"
+                                            formControlName="station_number">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="lamp_not_working">Lámpara en mal funcionamiento:</label>
+                                        <ng-select class="custom" [items]="options" bindLabel="name" bindValue="id"
+                                            formControlName="lamp_not_working" name="lamp_not_working">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="nombres">Se cambió plancha gomosa </label>
+                                        <div class="col-3 d-flex justify-content-start p-0 mt-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rubbery_iron_changed"
+                                                    formControlName="rubbery_iron_changed" id="rubbery_iron_changed_yes"
+                                                    value="yes">
+                                                <label class="form-check-label"
+                                                    for="rubbery_iron_changed_yes">Si</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rubbery_iron_changed"
+                                                    formControlName="rubbery_iron_changed" id="rubbery_iron_changed_no"
+                                                    value="no">
+                                                <label class="form-check-label" for="rubbery_iron_changed_no">No</label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="nombres">Limpieza de lámpara </label>
+                                        <div class="col-3 d-flex justify-content-start p-0 mt-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="lamp_cleaning"
+                                                    formControlName="lamp_cleaning" id="lamp_cleaning_yes" value="yes">
+                                                <label class="form-check-label" for="lamp_cleaning_yes">Si</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="lamp_cleaning"
+                                                    formControlName="lamp_cleaning" id="lamp_cleaning_no" value="no">
+                                                <label class="form-check-label" for="lamp_cleaning_no">No</label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="fluorescent_change">Cambio de fluorescente:</label>
+
+
+                                        <ng-select (change)="updateQuantityReplaced($event)" class="custom"
+                                            [items]="options" bindLabel="name" bindValue="id"
+                                            formControlName="fluorescent_change" name="fluorescent_change"
+                                            #fluorescent_change>
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3"
+                                    *ngIf="model_form_control.fluorescent_change.value=='yes'">
+                                    <div class="form-group">
+                                        <label for="fluorescent_change">Cantidad reemplazada</label>
+                                        <input type="text" pattern="\d*" maxlength="5" class="form-control"
+                                            name="quantity_replaced" id="quantity_replaced" class="form-control"
+                                            appOnlyNumber formControlName="quantity_replaced">
+
+                                        <div *ngIf="form_model.invalid" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                                invalid:
+                                                form_model.invalid
+                                              }">*</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="worker_id">Técnico que ejecuta </label>
+                                        <ng-select (input)="validateInput($event)" class="custom"
+                                            [addTag]="isOperator ? false :true"
+                                            addTagText="¿Desea añadir a este técnico?" (change)="addWorker($event)"
+                                            [items]="workers" bindLabel="full_name" bindValue="id"
+                                            formControlName="worker_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label class="application_time" for="application_time">Hora de
+                                            aplicación</label>
+                                        <timepicker id="application_time" formControlName="application_time">
+                                        </timepicker>
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="location_id">Ubicación</label>
+                                        <ng-select [items]="locations" [addTag]="true"
+                                            addTagText="¿Desea añadir esta ubicación?" (change)="addLocation($event)"
+                                            class="custom" bindLabel="name" bindValue="id" formControlName="location_id"
+                                            name="location_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-3">
+                                    <div class="form-group">
+                                        <label for="nombres">Producto</label>
+                                        <ng-select [items]="products" class="custom" bindLabel="name" bindValue="id"
+                                            [addTag]="true" addTagText="¿Desea añadir este producto?"
+                                            (change)="addProduct($event)" formControlName="product_id">
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-lg-3 col-xl-3 col-xll-3 mt-3">
+                                    <div class="form-group">
+                                        <div class="label-container">
+                                            <label for="within_critical_limits">Dentro de límites críticos
+                                            </label>
+                                        </div>
+
+                                        <div class="radio-container">
+
+                                            <div class="form-check form-check-inline">
+
+                                                <input class="form-check-input" type="radio"
+                                                    name="within_critical_limits"
+                                                    formControlName="within_critical_limits"
+                                                    id="within_critical_limits_yes" value="true">
+                                                <label class="form-check-label"
+                                                    for="within_critical_limits_yes">Si</label>
+
+
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+
+                                                <input class="form-check-input" type="radio"
+                                                    name="within_critical_limits"
+                                                    formControlName="within_critical_limits"
+                                                    id="within_critical_limits_no" value="false">
+                                                <label class="form-check-label"
+                                                    for="within_critical_limits_no">No</label>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-9 col-lg-9 col-xl-9 col-xll-9 mt-3">
+
+                                    <div class="form-group">
+                                        <label for="correctiveActions">Acciónes correctivas</label>
+                                        <ng-select [items]="correctiveActions" [addTag]="addCorrectiveAction"
+                                            [multiple]="true" addTagText="¿Desea añadir esta acción correctiva?"
+                                            class="custom" bindLabel="name" bindValue="id"
+                                            placeholder="Seleccione una o más acciones correctivas"
+                                            formControlName="corrective_actions">
+                                        </ng-select>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-12 col-xl-12 col-xll-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="fluorescent_change">Observación de la lámpara</label>
+                                        <textarea name="observation" maxlength="250" id="observation"
+                                            class="form-control" formControlName="observation"></textarea>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a (click)="goBack()" class="form-btn">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+                                                <span *ngIf="!is_mobile"> Volver</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="form-btn"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Guardar</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//MEDIA QUERY MANAGER
+/*
+
+0-600px     PHONE
+600 - 900px tablet portrait
+900 - 1200px  tablet landscape
+1200 -1800px desktop is where our normal styles apply
+1800px big desktop
+
+$breakpoint argument choices:
+-phone
+-tab-port
+-tab-land
+-big-desktop
+
+1em= 16px
+*/
+
+@mixin respond($breakpoint) {
+
+  @if $breakpoint ==extra-small-phone {
+    @media (max-width: 37.5em) and (max-height:41.69em) {
+      @content;
+
+    }
+  }
+
+  @if $breakpoint ==small-phone {
+    @media (max-width: 23.45em) {
+      //375px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==large-phone {
+    @media (max-width: 37.5em) and (min-height:48.75em) {
+      //890px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==phone {
+    @media (max-width: 38em) {
+      //600px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==tab-port {
+    @media (max-width: 56.25em) and (min-device-height: 56.25em) {
+      //900px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==tab-land {
+    @media (max-width: 75em) and (min-height: 62.5em) {
+      //1200px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==medium-tablet {
+    @media (min-width: 56.25em) and (max-height: 37.5625em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==default-tablet {
+    @media (max-width: 56.25em) and (min-device-height: 56.25em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==small-desktop {
+    @media (max-width: 64em) and (max-height: 48em) {
+      //1024
+      @content;
+    }
+  }
+
+  @if $breakpoint ==desktop {
+    @media (min-width: 80em) {
+      //1200px
+      @content;
+    }
+  }
+
+  @if $breakpoint ==big-desktop {
+    @media (min-width: 112.5em) {
+      //1800px
+      @content;
+    }
+  }
+}

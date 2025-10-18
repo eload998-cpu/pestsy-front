@@ -1,0 +1,93 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+        <div class="col-11">
+
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl-6 col-xll-6 text-center-mobile">
+                    <div class="header" >
+
+                        <h6 class="bold-text">CONTACTO</h6>
+                       
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 mt-5 mt-2">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+        <form action="" #Form  id="create-form" (ngSubmit)="onSubmit()">
+
+        <div class="col-11  form-row m-auto p-5">
+
+            <div class="row contact-text-container">
+                
+                <div class="col-12 contact-text-container__element p-0" style="text-align: left;">
+                    <p>
+                        Comuníquese con nuestro equipo a través de este formulario para resolver cualquier duda o problema que presente.<br> Nos comunicaremos con usted lo más pronto posible a su correo electrónico
+
+                    </p>
+
+                </div>
+
+                <div class="col-12 mt-2 contact-text-container__element">
+                    <ul >
+                        <li>Soporte : support&#64;castilloapp.com</li>
+                        <li>Whatsapp : +584125134669</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 p-0">
+                    <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="model.editorData" ></ckeditor>
+
+                </div>
+
+            </div>
+
+
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-end  mb-justify">
+                        <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                            <div class="row d-flex justify-content-end mb-justify">
+                                
+                             
+                                <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                    <button 
+                                    type="submit" 
+                                    class="form-btn"
+                                    [disabled]="model.editorData =='' || sendingForm">
+                                        <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+            
+                                        <span
+                                        *ngIf="!is_mobile"
+                                        > Enviar</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        </form>
+        </div>
+    </div>
+</div>

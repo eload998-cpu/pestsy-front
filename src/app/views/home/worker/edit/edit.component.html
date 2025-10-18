@@ -1,0 +1,292 @@
+<div class="row">
+
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-6 col-xll-6 text-center-mobile">
+                        <div class="header">
+
+                            <h6 class="bold-text">EDITAR TÉCNICO</h6>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-12 mt-5 mt-2">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form action="" #Form [formGroup]="form_model" id="create-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11  form-row m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombres</label>
+                                        <input type="text" class="form-control" id="nombres"
+                                            formControlName="first_name" name="first_name" maxlength="20"
+                                            appOnlyLetters>
+
+                                        <div *ngIf="model_form_control.first_name.invalid &&
+                                    model_form_control.first_name.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.first_name.invalid &&
+                                          model_form_control.first_name.touched
+                                      }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Apellidos</label>
+                                        <input type="text" class="form-control" id="last_name"
+                                            formControlName="last_name" name="last_name" maxlength="20" appOnlyLetters>
+
+                                        <div *ngIf="model_form_control.last_name.invalid &&
+                                    model_form_control.last_name.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.last_name.invalid &&
+                                          model_form_control.last_name.touched
+                                      }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Fecha de ingreso</label>
+                                        <input type="text" class="form-control" id="date"  class="form-control"
+                                            [(bsValue)]="bsValue" name="date" bsDatepicker>
+
+                                        <div *ngIf="model_form_control.date.invalid &&
+                                        model_form_control.date.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                            invalid:
+                                            model_form_control.date.invalid &&
+                                            model_form_control.date.touched
+                                        }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="identification_type">Tipo de identificación</label>
+                                        <select class="form-control" name="identification_type" id="identification_type"
+                                            formControlName="identification_type">
+                                            <option value="physical_id">Cedula Fisica</option>
+                                            <option value="legal_id">Cedula Jurídica</option>
+
+                                        </select>
+
+                                        <div *ngIf="model_form_control.identification_type.invalid &&
+                                model_form_control.identification_type.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.identification_type.invalid &&
+                                      model_form_control.identification_type.touched
+                                  }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Número de identificación</label>
+                                        <input type="text" class="form-control" id="identification_number"
+                                            formControlName="identification_number" appOnlyNumber maxlength="30"
+                                            name="identification_number">
+
+                                        <div *ngIf="model_form_control.identification_number.invalid &&
+                                    model_form_control.identification_number.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                        invalid:
+                                          model_form_control.identification_number.invalid &&
+                                          model_form_control.identification_number.touched
+                                      }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4">
+                                    <label for="email">Email</label>
+
+                                    <input type="text" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                                        class="form-control" id="email" formControlName="email" name="email"
+                                        maxlength="30" [readonly]="readOnly">
+
+                                    <div *ngIf="model_form_control.email.invalid &&
+                                model_form_control.email.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.email.invalid &&
+                                      model_form_control.email.touched
+                                  }">*</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-2">
+                                    <label for="cellphone">Teléfono</label>
+                                    <input type="text" class="form-control" id="cellphone" formControlName="cellphone"
+                                        name="cellphone" maxlength="30" appOnlyNumber>
+                                    <div *ngIf="model_form_control.cellphone.invalid &&
+                                model_form_control.cellphone.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.cellphone.invalid &&
+                                      model_form_control.cellphone.touched
+                                  }">*</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-2">
+                                    <label for="certification_title">Titulo del certificado</label>
+
+                                    <input type="text" class="form-control" id="certification_title"
+                                        formControlName="certification_title" name="certification_title"
+                                        maxlength="50">
+
+                                    <div *ngIf="model_form_control.certification_title.invalid &&
+                                model_form_control.certification_title.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.certification_title.invalid &&
+                                      model_form_control.certification_title.touched
+                                  }">*</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-2">
+                                    <div class="form-group">
+                                        <label for="certification_date">Fecha de certificación</label>
+                                        <input type="text" class="form-control" id="certification_date"
+                                            class="form-control" name="date"
+                                             [(bsValue)]="bsCertificationDate"
+                                            bsDatepicker>
+
+                                        <div *ngIf="model_form_control.certification_date.invalid &&
+                                        model_form_control.certification_date.touched" class="message-container mt-2">
+                                            Este campo es requerido
+                                            <span [ngClass]="{
+                                            invalid:
+                                            model_form_control.certification_date.invalid &&
+                                            model_form_control.certification_date.touched
+                                        }">*</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-2">
+                                    <label for="certifying_entity">Institución que certifica</label>
+
+                                    <input type="text" class="form-control" id="certifying_entity"
+                                        formControlName="certifying_entity" name="certifying_entity" maxlength="50">
+
+                                    <div *ngIf="model_form_control.certifying_entity.invalid &&
+                                model_form_control.certifying_entity.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.certifying_entity.invalid &&
+                                      model_form_control.certifying_entity.touched
+                                  }">*</span>
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xll-4 mt-2">
+                                    <label for="direccion">Dirección</label>
+
+                                    <textarea class="form-control" id="direction" formControlName="direction"
+                                        name="direction" maxlength="200"></textarea>
+                                    <div *ngIf="model_form_control.direction.invalid &&
+                                model_form_control.direction.touched" class="message-container mt-2">
+                                        Este campo es requerido
+                                        <span [ngClass]="{
+                                    invalid:
+                                      model_form_control.direction.invalid &&
+                                      model_form_control.direction.touched
+                                  }">*</span>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a routerLink="/home/obreros" class="form-btn">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Volver</span>
+
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="form-btn"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                <span *ngIf="!is_mobile"> Guardar</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

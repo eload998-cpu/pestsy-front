@@ -1,0 +1,376 @@
+<div class="row profile-container">
+    <form action="" #registerForm [formGroup]="form_model" id="profile-form" (ngSubmit)="onSubmit()">
+
+        <div class="col-12">
+
+            <div class="row">
+
+
+                <div class="cover-background w-100 d-flex">
+
+                    <div class="pointer close-container" (click)="CloseProfile()">
+                        <fa-icon class="" [icon]="faTimes"></fa-icon>
+
+                    </div>
+
+                    <!--USER-->
+                    <div class="col-12 avatar-container d-flex align-items-center justify-content-center animate__animated animate__fadeIn"
+                        *ngIf="tab=='user'">
+                        <div class="avatar">
+                            <img class="rounded-circle w-100 h-100 avatar-image" *ngIf="!authUser.company.logo_src"
+                                [ngClass]="{
+                                    'hide':!image_completed
+                                }" (load)="imageCompleted()" src="assets/images/profile-user-2.svg" alt="" #profilePic>
+
+                            <img class="rounded-circle w-100 h-100 " *ngIf="authUser.company.logo_src"
+                                [src]="authUser.company.logo_src" [ngClass]="{
+                                    'hide':!image_completed
+                                }" (load)="imageCompleted()" alt="" #profilePic>
+
+                            <div class="loader-div shimmer-effect" *ngIf="!image_completed"></div>
+
+                        </div>
+
+                        <div class="pointer add-icon-wrapper mt-2">
+                            <fa-icon class="icon-m add-icon" (click)="fileUpload.click()" [icon]="faPlus"></fa-icon>
+
+                            <input #fileUpload type="file" (click)="fileUpload.value = ''" (change)="uploadFile($event)"
+                                style="display:none" accept="image/*">
+
+
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-12 text-center mt-3 name-column">
+
+
+                                <div>
+                                    <span class="small-header">
+                                        {{model_form_control.first_name.value}}
+
+                                    </span>
+
+                                </div>
+
+                                <div>
+
+                                    <span class="logout-size" (click)="logout()">
+
+                                        <fa-icon class="icon-m add-icon me-1" [icon]="faSignOut"></fa-icon>
+                                        Cerrar sesión
+
+                                    </span>
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                    <!--END USER-->
+
+                    <!--COMPANY-->
+                    <div class="col-12 avatar-container d-flex align-items-center justify-content-center animate__animated animate__fadeIn"
+                        *ngIf="tab!='user'">
+                        <div class="avatar">
+                            <img class="rounded-circle w-100 h-100 avatar-image" *ngIf="!authUser.company.logo_src"
+                                src="assets/images/profile-user-2.svg" [ngClass]="{
+                                    'hide':!image_company_completed
+                                }" (load)="imageCompanyCompleted()" alt="" #companyPic>
+
+                            <img class="rounded-circle w-100 h-100 " *ngIf="authUser.company.logo_src"
+                                [src]="authUser.company.logo_src" [ngClass]="{
+                                    'hide':!image_company_completed
+                                }" (load)="imageCompanyCompleted()" alt="" #companyPic>
+
+                            <div class="loader-div shimmer-effect" *ngIf="!image_company_completed"></div>
+
+                        </div>
+
+                        <div class="pointer add-icon-wrapper mt-2">
+                            <fa-icon class="icon-m add-icon" (click)="fileUploadCompany.click()"
+                                [icon]="faPlus"></fa-icon>
+
+                            <input #fileUploadCompany type="file" (click)="fileUploadCompany.value = ''"
+                                (change)="uploadFileCompany($event)" style="display:none" accept="image/*">
+
+
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-12 text-center mt-3 name-column">
+                                <div>
+                                    <span class="small-header">
+                                        {{model_form_control.company_name.value | titleCase }}
+
+                                    </span>
+
+                                </div>
+
+                                <div>
+
+                                    <span class="logout-size" (click)="logout()">
+
+                                        <fa-icon class="icon-m add-icon me-1" [icon]="faSignOut"></fa-icon>
+                                        Cerrar sesión
+
+                                    </span>
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                    <!--END COMPANY-->
+
+                </div>
+
+                <div class="col-12 tab-row"
+                    *ngIf="_authUserService.hasRole('fumigator') || _authUserService.hasRole('administrator') || _authUserService.hasRole('super_administrator')">
+                    <div class="row">
+                        <div [ngClass]="{'disabled-tab':tab=='company'}"
+                            class="col-6 d-flex justify-content-center  align-items-center  tab-row__tab p-0"
+                            (click)="changeTab('user')">
+                            <span class="">
+
+                                <!--USERS-->
+                                <a href="javascript:void(0)" class="tab-row--small-text">
+                                    <fa-icon class="icon__item" [icon]="faUsers"></fa-icon>
+                                </a>
+                            </span>
+                        </div>
+
+                        <div [ngClass]="{'disabled-tab':tab=='user'}"
+                            class="col-6 d-flex justify-content-center  align-items-center  tab-row__tab p-0 "
+                            (click)="changeTab('company')">
+                            <span class="">
+
+                                <!--COMPANIES-->
+                                <a href="javascript:void(0)" class="tab-row--small-text">
+                                    <fa-icon class="icon__item" [icon]="faBuilding"></fa-icon>
+                                </a>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--USER-->
+            <div class="row profile-content animate__animated animate__fadeIn" [hidden]="tab=='company'">
+
+                <div class="col-11 form-content mt-4">
+                    <div class="form-group">
+                        <label class="global-form-label" for="first_name">Nombre:</label>
+                        <input type="text" class="form-control" id="first_name" formControlName="first_name"
+                            name="first_name" maxlength="20" appOnlyLetters>
+
+                        <div *ngIf="model_form_control.first_name.invalid &&
+                        model_form_control.first_name.touched" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.first_name.invalid &&
+                              model_form_control.first_name.touched
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label class="global-form-label" for="last_name">Apellido:</label>
+                        <input type="text" class="form-control" id="last_name" formControlName="last_name"
+                            name="last_name" maxlength="20" appOnlyLetters>
+
+                        <div *ngIf="model_form_control.last_name.invalid &&
+                        model_form_control.last_name.touched" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.last_name.invalid &&
+                              model_form_control.last_name.touched
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label class="global-form-label" for="email">Correo:</label>
+                        <input type="text" maxlength="30" class="form-control" id="email" formControlName="email"
+                            name="email">
+
+                        <div *ngIf="model_form_control.email.status =='INVALID'" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.email.status == 'INVALID'
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label class="global-form-label" for="cellphone">Teléfono:</label>
+                        <input type="text" appOnlyNumber maxlength="30" class="form-control" id="cellphone"
+                            formControlName="cellphone" name="cellphone">
+
+
+                        <div *ngIf="model_form_control.cellphone.invalid &&
+                        model_form_control.cellphone.touched" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.cellphone.invalid &&
+                              model_form_control.cellphone.touched
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-2 password-container">
+
+                        <span class="icon-password" (click)="showPassword()">
+                            <fa-icon [icon]="faEye" class="icon-m"></fa-icon>
+                        </span>
+                        <label class="global-form-label" for="password">Contraseña:</label>
+                        <input [type]="displayPassword ? 'text':'password'" class="form-control" id="password" formControlName="password"
+                            name="password">
+
+                     
+                    </div>
+
+                    <div class="form-group mt-2 password-container">
+
+                        <span class="icon-password" (click)="showConfirmPassword()">
+                            <fa-icon [icon]="faConfirmEye" class="icon-m"></fa-icon>
+                        </span>
+                        <label class="global-form-label" for="password_confirmation">Repetir contraseña:</label>
+                        <input [type]="displayConfirmPassword ? 'text':'password'" class="form-control" id="password_confirmation"
+                            formControlName="password_confirmation" name="password_confirmation">
+                        
+                        <span *ngIf="passwordMatchError" class="small-text float-start">Las contraseñas no
+                            coinciden<span [ngClass]="{
+                                invalid:
+                                passwordMatchError
+                              }">*</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group mt-2 mt-5 profile-submit-content">
+                        <div class="row d-flex store-button-container">
+                            <div class="col-12 col-xl-7 col-xll-7 store-button-container__div ">
+                                <button [disabled]="passwordMatchError" type="submit" class="form-btn profile-save-btn">
+                                    <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                    <span *ngIf="!is_mobile"> Guardar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!--END USER-->
+
+            <!--COMPANY-->
+            <div class="row profile-content animate__animated animate__fadeIn" [hidden]="tab=='user'">
+
+                <div class="col-11 form-content mt-4">
+                    <div class="form-group">
+                        <label class="global-form-label" for="company_name">Compañía:</label>
+                        <input type="text" maxlength="20" class="form-control" id="company_name"
+                            formControlName="company_name" name="company_name">
+
+                        <div *ngIf="model_form_control.company_name.invalid &&
+                        model_form_control.company_name.touched" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.company_name.invalid &&
+                              model_form_control.company_name.touched
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="global-form-label" for="company_name">Email:</label>
+                        <input type="text" class="form-control" id="company_name" formControlName="company_email"
+                            name="company_email">
+
+                        <div *ngIf="model_form_control.company_email.status == 'INVALID'"
+                            class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.company_email.status == 'INVALID'
+                          }">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="global-form-label" for="company_phone">Teléfono:</label>
+                        <input type="text" appOnlyNumber class="form-control" maxlength="30" id="company_phone"
+                            formControlName="company_phone" name="company_phone">
+
+                        <div *ngIf="model_form_control.company_phone.status =='INVALID'" class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.company_phone.status == 'INVALID'}">*</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="global-form-label" for="company_direction">Dirección:</label>
+
+                        <textarea class="form-control" maxlength="100" name="company_direction" id="company_direction"
+                            formControlName="company_direction"></textarea>
+
+                        <div *ngIf="model_form_control.company_direction.status == 'INVALID'"
+                            class="message-container mt-2">
+                            Este campo es requerido
+                            <span [ngClass]="{
+                            invalid:
+                              model_form_control.company_direction.status =='INVALID'
+                          }">*</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group mt-2 mt-5 profile-submit-content">
+                        <div class="row d-flex store-button-container">
+                            <div class="col-12 col-xl-7 col-xll-7 store-button-container__div">
+                                <button type="submit" class="form-btn profile-save-btn">
+                                    <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+                                    <span *ngIf="!is_mobile"> Guardar</span>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!--END COMPANY-->
+        </div>
+
+    </form>
+</div>

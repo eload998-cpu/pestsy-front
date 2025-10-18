@@ -1,0 +1,51 @@
+<div class="row  animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+       
+
+            <form [formGroup]="form_model" class="files-tab-form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <!-- Progress Bar -->
+                  <div class="col-md-12  mt-2 animate__animated animate__fadeIn" *ngIf="progress">
+                    <div class="progress form-group">
+                      <div
+                        class="progress-bar progress-bar-striped bg-success"
+                        role="progressbar"
+                        [style.width.%]="progress"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div
+                      class="fileupload mt-5"
+                      appDragDropFileUpload
+                      (click)="fileField.click()"
+                      (fileDropped)="upload($event)"
+                    >
+                      <span class="ddinfo">Suelta aqui tus archivos</span>
+                      <input
+                        type="file"
+                        name="files[]"
+                        #fileField
+                        (change)="upload($any($event).target.files)"
+                        hidden
+                        multiple
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="image-list  animate__animated animate__fadeIn" *ngFor="let file of fileArr; let i = index">
+                      <div class="profile">
+                        <img [src]="sanitize(file['url'])" alt="" />
+                      </div>
+                      <p>{{ file.item.name }}</p>
+                    </div>
+                    <p class="message">{{ msg }}</p>
+                  </div>
+                </div>
+              </form>
+        </div>
+    </div>
+</div>

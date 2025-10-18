@@ -1,0 +1,62 @@
+<div class="row d-flex justify-content-center" id="container">
+
+
+    <div
+        class=" col-10 col-md-6 col-lg-5 col-xl-4 col-xxl-3 login-form mt-3 mb-3 mt-lg-0 mt-xl-0 mt-xll-0 mb-lg-0 mb-xl-0 mb-xll-0 ">
+        <form action="" id="login-form">
+
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center login-form__avatar-row">
+                    <div class="rounded-div d-flex justify-content-center align-items-center">
+                        <img *ngIf="currentTheme=='light'" [ngClass]="{
+                            'hide':!login_completed
+                        }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo.webp" class="avatar"
+                            alt="">
+
+                        <img *ngIf="currentTheme=='dark'" [ngClass]="{
+                                'hide':!login_completed
+                            }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo-black.webp"
+                            class="avatar" alt="">
+                        <div class="loader-div shimmer-effect" *ngIf="!login_completed"></div>
+
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="">
+                        <h6 class="text-center login-form__title">Bienvenido {{user_name}}</h6>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-12 mt-4 ">
+
+                <div class="text-center mt-3">
+                    <span>Ingresando...</span>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="row login-form__content d-flex justify-content-center mb-5">
+                <div class="col-10">
+                    <div class="text-center mt-3">
+                        <img style="width: 20%;" src="assets/images/pre-loader.gif" alt="">
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+
+
+    </div>
+</div>

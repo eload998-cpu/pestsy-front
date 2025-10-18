@@ -1,0 +1,141 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row d-flex justify-content-end">
+
+
+                    <div class="col-6">
+                        <div class="buttons text-center">
+
+
+                            <a routerLink="nuevo" class="custom-btn">
+                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+                                <span class="btn-text">Nuevo</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="row animate__animated animate__fadeIn">
+
+    <div class="col-12 table-container">
+
+        <div class="row d-flex justify-content-center ">
+            <div class="col-11 table-container__content">
+                <div class="wrapper">
+                    <div class="Rtable  Rtable--collapse">
+                        <div class="Rtable-row Rtable-row--head">
+                            <div class="Rtable-cell head-cell column-heading">
+
+                                <div class="column-heading__container d-flex">
+                                    <div class="column-heading__title">
+                                        <span>NOMBRE</span>
+                                    </div>
+                                    <div class="column-heading__sort d-flex">
+                                        <div class="column-heading__up d-flex justify-content-center ms-3"
+                                            (click)="sort('name','ASC',$event)">
+                                            <img src="assets/icons/svg/up-arrow.svg"
+                                                class="arrow-icon pointer order-arrow selected">
+
+                                        </div>
+                                        <div class="column-heading__down d-flex justify-content-center ms-2"
+                                            (click)="sort('name','DESC',$event)">
+                                            <img src="assets/icons/svg/down-arrow.svg"
+                                                class="arrow-icon pointer order-arrow unselected">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div 
+                            *ngIf="canShowAction()"
+                            class="Rtable-cell action-cell column-heading">ACCIÓN</div>
+                        </div>
+                        <ng-container *ngIf="records.length; else noData">
+                            <div class="Rtable-row animate__animated animate__fadeIn"
+                                *ngFor="let record of records; let i = index">
+                                <div class="Rtable-cell head-cell ">
+                                    <div class="Rtable-cell--heading">NOMBRE</div>
+
+                                    <div class="Rtable-cell--content">
+
+                                        <div class="title d-flex justify-content-center">
+
+                                            <span>Nombre</span>
+                                        </div>
+                                        <div class="content d-flex justify-content-center">
+
+                                            <span> {{record.name}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div 
+                                *ngIf="canShowAction()"
+
+                                class="Rtable-cell action-cell d-flex justify-content-center">
+                                    <div class="Rtable-cell--heading">ACCIÓN</div>
+
+                                    <div class="Rtable-cell--content action-content d-flex  justify-content-center">
+                                        <div class="title title--action d-flex justify-content-center">
+                                            <span>ACCIÓN</span>
+
+                                        </div>
+
+                                        <div class="action__container">
+
+                                            <div class="">
+                                                <button (click)="delete(record.id,paginate_data.current_page,paginate_data.data.length)" class="action-icon">
+                                                    <fa-icon [icon]="faTrash" class="icon-m" title="Eliminar"></fa-icon>
+
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row paginator_type_desktop">
+    <div class="col-12">
+        <app-paginator [data]="paginate_data" (page)="getPage($event)"></app-paginator>
+    </div>
+</div>
+
+<ng-template #noData>
+    <div class="Rtable-row animate__animated animate__fadeIn">
+        <div class="no-data">
+            <span>No hay registros</span>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,1562 @@
+<div class="row animate__animated animate__fadeIn">
+    <form [formGroup]="form_model" #formElement class="order-tab-form" id="order-tab-form" (ngSubmit)="onSubmit()">
+
+        <div class="col-12">
+
+            <!--ORDER DATA-->
+            <div class="row p-5">
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+
+                        <!--Step 1 and 2-->
+
+                        <app-tour *ngIf="!is_mobile && tourStep == 1 && showTutorial" [step]="1"
+                            [componentName]="'create-order'"
+                            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                            [text]="'Seleccione el tipo de servicio que desea realizar'"
+                            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)"
+                            [showPrevButton]="false">
+                        </app-tour>
+
+                        <app-tour *ngIf="!is_mobile && tourStep == 2 && showTutorial" [step]="2"
+                            [componentName]="'create-order'"
+                            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                            [text]="'El formulario cambiará según el tipo de servicio que seleccione, en este caso realizará un servicio de fumigación'"
+                            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                        </app-tour>
+
+
+                        <app-mobile-tour *ngIf="is_mobile && tourStep == 1 && showTutorial" [step]="1"
+                            [componentName]="'create-order'"
+                            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                            [text]="'Seleccione el tipo de servicio que desea realizar'"
+                            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)"
+                            [showPrevButton]="false">
+                        </app-mobile-tour>
+
+                        <app-mobile-tour *ngIf="is_mobile && tourStep == 2 && showTutorial" [step]="2"
+                            [componentName]="'create-order'"
+                            [classes]="['list__tutorial','tutorial','tutorial__item','show-tutorial','fumigation-tab__1']"
+                            [text]="'El formulario cambiará según el tipo de servicio que seleccione, en este caso realizará un servicio de fumigación'"
+                            [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                        </app-mobile-tour>
+
+                        <!--End Step 1 and 2-->
+                        <label for="service_type">Tipo de servicio</label>
+
+                        <select class="form-control" (change)="updateOrderType($event)" name="service_type"
+                            id="service_type" formControlName="service_type">
+                            <option *ngFor="let service_type of service_types" [value]="service_type.value">
+                                {{service_type.value}}
+                            </option>
+                        </select>
+
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="date">Fecha</label>
+                        <input type="text" class="form-control" id="date" id="date" class="form-control"
+                            [(bsValue)]="bsValue" name="date" bsDatepicker
+                            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="order_number">Orden de servicio</label>
+                        <input type="text" class="form-control" id="order_number" formControlName="order_number"
+                            name="order_number" readonly>
+
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="origin">Procedencia</label>
+                        <input type="text" class="form-control" id="origin" maxlength="30" formControlName="origin"
+                            name="origin">
+
+
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="direction">Dirección</label>
+
+                        <input type="text" class="form-control" maxlength="50" id="direction"
+                            formControlName="direction" name="direction">
+
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="client_id">Cliente</label>
+                        <ng-select (input)="validateInput($event)" class="custom" [items]="clients" [addTag]="true"
+                            addTagText="¿Desea añadir este cliente?" (change)="addClient($event)" bindLabel="full_name"
+                            bindValue="id" formControlName="client_id">
+                        </ng-select>
+
+
+                    </div>
+
+                    <div *ngIf="model_form_control.client_id.invalid &&
+                model_form_control.client_id.touched" class="message-container mt-2">
+                        Este campo es requerido
+                        <span [ngClass]="{
+                    invalid:
+                      model_form_control.client_id.invalid &&
+                      model_form_control.client_id.touched
+                  }">*</span>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label for="worker_id">Coordinado por</label>
+                        <ng-select (input)="validateInput($event)" class="custom" [addTag]="isOperator ? false : true"
+                            addTagText="¿Desea añadir a este técnico?" (change)="addWorker($event)" [items]="workers"
+                            bindLabel="full_name" bindValue="id" formControlName="worker_id">
+                        </ng-select>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3 d-none d-xl-block d-lg-block d-sm-block">
+                    <div class="form-group">
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label class="arrive_time" for="arrive_time">Hora de llegada</label>
+                        <timepicker id="arrive_time" formControlName="arrive_time"></timepicker>
+
+
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label class="start_time" for="start_time">Hora de inicio</label>
+                        <timepicker id="start_time" formControlName="start_time"></timepicker>
+
+
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3">
+                    <div class="form-group">
+                        <label class="end_time" for="end_time">Hora de salida</label>
+                        <timepicker id="end_time" formControlName="end_time"></timepicker>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+            <!--END ORDER DATA-->
+
+
+            <!--EXTERNAL CONDITIONS-->
+
+            <div class="row p-5" formGroupName="external_conditions" *ngIf="order_type=='General'">
+                <div class="col-12 sub-header-row p-3">
+                    <div class="section-title" style="justify-content: center !important;">
+
+                        <span class="medium-header">
+                            INFORMACIÓN
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-4 text-center p-0">
+                            <span class="info-content"><b>C: CUMPLE</b></span>
+                        </div>
+                        <div class="col-4 text-center p-0">
+                            <span class="info-content"><b> N/C: NO CUMPLE</b></span>
+                        </div>
+
+                        <div class="col-4 text-center p-0">
+                            <span class="info-content"><b>N/A: NO APLICA</b> </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5">
+                    <div class="section-title text-center">
+                        <span class="medium-header">
+                            REPORTE DE CONDICIONES EXTERNAS
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="machine-box text-label" for="machine">
+                        Maquinaria obsoleta
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 machine-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="obsolete_machinery"
+                            formControlName="obsolete_machinery" id="obsolete_machinery_yes" value="comply">
+                        <label class="form-check-label" for="obsolete_machinery_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="obsolete_machinery"
+                            formControlName="obsolete_machinery" id="obsolete_machinery_no" value="no comply">
+                        <label class="form-check-label" for="obsolete_machinery_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="obsolete_machinery"
+                            formControlName="obsolete_machinery" id="obsolete_machinery_no_apply" value="no apply">
+                        <label class="form-check-label" for="obsolete_machinery_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="sewer_system-box text-label" for="sewer_system">
+                        Drenajes en buen estado
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 sewer_system-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sewer_system" formControlName="sewer_system"
+                            id="sewer_system_yes" value="comply">
+                        <label class="form-check-label" for="sewer_system_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sewer_system" formControlName="sewer_system"
+                            id="sewer_system_no" value="no comply">
+                        <label class="form-check-label" for="sewer_system_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sewer_system" formControlName="sewer_system"
+                            id="sewer_system_no_apply" value="no apply">
+                        <label class="form-check-label" for="sewer_system_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="debris-box text-label" for="debris">
+                        Escombros
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-3  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 debris-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="debris" formControlName="debris"
+                            id="debris_yes" value="comply">
+                        <label class="form-check-label" for="debris_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="debris" formControlName="debris"
+                            id="debris_no" value="no comply">
+                        <label class="form-check-label" for="debris_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="debris" formControlName="debris"
+                            id="debris_no_apply" value="no apply">
+                        <label class="form-check-label" for="debris_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="green_areas-box text-label" for="green_areas">
+                        Mantenimiento de áreas verdes
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 green_areas-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="green_areas" formControlName="green_areas"
+                            id="green_areas_yes" value="comply">
+                        <label class="form-check-label" for="green_areas_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="green_areas" formControlName="green_areas"
+                            id="green_areas_no" value="no comply">
+                        <label class="form-check-label" for="green_areas_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="green_areas" formControlName="green_areas"
+                            id="green_areas_no_apply" value="no apply">
+                        <label class="form-check-label" for="green_areas_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="containers-box text-label" for="containers">
+                        Contenedores de basura cerrados
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 containers-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="containers" formControlName="containers"
+                            id="containers_yes" value="comply">
+                        <label class="form-check-label" for="containers_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="containers" formControlName="containers"
+                            id="containers_no" value="no comply">
+                        <label class="form-check-label" for="containers_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="containers" formControlName="containers"
+                            id="containers_no_apply" value="no apply">
+                        <label class="form-check-label" for="containers_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="waste-box text-label" for="waste">
+                        Manejo de basura
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 waste-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="waste" formControlName="waste" id="waste_yes"
+                            value="comply">
+                        <label class="form-check-label" for="waste_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="waste" formControlName="waste" id="waste_no"
+                            value="no comply">
+                        <label class="form-check-label" for="waste_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="waste" formControlName="waste"
+                            id="waste_no_apply" value="no apply">
+                        <label class="form-check-label" for="waste_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="spotlights-box text-label" for="spotlights">
+                        Focos de contaminación en áreas externas
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 spotlights-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spotlights" formControlName="spotlights"
+                            id="spotlights_yes" value="comply">
+                        <label class="form-check-label" for="spotlights_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spotlights" formControlName="spotlights"
+                            id="spotlights_no" value="no comply">
+                        <label class="form-check-label" for="spotlights_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spotlights" formControlName="spotlights"
+                            id="spotlights_no_apply" value="no apply">
+                        <label class="form-check-label" for="spotlights_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="nesting-box text-label" for="nesting">
+                        Lugares de anidación para plagas
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 nesting-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="nesting" formControlName="nesting"
+                            id="nesting_yes" value="comply">
+                        <label class="form-check-label" for="nesting_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="nesting" formControlName="nesting"
+                            id="nesting_no" value="no comply">
+                        <label class="form-check-label" for="nesting_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="nesting" formControlName="nesting"
+                            id="nesting_no_apply" value="no apply">
+                        <label class="form-check-label" for="nesting_no_apply">N/A</label>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="product_storage-box text-label" for="product_storage">
+                        Productos almacenados en área segura, ventilada y señalizada.
+
+                    </label>
+                </div>
+
+                <div
+                    class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 product_storage-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="product_storage"
+                            formControlName="product_storage" id="product_storage_yes" value="comply">
+                        <label class="form-check-label" for="product_storage_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="product_storage"
+                            formControlName="product_storage" id="product_storage_no" value="no comply">
+                        <label class="form-check-label" for="product_storage_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="product_storage"
+                            formControlName="product_storage" id="product_storage_no_apply" value="no apply">
+                        <label class="form-check-label" for="product_storage_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!--EXTERNAL CONDITIONS-->
+
+
+            <!--INTERNAL CONDITIONS-->
+
+            <div class="row p-5" formGroupName="internal_conditions" *ngIf="order_type=='General'">
+
+
+                <div class="col-12 mt-4">
+                    <div class="section-title text-center">
+                        <span class="medium-header">
+                            REPORTE DE CONDICIONES INTERNAS
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="walls-box text-label" for="walls">
+                        Paredes cumplen grietas e irregularidades
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 walls-box">
+                    <div class="form-check form-check-inline ">
+                        <input class="form-check-input" type="radio" name="walls" formControlName="walls" id="walls_yes"
+                            value="comply">
+                        <label class="form-check-label label" for="walls_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="walls" formControlName="walls" id="walls_no"
+                            value="no comply">
+                        <label class="form-check-label" for="walls_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="walls" formControlName="walls"
+                            id="walls_no_apply" value="no apply">
+                        <label class="form-check-label" for="walls_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="roofs-box text-label" for="roofs">
+                        Techos, cielos rasos en buen estado
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 roofs-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="roofs" formControlName="roofs" id="roofs_yes"
+                            value="comply">
+                        <label class="form-check-label" for="roofs_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="roofs" formControlName="roofs" id="roofs_no"
+                            value="no comply">
+                        <label class="form-check-label" for="roofs_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="roofs" formControlName="roofs"
+                            id="roofs_no_apply" value="no apply">
+                        <label class="form-check-label" for="roofs_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="floors-box text-label" for="floors">
+                        Pisos limpios y en buen estado
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 floors-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="floors" formControlName="floors"
+                            id="floors_yes" value="comply">
+                        <label class="form-check-label" for="floors_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="floors" formControlName="floors"
+                            id="floors_no" value="no comply">
+                        <label class="form-check-label" for="floors_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="machine" name="floors"
+                            formControlName="floors" id="floors_no_apply" value="no apply">
+                        <label class="form-check-label" for="floors_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="cleaning-box text-label" for="cleaning">
+                        Equipos y utensilios sucios o con residuos orgánicos
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 cleaning-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="cleaning" formControlName="cleaning"
+                            id="cleaning_yes" value="comply">
+                        <label class="form-check-label" for="cleaning_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="cleaning" formControlName="cleaning"
+                            id="cleaning_no" value="no comply">
+                        <label class="form-check-label" for="cleaning_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="cleaning" formControlName="cleaning"
+                            id="cleaning_no_apply" value="no apply">
+                        <label class="form-check-label" for="cleaning_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="sealings-box text-label" for="sealings">
+                        Sellamientos o exclusiones realizadas correctamente
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 sealings-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sealings" formControlName="sealings"
+                            id="sealings_yes" value="comply">
+                        <label class="form-check-label" for="sealings_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sealings" formControlName="sealings"
+                            id="sealings_no" value="no comply">
+                        <label class="form-check-label" for="sealings_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sealings" formControlName="sealings"
+                            id="sealings_no_apply" value="no apply">
+                        <label class="form-check-label" for="sealings_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="closed_doors-box text-label" for="closed_doors">
+                        Puertas de acceso cerradas y selladas
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 closed_doors-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="closed_doors" formControlName="closed_doors"
+                            id="closed_doors_yes" value="comply">
+                        <label class="form-check-label" for="closed_doors_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="closed_doors" formControlName="closed_doors"
+                            id="closed_doors_no" value="no comply">
+                        <label class="form-check-label" for="closed_doors_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="closed_doors" formControlName="closed_doors"
+                            id="closed_doors_no_apply" value="no apply">
+                        <label class="form-check-label" for="closed_doors_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="windows-box text-label" for="windows">
+                        Ventanas con cedazos en buen estado
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 windows-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="windows" formControlName="windows"
+                            id="windows_yes" value="comply">
+                        <label class="form-check-label" for="windows_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="windows" formControlName="windows"
+                            id="windows_no" value="no comply">
+                        <label class="form-check-label" for="windows_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="windows" formControlName="windows"
+                            id="windows_no_apply" value="no apply">
+                        <label class="form-check-label" for="windows_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="pests_facilities-box text-label" for="pests_facilities">
+                        Evidencias de plagas en las instalaciones
+
+
+                    </label>
+                </div>
+
+                <div
+                    class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 pests_facilities-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pests_facilities"
+                            formControlName="pests_facilities" id="pests_facilities_yes" value="comply">
+                        <label class="form-check-label" for="pests_facilities_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pests_facilities"
+                            formControlName="pests_facilities" id="pests_facilities_no" value="no comply">
+                        <label class="form-check-label" for="pests_facilities_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pests_facilities"
+                            formControlName="pests_facilities" id="pests_facilities_no_apply" value="no apply">
+                        <label class="form-check-label" for="pests_facilities_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="storage-box text-label" for="storage">
+                        Adecuado almacenamiento de MP, ME, PT
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 storage-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="storage" formControlName="storage"
+                            id="storage_yes" value="comply">
+                        <label class="form-check-label" for="storage_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="storage" formControlName="storage"
+                            id="storage_no" value="no comply">
+                        <label class="form-check-label" for="storage_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="storage" formControlName="storage"
+                            id="storage_no_apply" value="no apply">
+                        <label class="form-check-label" for="storage_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="garbage_cans-box text-label" for="machine">
+                        Basureros limpios, tapados y en buen estado.
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 garbage_cans-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="garbage_cans" formControlName="garbage_cans"
+                            id="garbage_cans_yes" value="comply">
+                        <label class="form-check-label" for="garbage_cans_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="garbage_cans" formControlName="garbage_cans"
+                            id="garbage_cans_no" value="no comply">
+                        <label class="form-check-label" for="garbage_cans_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="garbage_cans" formControlName="garbage_cans"
+                            id="garbage_cans_no_apply" value="no apply">
+                        <label class="form-check-label" for="garbage_cans_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="space-box text-label" for="space">
+                        Limpieza debajo y detrás del mobiliario, equipo, tarimas, góndolas o racks
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 space-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="space" formControlName="space" id="space_yes"
+                            value="comply">
+                        <label class="form-check-label" for="space_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="space" formControlName="space" id="space_no"
+                            value="no comply">
+                        <label class="form-check-label" for="space_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="space" formControlName="space"
+                            id="space_no_apply" value="no apply">
+                        <label class="form-check-label" for="space_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="equipment-box text-label" for="equipment">
+                        Separación entre equipos calientes, fríos y muebles con respecto a la pared (Comidas rápidas
+                        25 cm,
+                        Supermercados o Cárnicos 50 cm)
+
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 equipment-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="equipment" formControlName="equipment"
+                            id="equipment_yes" value="comply">
+                        <label class="form-check-label" for="equipment_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="equipment" formControlName="equipment"
+                            id="equipment_no" value="no comply">
+                        <label class="form-check-label" for="equipment_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="equipment" formControlName="equipment"
+                            id="equipment_no_apply" value="no apply">
+                        <label class="form-check-label" for="equipment_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="evidences-box text-label" for="evidences">
+                        Evidencias de plagas detrás de rótulos
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 evidences-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="evidences" formControlName="evidences"
+                            id="evidences_yes" value="comply">
+                        <label class="form-check-label" for="evidences_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="evidences" formControlName="evidences"
+                            id="evidences_no" value="no comply">
+                        <label class="form-check-label" for="evidences_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="evidences" formControlName="evidences"
+                            id="evidences_no_apply" value="no apply">
+                        <label class="form-check-label" for="evidences_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="ventilation-box text-label" for="ventilation">
+                        Adecuada ventilación e iluminación
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 ventilation-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ventilation" formControlName="ventilation"
+                            id="ventilation_yes" value="comply">
+                        <label class="form-check-label" for="ventilation_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ventilation" formControlName="ventilation"
+                            id="ventilation_no" value="no comply">
+                        <label class="form-check-label" for="ventilation_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ventilation" formControlName="ventilation"
+                            id="ventilation_no_apply" value="no apply">
+                        <label class="form-check-label" for="ventilation_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="clean_walls-box text-label" for="clean_walls">
+                        Paredes, bisagras, rodapiés, tuberías, marcos de puertas y/o equipos limpios y libres de
+                        excretas de
+                        cucarachas o roedores
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 clean_walls-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="clean_walls" formControlName="clean_walls"
+                            id="clean_walls_yes" value="comply">
+                        <label class="form-check-label" for="clean_walls_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="clean_walls" formControlName="clean_walls"
+                            id="clean_walls_no" value="no comply">
+                        <label class="form-check-label" for="clean_walls_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="clean_walls" formControlName="clean_walls"
+                            id="clean_walls_no_apply" value="no apply">
+                        <label class="form-check-label" for="clean_walls_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-4">
+                    <label class="ducts-box text-label" for="ducts">
+                        Ductos, bajantes de agua y elec. Sellados
+
+
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-4 ducts-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ducts" formControlName="ducts" id="ducts_yes"
+                            value="comply">
+                        <label class="form-check-label" for="ducts_yes">C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ducts" formControlName="ducts" id="ducts_no"
+                            value="no comply">
+                        <label class="form-check-label" for="ducts_no">N/C</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ducts" formControlName="ducts"
+                            id="ducts_no_apply" value="no apply">
+                        <label class="form-check-label" for="ducts_no_apply">N/A</label>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!--END INTERNAL CONDITIONS-->
+
+
+
+
+            <!--INFESTATION GRADE-->
+
+            <div class="row p-5" formGroupName="pests" *ngIf="order_type=='General'">
+                <div class="col-12 sub-header-row p-3">
+                    <div class="section-title" style="justify-content: center !important;">
+                        <span class="medium-header">
+                            PLAGAS A CONTROLAR
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-4 col-md-3 col-xl-3 col-xll-3 text-center p-0">
+                            <span class="info-content"><b>A: ALTO</b></span>
+                        </div>
+                        <div class="col-4 col-md-3 col-xl-3 col-xll-3 text-center p-0">
+                            <span class="info-content"><b>M: MEDIO</b></span>
+                        </div>
+
+                        <div class="col-4 col-md-3 col-xl-3 col-xll-3 text-center p-0">
+                            <span class="info-content"><b>B: BAJO</b> </span>
+                        </div>
+
+                        <div class="col-4 col-md-3 col-xl-3 col-xll-3 text-center p-0">
+                            <span class="info-content"><b>LP: LIBRE DE PLAGA</b> </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="section-title">
+                        <span class="medium-header grade-box">
+                            GRADO DE INFESTACIÓN
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="german_cockroaches-box" for="german_cockroaches">
+                        Cucaracha Alemana
+
+                    </label>
+                </div>
+
+                <div
+                    class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 german_cockroaches-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="german_cockroaches"
+                            formControlName="german_cockroaches" id="german_cockroach_a" value="A">
+                        <label class="form-check-label" for="german_cockroach_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="german_cockroaches"
+                            formControlName="german_cockroaches" id="german_cockroach_m" value="M">
+                        <label class="form-check-label" for="german_cockroach_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="german_cockroaches"
+                            formControlName="german_cockroaches" id="german_cockroach_b" value="B">
+                        <label class="form-check-label" for="german_cockroach_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="german_cockroaches"
+                            formControlName="german_cockroaches" id="german_cockroach_lp" value="lp">
+                        <label class="form-check-label" for="german_cockroach_lp">LP</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="american_cockroaches-box" for="american_cockroaches">
+                        Cucaracha Americana
+
+                    </label>
+                </div>
+
+                <div
+                    class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 american_cockroaches-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="american_cockroaches"
+                            formControlName="american_cockroaches" id="american_cockroach_a" value="A">
+                        <label class="form-check-label" for="american_cockroach_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="american_cockroaches"
+                            formControlName="american_cockroaches" id="american_cockroach_m" value="M">
+                        <label class="form-check-label" for="american_cockroach_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="american_cockroaches"
+                            formControlName="american_cockroaches" id="american_cockroach_b" value="B">
+                        <label class="form-check-label" for="american_cockroach_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="american_cockroaches"
+                            formControlName="american_cockroaches" id="american_cockroach_lp" value="lp">
+                        <label class="form-check-label" for="american_cockroach_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="flies-box" for="flies">
+                        Moscas
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 flies-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flies" formControlName="flies" id="flies_a"
+                            value="A">
+                        <label class="form-check-label" for="flies_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flies" formControlName="flies" id="flies_m"
+                            value="M">
+                        <label class="form-check-label" for="flies_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flies" formControlName="flies" id="flies_b"
+                            value="B">
+                        <label class="form-check-label" for="flies_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flies" formControlName="flies" id="flies_lp"
+                            value="lp">
+                        <label class="form-check-label" for="flies_lp">LP</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="ants-box" for="ants">
+                        Hormigas
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 ants-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ants" formControlName="ants" id="ants_a"
+                            value="A">
+                        <label class="form-check-label" for="ants_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ants" formControlName="ants" id="ants_m"
+                            value="M">
+                        <label class="form-check-label" for="ants_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ants" formControlName="ants" id="ants_b"
+                            value="B">
+                        <label class="form-check-label" for="ants_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ants" formControlName="ants" id="ants_lp"
+                            value="lp">
+                        <label class="form-check-label" for="ants_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="bees-box" for="bees">
+                        Abejas
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-4  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 bees-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="bees" formControlName="bees" id="bees_a"
+                            value="A">
+                        <label class="form-check-label" for="bees_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="bees" formControlName="bees" id="bees_m"
+                            value="M">
+                        <label class="form-check-label" for="bees_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="bees" formControlName="bees" id="bees_b"
+                            value="B">
+                        <label class="form-check-label" for="bees_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="bees" formControlName="bees" id="bees_lp"
+                            value="lp">
+                        <label class="form-check-label" for="bees_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="fire_ants-box" for="machine">
+                        Comején
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-4  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 fire_ants-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fire_ants" formControlName="fire_ants"
+                            id="fire_ant_a" value="A">
+                        <label class="form-check-label" for="fire_ant_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fire_ants" formControlName="fire_ants"
+                            id="fire_ant_m" value="M">
+                        <label class="form-check-label" for="fire_ant_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fire_ants" formControlName="fire_ants"
+                            id="fire_ant_b" value="B">
+                        <label class="form-check-label" for="fire_ant_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fire_ants" formControlName="fire_ants"
+                            id="fire_ant_lp" value="lp">
+                        <label class="form-check-label" for="fire_ant_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="termites-box" for="termites">
+                        Termitas
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 termites-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="termites" formControlName="termites"
+                            id="termite_a" value="A">
+                        <label class="form-check-label" for="termite_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="termites" formControlName="termites"
+                            id="termite_m" value="M">
+                        <label class="form-check-label" for="termite_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="termites" formControlName="termites"
+                            id="termite_b" value="B">
+                        <label class="form-check-label" for="termite_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="termites" formControlName="termites"
+                            id="termite_lp" value="lp">
+                        <label class="form-check-label" for="termite_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="spiders-box" for="spiders">
+                        Arañas
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 spiders-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spiders" formControlName="spiders"
+                            id="spider_a" value="A">
+                        <label class="form-check-label" for="spider_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spiders" formControlName="spiders"
+                            id="spider_m" value="M">
+                        <label class="form-check-label" for="spider_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spiders" formControlName="spiders"
+                            id="spider_b" value="B">
+                        <label class="form-check-label" for="spider_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="spiders" formControlName="spiders"
+                            id="spider_lp" value="lp">
+                        <label class="form-check-label" for="spider_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="fleas_a-box" for="fleas_a">
+                        Pulgas
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 fleas_a-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fleas" formControlName="fleas" id="fleas_a"
+                            value="A">
+                        <label class="form-check-label" for="fleas_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fleas" formControlName="fleas" id="fleas_m"
+                            value="M">
+                        <label class="form-check-label" for="fleas_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fleas" formControlName="fleas" id="fleas_b"
+                            value="B">
+                        <label class="form-check-label" for="fleas_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="fleas" formControlName="fleas" id="fleas_lp"
+                            value="lp">
+                        <label class="form-check-label" for="fleas_lp">LP</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="rodents-box" for="rodents">
+                        Roedores
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 rodents-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rodents" formControlName="rodents"
+                            id="rodents_a" value="A">
+                        <label class="form-check-label" for="rodents_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rodents" formControlName="rodents"
+                            id="rodents_m" value="M">
+                        <label class="form-check-label" for="rodents_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rodents" formControlName="rodents"
+                            id="rodents_b" value="B">
+                        <label class="form-check-label" for="rodents_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rodents" formControlName="rodents"
+                            id="rodents_lp" value="lp">
+                        <label class="form-check-label" for="rodents_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="moth_a-box" for="moth_a">
+                        Polilla
+
+                    </label>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 moth_a-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="moths" formControlName="moths" id="moth_a"
+                            value="A">
+                        <label class="form-check-label" for="moth_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="moths" formControlName="moths" id="moth_m"
+                            value="M">
+                        <label class="form-check-label" for="moth_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="moths" formControlName="moths" id="moth_b"
+                            value="B">
+                        <label class="form-check-label" for="moth_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="moths" formControlName="moths" id="moth_lp"
+                            value="lp">
+                        <label class="form-check-label" for="moth_lp">LP</label>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="stilt_walkers-box" for="stilt_walkers">
+                        Zancudos
+                    </label>
+                </div>
+
+
+                <div
+                    class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 stilt_walkers-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stilt_walkers"
+                            formControlName="stilt_walkers" id="stilt_walkers_a" value="A">
+                        <label class="form-check-label" for="stilt_walkers_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stilt_walkers"
+                            formControlName="stilt_walkers" id="stilt_walkers_m" value="M">
+                        <label class="form-check-label" for="stilt_walkers_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stilt_walkers"
+                            formControlName="stilt_walkers" id="stilt_walkers_b" value="B">
+                        <label class="form-check-label" for="stilt_walkers_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stilt_walkers"
+                            formControlName="stilt_walkers" id="stilt_walkers_lp" value="lp">
+                        <label class="form-check-label" for="stilt_walkers_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="weevils-box" for="weevils">
+                        Gorgojos
+
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 weevils-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="weevils" formControlName="weevils"
+                            id="weevils_a" value="A">
+                        <label class="form-check-label" for="weevils_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="weevils" formControlName="weevils"
+                            id="weevils_m" value="M">
+                        <label class="form-check-label" for="weevils_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="weevils" formControlName="weevils"
+                            id="weevils_b" value="B">
+                        <label class="form-check-label" for="weevils_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="weevils" formControlName="weevils"
+                            id="weevils_lp" value="lp">
+                        <label class="form-check-label" for="weevils_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 col-md-6  col-xl-3 col-xll-3 d-flex justify-content-start mt-3">
+                    <label class="others-box" for="others">
+                        Otros
+                    </label>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3 col-xll-3 d-flex justify-content-start p-0 mt-3 others-box">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="others" formControlName="others"
+                            id="others_a" value="A">
+                        <label class="form-check-label" for="others_a">A</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="others" formControlName="others"
+                            id="others_m" value="M">
+                        <label class="form-check-label" for="others_m">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="others" formControlName="others"
+                            id="others_b" value="B">
+                        <label class="form-check-label" for="others_b">B</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="others" formControlName="others"
+                            id="others_lp" value="lp">
+                        <label class="form-check-label" for="others_lp">LP</label>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!--INFESTATION GRADE-->
+
+            <div class="row mb-5 mt-3">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-end p-5">
+                        <div class="col-12 col-md-4 col-xl-2 col-xll-2 d-flex justify-content-center">
+
+                            <!--Step 7-->
+
+                            <app-tour *ngIf="!is_mobile && tourStep === 3 && showTutorial" [step]="3"
+                                [componentName]="'create-order'"
+                                [classes]="['list__tutorial-2','tutorial','tutorial__item','show-tutorial','fumigation-tab__2']"
+                                [text]="'Una vez que haya añadido la información necesaria, guarde la orden.'"
+                                [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                            </app-tour>
+
+                            <app-mobile-tour *ngIf="is_mobile && tourStep === 3 && showTutorial" [step]="3"
+                                [componentName]="'create-order'"
+                                [classes]="['list__tutorial-3','tutorial','tutorial__item','show-tutorial','fumigation-tab__2']"
+                                [text]="'Una vez que haya añadido la información necesaria, guarde la orden.'"
+                                [onNext]="goToNextStep.bind(this)" [onPrev]="goToPrevStep.bind(this)">
+                            </app-mobile-tour>
+
+                            <!--End Step 7-->
+                            <button type="submit" id="create-order-submit-button" class="form-btn">
+                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+                                <span *ngIf="!is_mobile"> Guardar</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>

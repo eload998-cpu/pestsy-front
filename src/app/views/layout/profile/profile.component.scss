@@ -1,0 +1,315 @@
+@use "src/app/shared/css/mixins" as *;
+
+
+.password-container {
+  position: relative;
+  .icon-password{
+    position: absolute;
+    bottom: .3rem;
+    right: 1rem;
+
+  
+  }
+
+
+}
+
+
+.hide {
+  display: none;
+}
+
+.profile-save-btn{
+  @include respond(phone) {
+    width: 60% !important;
+  }
+}
+.loader-div {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: #e4e4e4;
+}
+
+.shimmer-effect {
+  color: grey;
+  display: inline-block;
+  /* adding gradients */
+  -webkit-mask: linear-gradient(120deg, #000 25%, #0005, #000 75%) right/250%
+    100%;
+  /* shimmer effect animation */
+  animation: shimmer 2s infinite;
+  background-repeat: no-repeat;
+  width: 80px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.active-tab {
+  opacity: 1 !important;
+}
+
+.disabled-tab {
+  background-color: var(--disabled-tab-bg) !important;
+  color: var(--disabled-tab-text-color);
+}
+.tab-row {
+  background-color: var(--color-green-active);
+  cursor: pointer;
+
+  &__tab {
+    border: 1px solid gainsboro;
+    height: 2rem;
+    background-color: #fff;
+
+    &:hover {
+      background-color: ghostwhite;
+    }
+  }
+}
+
+.icon-m {
+  font-size: 2vh;
+}
+
+.avatar-image {
+  background-color: #fff;
+}
+
+.add-icon-wrapper {
+  background-color: #fff;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.2);
+  }
+  position: absolute;
+  margin-top: -0.5rem !important;
+  margin-left: 3rem;
+  box-shadow: 0px 0px 10px;
+
+  @include respond(phone) {
+    transform: none !important;
+    margin-top: -1rem !important;
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  @include respond(tab-port) {
+    margin-top: -1.5rem !important;
+  }
+}
+
+.store-button-container {
+  @include respond(phone) {
+    justify-content: center;
+  }
+
+  &__div {
+    @include respond(phone) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+.role {
+  background-color: #b3d3ea;
+  padding: 0.2rem 0.3rem;
+
+  &__title {
+    text-transform: capitalize;
+  }
+}
+
+.close-container {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+  z-index: 99;
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  @include respond(phone) {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.cover-background {
+  background-color: var(--color-green-active);
+  height: 27vh;
+  position: relative;
+
+  @include respond(tab-port) {
+    height: 30vh;
+  }
+}
+
+.profile-submit-content {
+  margin-bottom: 1rem;
+}
+
+.avatar-row {
+  @include respond(tab-land) {
+    margin-top: 1rem !important;
+  }
+  @include respond(small-phone) {
+    margin-top: 1rem !important;
+  }
+
+  @include respond(tab-port) {
+    margin-top: 1rem !important;
+  }
+}
+.profile-container {
+  @include respond(desktop) {
+    width: 20vw;
+  }
+
+  @include respond(tab-land) {
+    width: 30vw;
+  }
+
+  @include respond(tab-port) {
+    width: 30vw;
+  }
+
+  @include respond(small-desktop) {
+    width: 20vw;
+  }
+
+  @include respond(phone) {
+    width: initial;
+  }
+}
+
+.profile-content {
+  position: relative;
+  @include respond(tab-port) {
+    height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+.avatar-container {
+  flex-direction: column;
+
+  @include respond(tab-land) {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include respond(tab-port) {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include respond(phone) {
+    display: flex;
+    justify-content: center;
+  }
+
+  .avatar {
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+    img {
+      object-fit: cover;
+    }
+
+    @include respond(tab-land) {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    @include respond(tab-port) {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    @include respond(small-desktop) {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    @include respond(phone) {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+}
+
+.name-column {
+  @include respond(tab-port) {
+    margin-top: 0.5rem !important;
+  }
+  @include respond(small-phone) {
+    margin-top: 0.5rem !important;
+  }
+}
+
+//RESPONSIVES
+
+//XXL
+
+@media (min-width: 1440px) {
+}
+
+//XL
+@media (min-width: 1200px) and (max-width: 1430px) {
+}
+
+//LG
+@media (min-width: 992px) and (max-width: 1190px) {
+}
+
+//MD
+@media (min-width: 768px) and (max-width: 990px) {
+}
+
+//SM
+@media (min-width: 576px) and (max-width: 760px) {
+}
+
+//XS
+@media (max-width: 575px) {
+}
+
+//VERTICAL RESPONSIVE
+@media (max-width: 575px) and (max-height: 790px) {
+}
+
+//custom
+
+@media (min-width: 1536px) {
+}
+
+@media (max-width: 1176px) and (max-height: 664px) {
+}
+
+@media (width: 800px) and (height: 600px) {
+}
+
+@media (max-width: 600px) and (max-height: 670px) {
+  .form-content {
+    overflow-x: hidden;
+    overflow-y: visible;
+    height: 62vh;
+  }
+}

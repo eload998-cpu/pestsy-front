@@ -1,0 +1,110 @@
+
+<div class="row">
+    <div class="col-12 mt-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-11">
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-6 col-xll-6">
+                        <div class="header" >
+
+                            <h6 class="bold-text">FICHEROS</h6>
+                           
+                        </div>
+                    </div>
+
+        
+                </div>
+        
+            </div>
+
+        
+        </div>
+  
+    </div>
+    
+</div>
+
+<!--OPTIONS-->
+<div class="row d-flex justify-content-center mt-5 order-container">
+    <div class="col-10 col-md-11 col-xl-11 col-xll-11 option-box order-container__nav ms-4">
+        <div class="row order-tabs">
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1 order-element d-flex justify-content-center align-items-center pointer ms-1 me-1 disabled-tab" routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href="" [routerLink]="['croquis-tab']" >
+                        Croquis
+                    </a>
+                </span>
+                
+            </div>
+
+            <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+            [routerLink]="['mip-tab']" 
+            routerLinkActive="active-tab">
+                <span class="order-element--small-text">
+                    <a href=""
+                     [routerLink]="['mip-tab']" 
+                   >
+                        MIP
+                    </a>
+                </span>
+                
+           </div>
+
+           <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+           [routerLink]="['informes-tab']" 
+           routerLinkActive="active-tab">
+               <span class="order-element--small-text">
+                   <a href=""
+                    [routerLink]="['informes-tab']" 
+                  >
+                       Informes
+                   </a>
+               </span>
+               
+          </div>
+
+          <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+           [routerLink]="['tendencias-tab']" 
+           routerLinkActive="active-tab">
+               <span class="order-element--small-text">
+                   <a href=""
+                    [routerLink]="['tendencias-tab']" 
+                  >
+                       Tendencias
+                   </a>
+               </span>
+               
+          </div>
+
+          <div class="col-3 col-md-2 col-xl-1 col-xll-1  order-element d-flex justify-content-center align-items-center pointer me-1 disabled-tab" 
+          [routerLink]="['planes-tab']" 
+          routerLinkActive="active-tab">
+              <span class="order-element--small-text">
+                  <a href=""
+                   [routerLink]="['planes-tab']" 
+                 >
+                      Plan
+                  </a>
+              </span>
+              
+         </div>
+
+       
+
+    
+    </div>
+   
+</div>
+
+<!--END OPTIONS-->
+
+<!--CONTENT-->
+<div class="row justify-content-center">
+    <div class="col-11 card content-container">
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!--END CONTENT-->

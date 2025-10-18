@@ -1,0 +1,399 @@
+@use "src/app/shared/css/mixins" as *;
+//Tutorial styles
+
+:host(.tour-step) {
+    .hide-tutorial {
+        display: none;
+    }
+
+    .tutorial {
+
+
+        &__item {
+            pointer-events: all !important;
+        }
+
+    }
+
+    .show-tutorial {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    .list__tutorial {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid var(--tutorial-bg-color);
+            border-top: none;
+        }
+    }
+
+    .list__tutorial-2 {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            top: -15px;
+            left: 150px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid var(--tutorial-bg-color);
+            border-top: none;
+        }
+    }
+
+    .list__tutorial-3 {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--tutorial-bg-color);
+            border-bottom: none;
+        }
+    }
+
+    .list__tutorial-4 {
+        position: fixed;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            bottom: -15px;
+            left: 75px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--tutorial-bg-color);
+            border-bottom: none;
+        }
+    }
+
+    .list__tutorial-4--absolute {
+        position: absolute;
+        display: none;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            bottom: -15px;
+            left: 75px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--tutorial-bg-color);
+            border-bottom: none;
+        }
+    }
+
+
+}
+
+
+//SET THE POSITION OF THE TUTORIAL ELEMENTS HERE
+:host(.component-order-tab) {
+
+    .fumigation-tab {
+
+        &__1 {
+            left: 5vw;
+            margin-top: 1.2rem;
+        }
+
+        &__2 {
+            left: 20vw;
+            margin-top: 1.2rem;
+
+        }
+
+        &__3 {
+            left: 20vw;
+            margin-top: 1.2rem;
+
+        }
+
+        &__4 {
+
+            left: 36vw;
+            margin-top: 1.2rem;
+        }
+
+        &__5 {
+            margin-top: 3rem;
+
+        }
+
+        &__6 {
+            margin-top: 3rem;
+            left: 8vw;
+
+        }
+
+        &__7 {
+            margin-top: 3rem;
+            left: 33vw;
+
+
+        }
+    }
+
+
+
+}
+
+
+:host(.component-create-order) {
+
+    .fumigation-tab {
+
+        &__1 {
+            margin-top: 4rem;
+        }
+
+        &__2 {
+
+            @include respond(phone) {
+                top: 145vw;
+            }
+
+            @include respond(small-phone) {
+                top: 60vh;
+            }
+
+            @include respond(extra-small-phone) {
+                top: 50vh;
+            }
+
+            @media (min-width: 24em) and (max-width: 37.5em) {
+                top: 120vw;
+            }
+
+
+
+        }
+
+    }
+
+
+
+}
+
+
+:host(.component-client-table) {
+
+    .client {
+
+        &__1 {
+
+            margin-top: -10rem;
+            left: 35vw;
+        }
+
+        &__2 {
+
+            margin-top: -10rem;
+            left: 35vw;
+        }
+
+        &__3 {
+
+            margin-top: -10rem;
+            left: 35vw;
+        }
+    }
+
+
+
+}
+
+:host(.component-worker-table) {
+
+    .worker {
+
+        &__1 {
+
+            left: 25vw;
+            margin-top: -11rem;
+
+        }
+
+        &__2 {
+
+            left: 25vw;
+            margin-top: -11rem;
+
+        }
+
+        &__3 {
+
+            left: 25vw;
+            margin-top: -11rem;
+
+        }
+
+        &__4 {
+
+            left: 25vw;
+            margin-top: -11rem;
+
+        }
+    }
+
+
+
+}
+
+
+
+:host(.component-list-order) {
+
+    .fumigation-tab {
+
+        &__1 {
+
+
+
+            @include respond(phone) {
+                top: 64vh;
+            }
+
+
+            @include respond(extra-small-phone) {
+                top: 56vh;
+            }
+
+            @media (min-width: 25em) and (min-height:48.75em) {
+                top: 71vh;
+
+            }
+
+
+
+
+            left: 25vw;
+
+
+        }
+
+
+        &__1--operator {
+            @include respond(phone) {
+                top: 64vh;
+            }
+
+
+            @include respond(extra-small-phone) {
+                top: 56vh;
+            }
+
+            @media (min-width: 25em) and (min-height:48.75em) {
+                top: 71vh;
+
+            }
+
+
+
+
+            left: 35vw;
+
+        }
+
+        &__2 {
+
+
+
+
+
+            @include respond(phone) {
+                top: 64vh;
+            }
+
+
+            @include respond(extra-small-phone) {
+                top: 56vh;
+            }
+
+            @media (min-width: 25em) and (min-height:48.75em) {
+                top: 71vh;
+
+            }
+
+
+
+            left: 25vw;
+
+        }
+
+
+    }
+
+
+
+}
+
+:host(.component-sidebar) {
+    .list__tutorial {
+        position: fixed;
+        display: none;
+        left: 40vw;
+        margin-top: -3rem;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 55vw;
+        height: auto;
+        padding: 10px;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            border-top: 15px solid transparent;
+            border-right: 15px solid var(--tutorial-bg-color);
+            border-left: none;
+            border-bottom: 15px solid transparent;
+        }
+    }
+}
+
+//End tutorial styles

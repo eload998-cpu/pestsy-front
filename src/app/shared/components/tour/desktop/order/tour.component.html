@@ -1,0 +1,13 @@
+<div [ngClass]="classList" *ngIf="showTutorial">
+
+    <div class="d-flex justify-content-start tour-div p-2" [innerHTML]="text"></div>
+    <div class="list__buttons d-flex justify-content-end w-100 tour-div p-2">
+        <button *ngIf="showPrevButton && !hiddeButton" type="button" class="tutorial__link tour-button action-icon"
+            (click)="onPrev()">Anterior</button>
+        <button *ngIf="!finishTour" type="button" class="ms-2 tutorial__link tour-button action-icon"
+            (click)="onNext()">Siguiente</button>
+        <button *ngIf="finishTour" type="button" class="ms-2 tutorial__link tour-button action-icon"
+            (click)="onFinish()">Finalizar</button>
+
+    </div>
+</div>

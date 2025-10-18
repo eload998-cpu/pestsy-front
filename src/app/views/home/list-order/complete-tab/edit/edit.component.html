@@ -1,0 +1,76 @@
+<div class="row  animate__animated animate__fadeIn">
+
+    <div class="col-12">
+
+        <div class="rowd-flex justify-content-center align-items-center">
+            <form [formGroup]="form_model" class="lamp-tab-form" (ngSubmit)="onSubmit()">
+
+                <div class="col-11  m-auto p-5">
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <div class="row">
+
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="observation">Observación</label>
+                                        <textarea 
+                                        name="observation" 
+                                        id="observation"
+                                        class="form-control"
+                                        formControlName="observation"
+                                        ></textarea>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-end  mb-justify">
+                                <div class="col-12 col-lg-6 col-xl-6 col-xll-6">
+                                    <div class="row d-flex justify-content-end mb-justify">
+
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <a routerLink="/home/ordenes/observacion-tab"
+                                                class="btn btn-light w-100 form-button">
+                                                <fa-icon [icon]="faArrowLeft" class="icon-m"></fa-icon>
+
+                                                Volver
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-4 col-xll-4 p-1">
+                                            <button type="submit" class="btn btn-light w-100 form-button"
+                                                [disabled]="form_model.invalid || sendingForm">
+                                                <fa-icon [icon]="faPlus" class="icon-m"></fa-icon>
+
+                                                Guardar
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+[
+    {"id": 7, "name": "active"},
+    {"id": 8, "name": "inactive"},
+    {"id": 9, "name": "pending"},
+    {"id": 10, "name": "canceled"}
+  ]
