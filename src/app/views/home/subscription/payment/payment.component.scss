@@ -295,6 +295,13 @@ span {
     }
 
     .action-content {
+      flex-wrap: wrap;
+      flex-basis: 90%;
+
+      @include respond(desktop) {
+        flex-basis: 70%;
+      }
+
       .title {
         &--action {
           width: 100%;
@@ -304,6 +311,8 @@ span {
 
       .action {
         &__container {
+          display: flex;
+          justify-content: space-between;
           flex-basis: 100%;
 
           @include respond(desktop) {
@@ -313,19 +322,8 @@ span {
           @include respond(big-desktop) {
             flex-basis: 65% !important;
           }
-
-          display: flex;
-          justify-content: space-between;
         }
       }
-
-      flex-wrap: wrap;
-
-      @include respond(desktop) {
-        flex-basis: 70%;
-      }
-
-      flex-basis: 90%;
     }
   }
 }

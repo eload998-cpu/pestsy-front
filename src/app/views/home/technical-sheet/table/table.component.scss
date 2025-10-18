@@ -208,6 +208,13 @@ $gray-color: #f9fafc;
     }
 
     .action-content {
+      flex-wrap: wrap;
+      flex-basis: 90%;
+
+      @include respond(desktop) {
+        flex-basis: 70%;
+      }
+
       .title {
         &--action {
           width: 100%;
@@ -217,6 +224,9 @@ $gray-color: #f9fafc;
 
       .action {
         &__container {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
           flex-basis: 100%;
 
           @include respond(desktop) {
@@ -226,17 +236,8 @@ $gray-color: #f9fafc;
           @include respond(big-desktop) {
             flex-basis: 65% !important;
           }
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
         }
       }
-
-      flex-wrap: wrap;
-      @include respond(desktop) {
-        flex-basis: 70%;
-      }
-      flex-basis: 90%;
     }
   }
 }
