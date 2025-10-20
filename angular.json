@@ -52,7 +52,9 @@
               "sweetalert2",
               "aos",
               "src/app/views/home/dashboard/dashboard.component",
-              "crypto-js"
+              "crypto-js",
+              "moment",
+              "highcharts"
             ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
