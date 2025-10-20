@@ -43,6 +43,17 @@
             ],
             "scripts": [
             ],
+            "allowedCommonJsDependencies": [
+              "fuzzysort",
+              "debug",
+              "extend",
+              "src/app/services/resources/state-codes.service",
+              "pica",
+              "sweetalert2",
+              "aos",
+              "src/app/views/home/dashboard/dashboard.component",
+              "crypto-js"
+            ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
