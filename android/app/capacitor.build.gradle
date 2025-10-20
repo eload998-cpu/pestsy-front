@@ -15,7 +15,7 @@ dependencies {
     implementation project(':capacitor-device')
     implementation project(':capacitor-filesystem')
     implementation project(':capacitor-splash-screen')
-    implementation project(':codetrix-studio-capacitor-google-auth')
+    implementation project(':capacitor-google')
 
 }
 

@@ -23,7 +23,8 @@ import { AuthUserService } from 'src/app/services/auth-user.service'
 import { ToastrService } from 'ngx-toastr';
 import * as AOS from 'aos'
 import { environment } from 'src/environments/environment';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { GoogleAuth } from '@capacitor/google';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
     selector: 'app-registration',
@@ -144,11 +145,13 @@ export class RegistrationComponent implements OnInit {
     });
     this.onSearchCountry();
 
-    await GoogleAuth.initialize({
-      clientId: environment.googleClientId,
-      scopes: ['profile', 'email'],
-      grantOfflineAccess: true
-    });
+    if (Capacitor.getPlatform() !== 'web') {
+      await GoogleAuth.initialize({
+        clientId: environment.googleClientId,
+        scopes: ['profile', 'email'],
+        grantOfflineAccess: true,
+      });
+    }
 
 
 
