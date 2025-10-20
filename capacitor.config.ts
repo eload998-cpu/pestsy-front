@@ -8,14 +8,21 @@ const config: CapacitorConfig = {
     androidScheme: 'https'
   },
   plugins: {
-    GoogleAuth: {
-      scopes: ["profile", "email"],
-      androidClientId: '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
-      serverClientId: '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
-      clientId: '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
-      forceCodeForRefreshToken: true
-    }
-  }
+    CapacitorSocialLogin: {
+      google: {
+        scopes: ['profile', 'email'],
+        androidClientId:
+          '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
+        iosClientId:
+          '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
+        serverClientId:
+          '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
+        clientId:
+          '547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
+        forceCodeForRefreshToken: true,
+      },
+    },
+  },
 };
 
 

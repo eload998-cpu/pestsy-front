@@ -18,9 +18,9 @@ import { TokenService } from 'src/app/services/token.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as AOS from 'aos'
-import { environment } from 'src/environments/environment';
-import { GoogleAuth } from '@capacitor/google';
 import { Capacitor } from '@capacitor/core';
+import { SocialLoginService } from 'src/app/services/social-login.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private _tokenService: TokenService,
     private _authUserService: AuthUserService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private socialLoginService: SocialLoginService
 
   ) {
     this.form_model = new FormGroup({
@@ -84,13 +85,9 @@ export class LoginComponent implements OnInit {
 
     const platform = Capacitor.getPlatform();
 
-    if (platform !== 'web') {
-      await GoogleAuth.initialize({
-        clientId: environment.googleClientId,
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true,
-      });
+    await this.socialLoginService.initialize();
 
+    if (platform !== 'web') {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // Dark mode is enabled
         this.logo_color = true;
@@ -218,36 +215,22 @@ export class LoginComponent implements OnInit {
 
 
   public async googleOauth() {
-
     try {
-      GoogleAuth.signIn().then((googleUser) => {
-
+      const googleUser = await this.socialLoginService.signInWithGoogle();
+      this.router.navigate(['/pre-login'], { state: googleUser });
+    } catch (error: any) {
+      if (error?.code === 12502) {
         try {
+          const googleUser = await this.socialLoginService.signInWithGoogle();
           this.router.navigate(['/pre-login'], { state: googleUser });
-
-        } catch (error) {
-          console.log(error)
+          return;
+        } catch (retryError) {
+          console.error('Google sign-in retry failed', retryError);
         }
-
-      });
-
-
-    } catch (error) {
-
-      if (error.code == 12502) {
-        GoogleAuth.signIn().then((googleUser) => {
-
-          try {
-            this.router.navigate(['/pre-login'], { state: googleUser });
-
-          } catch (error) {
-            console.log(error)
-          }
-
-        });
       }
-    }
 
+      console.error('Google sign-in error', error);
+    }
   }
 
   public facebookOauth() {
