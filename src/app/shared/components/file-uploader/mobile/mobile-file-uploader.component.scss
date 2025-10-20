@@ -29,12 +29,11 @@
 
 .imageThumbnail {
   width: 3% !important;
+  min-height: 40.8px;
 
   @include respond(phone) {
     width: 10% !important;
   }
-
-  min-height: 40.8px;
 }
 
 .progress {

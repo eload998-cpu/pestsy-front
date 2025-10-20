@@ -61,6 +61,7 @@
   &__element {
     padding: 0.5rem;
     position: relative;
+    transition: all 0.2s;
 
     @include respond(small-desktop) {
       padding: 0.3rem !important;
@@ -69,8 +70,6 @@
     &:hover {
       transform: scale(1.1, 1.1);
     }
-
-    transition: all 0.2s;
   }
 
   &__buttons {

@@ -308,6 +308,8 @@ $gray-color: #f9fafc;
     }
 
     .action-content {
+      flex-wrap: wrap;
+      flex-basis: 100%;
       .title {
         &--action {
           width: 100%;
@@ -323,8 +325,6 @@ $gray-color: #f9fafc;
         }
       }
 
-      flex-wrap: wrap;
-      flex-basis: 100%;
     }
   }
 }

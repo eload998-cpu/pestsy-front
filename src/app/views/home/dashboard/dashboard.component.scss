@@ -99,6 +99,7 @@
 
   &__header {
     height: 15vh;
+    z-index: 1;
 
     @include respond(phone) {
       height: 17vh !important;
@@ -107,8 +108,6 @@
     &--green {
       background-color: var(--color-green-active);
     }
-
-    z-index: 1;
 
     &__item {
       height: 100%;
@@ -192,6 +191,7 @@
     width: 98%;
     display: grid;
     grid-template-columns: minmax(5rem, 2.5fr) minmax(5rem, 1fr);
+    justify-items: center;
 
     @include respond(phone) {
       grid-template-columns: minmax(19rem, 1fr);
@@ -200,8 +200,6 @@
     @include respond(default-tablet) {
       grid-template-columns: minmax(19rem, 1fr);
     }
-
-    justify-items: center;
 
     .graphic {
       width: 100%;
@@ -395,6 +393,8 @@
     justify-content: center;
     justify-items: center;
     align-items: center;
+    color: #fff;
+    background: var(--renew-dashboard-div-bg-color);
 
     &__item {
       width: 95%;
@@ -405,9 +405,6 @@
       height: 90% !important;
       margin-bottom: 15rem !important;
     }
-
-    color: #fff;
-    background: var(--renew-dashboard-div-bg-color);
 
     &__header {
       display: grid;

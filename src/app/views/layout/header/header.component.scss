@@ -78,12 +78,11 @@
 
   .icon {
     width: 40%;
+    object-fit: cover;
 
     @include respond(desktop) {
       width: 20%;
     }
-
-    object-fit: cover;
   }
 
   //IMAGES

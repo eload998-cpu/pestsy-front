@@ -23,6 +23,7 @@
 
 #container {
   align-items: center;
+  background-color: var(--color-background);
 
   @include respond(desktop) {
     height: 100vh;
@@ -37,7 +38,6 @@
   @media (min-height: 768px) {
     height: 100vh;
   }
-  background-color: var(--color-background);
 }
 
 .message-container {

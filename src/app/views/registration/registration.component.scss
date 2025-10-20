@@ -195,13 +195,12 @@ input {
   //border-radius: 1rem;
   background-image: var(--login-form-bg-color);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: auto;
 
   @include respond(phone) {
     box-shadow: initial !important;
     background-image: initial !important;
   }
-
-  overflow: auto;
 
   &__avatar-row {
     margin-top: 3.5rem;

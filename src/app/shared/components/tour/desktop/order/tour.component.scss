@@ -464,6 +464,13 @@
     .list__tutorial {
         position: fixed;
         display: none;
+        margin-top: -3rem;
+        z-index: 999;
+        background-color: var(--tutorial-bg-color) !important;
+        color: black;
+        width: 25vw;
+        height: auto;
+        padding: 10px;
 
         @include respond(default-tablet) {
             left: 28vw;
@@ -485,15 +492,6 @@
         @include respond(big-desktop) {
             left: 15vw;
         }
-
-        margin-top: -3rem;
-        z-index: 999;
-        background-color: var(--tutorial-bg-color) !important;
-        color: black;
-
-        width: 25vw;
-        height: auto;
-        padding: 10px;
 
         &:after {
             content: " ";

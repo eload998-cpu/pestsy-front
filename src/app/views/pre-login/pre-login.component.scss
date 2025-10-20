@@ -24,6 +24,7 @@
 #container {
   align-items: center;
   height: 100vh;
+  background-color: var(--color-background);
 
   @media (min-height: 768px) {
     height: 100vh;
@@ -33,7 +34,6 @@
     background-image: var(--app-background-color) !important;
 
   }
-  background-color: var(--color-background);
 }
 
 .message-container {
