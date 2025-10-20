@@ -19,11 +19,11 @@ import ExportData from 'highcharts/modules/export-data';
 import OfflineExporting from 'highcharts/modules/offline-exporting';
 import { Subscription } from 'rxjs';
 
-const noData = require('highcharts/modules/no-data-to-display')
+import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 
 
 
-noData(Highcharts)
+NoDataToDisplay(Highcharts);
 
 Highcharts.setOptions({
   lang: {
@@ -137,7 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public duration = 5000;
   public series: Array<any> = [];
-  public highcharts: any;
+  public highcharts: typeof Highcharts = Highcharts;
   public linechart: any;
   public canRenew: boolean = true;
 

@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import { HttpClient, HttpParams, HttpXhrBackend, HttpResponse } from '@angular/common/http';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { parse } from "content-disposition-attachment";
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { Capacitor } from '@capacitor/core';
 import { FormControl } from '@angular/forms';
 
 
@@ -165,8 +165,10 @@ function getFileName(response: HttpResponse<Blob>): string {
 }
 
 function openFile(uri: string) {
-	const fileOpener = new FileOpener();
-	const mimeType = 'application/pdf';
-	fileOpener.open(uri, mimeType)
-		.catch(e => console.error('Error opening file', e));
+        try {
+                const fileSrc = Capacitor.convertFileSrc(uri);
+                window.open(fileSrc, '_blank');
+        } catch (error) {
+                console.error('Error opening file', error);
+        }
 }
