@@ -19,8 +19,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as AOS from 'aos'
 import { environment } from 'src/environments/environment';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { Device, DeviceInfo } from "@capacitor/device";
+import { GoogleAuth } from '@capacitor/google';
+import { Capacitor } from '@capacitor/core';
 
 
 @Component({
@@ -82,19 +82,18 @@ export class LoginComponent implements OnInit {
     });
     this.currentTheme = this.themeService.currentTheme$.value;
 
-    const deviceInfo = await Device.getInfo();
+    const platform = Capacitor.getPlatform();
 
-    await GoogleAuth.initialize({
-      clientId: environment.googleClientId,
-      scopes: ['profile', 'email'],
-      grantOfflineAccess: true
-    });
+    if (platform !== 'web') {
+      await GoogleAuth.initialize({
+        clientId: environment.googleClientId,
+        scopes: ['profile', 'email'],
+        grantOfflineAccess: true,
+      });
 
-    if ((deviceInfo as unknown as DeviceInfo).platform !== "web") {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // Dark mode is enabled
         this.logo_color = true;
-
       } else {
         this.logo_color = false;
       }
