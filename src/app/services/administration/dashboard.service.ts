@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CrudService } from 'src/app/services/crud.service';
 import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Injectable({
   providedIn: null

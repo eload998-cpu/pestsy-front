@@ -26,7 +26,7 @@ export class UserHasRoleGuard implements CanActivate, CanActivateChild, CanLoad 
   {
 
 
-    let role = route.data.["role"];
+    const role = route.data["role"];
 
     let user_roles=this._authUserService.user.roles.filter((el:any)=>el.name==role);
 
