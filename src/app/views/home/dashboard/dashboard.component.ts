@@ -3,27 +3,17 @@ import { faPlus, faTrash, faClock } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth-user.service';
 import { AuthService } from 'src/app/services/auth.service';
-import * as Highcharts from 'highcharts';
-import { NoDataOptions } from 'highcharts';
+import Highcharts from 'highcharts';
 import { faUsers, faCogs, faSignLanguage, faFlask, faSearch, faMale, faUser, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { DashboardService } from 'src/app/services/administration/dashboard.service';
 import { NgForm, FormControl, FormGroup, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-import * as moment from 'moment';
+import moment from 'moment';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Device, DeviceInfo } from "@capacitor/device";
 
-import Exporting from 'highcharts/modules/exporting';
-import ExportData from 'highcharts/modules/export-data';
-import OfflineExporting from 'highcharts/modules/offline-exporting';
 import { Subscription } from 'rxjs';
-
-import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
-
-
-
-NoDataToDisplay(Highcharts);
 
 Highcharts.setOptions({
   lang: {
@@ -137,8 +127,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public duration = 5000;
   public series: Array<any> = [];
-  public highcharts: typeof Highcharts = Highcharts;
-  public linechart: any;
+  public linechart?: Highcharts.Options;
   public canRenew: boolean = true;
 
 
@@ -195,9 +184,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if ((deviceInfo as unknown as DeviceInfo).platform === "web") {
 
       this.is_desktop = true;
-      Exporting(Highcharts);
-      ExportData(Highcharts);
-      OfflineExporting(Highcharts);
     }
 
 
@@ -312,7 +298,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   public initHighcharts() {
 
 
-    this.highcharts = Highcharts;
     this.linechart = {
       chart: {
         type: 'column'
@@ -354,6 +339,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       },
 
       series: [{
+        type: 'column',
         name: this.form_model.get('filter_type').value,
         colorByPoint: true,
         data: this.series

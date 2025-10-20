@@ -8,7 +8,6 @@ import { DashboardComponent } from 'src/app/views/home/dashboard/dashboard.compo
 import { HighchartsChartComponent, provideHighcharts } from 'highcharts-angular';
 import { DashboardService } from 'src/app/services/administration/dashboard.service';
 import { SubscriptionService } from 'src/app/services/administration/subscription.service';
-import * as Highcharts from 'highcharts';
 import { ReactiveFormsModule } from '@angular/forms';
 
 //TABS
@@ -32,7 +31,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ShowResolverService,
     DashboardService,
     SubscriptionService,
-    provideHighcharts(() => Highcharts)
+    provideHighcharts({
+      instance: () => import('highcharts'),
+      modules: () => [
+        import('highcharts/esm/modules/export-data'),
+        import('highcharts/esm/modules/exporting'),
+        import('highcharts/esm/modules/offline-exporting'),
+        import('highcharts/esm/modules/no-data-to-display')
+      ]
+    })
   ]
 })
 export class DashboardModule { }

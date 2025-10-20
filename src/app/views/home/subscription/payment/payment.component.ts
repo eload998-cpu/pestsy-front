@@ -10,7 +10,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { showPreconfirmMessage, showAction } from 'src/app/shared/helpers';
 import { switchMap, combineLatest } from 'rxjs';
 import { PaymentService } from 'src/app/services/resources/payment.service';
