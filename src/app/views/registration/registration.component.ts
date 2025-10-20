@@ -24,7 +24,6 @@ import { ToastrService } from 'ngx-toastr';
 import * as AOS from 'aos'
 import { environment } from 'src/environments/environment';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { Device, DeviceInfo } from "@capacitor/device";
 
 @Component({
     selector: 'app-registration',
@@ -145,16 +144,11 @@ export class RegistrationComponent implements OnInit {
     });
     this.onSearchCountry();
 
-    const deviceInfo = await Device.getInfo();
-
-    if ((deviceInfo as unknown as DeviceInfo).platform === "web") {
-
-      GoogleAuth.initialize({
-        clientId: environment.googleClientId,
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true
-      });
-    }
+    await GoogleAuth.initialize({
+      clientId: environment.googleClientId,
+      scopes: ['profile', 'email'],
+      grantOfflineAccess: true
+    });
 
 
 
