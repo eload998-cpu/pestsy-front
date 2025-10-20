@@ -217,6 +217,8 @@ $heading-color: #43bac0;
     }
 
     .action-content {
+      flex-wrap: wrap;
+      flex-basis: 90%;
       .title {
         &--action {
           width: 100%;
@@ -228,6 +230,8 @@ $heading-color: #43bac0;
         &__container {
           flex-basis: 100%;
 
+          display: flex;
+          justify-content: space-between;
           @include respond(desktop) {
             flex-basis: 85% !important;
           }
@@ -235,16 +239,12 @@ $heading-color: #43bac0;
           @include respond(big-desktop) {
             flex-basis: 65% !important;
           }
-          display: flex;
-          justify-content: space-between;
         }
       }
 
-      flex-wrap: wrap;
       @include respond(desktop) {
         flex-basis: 70%;
       }
-      flex-basis: 90%;
     }
   }
 }

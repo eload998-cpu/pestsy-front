@@ -289,6 +289,7 @@
     .fumigation-tab {
 
         &__1 {
+            left: 25vw;
 
 
 
@@ -309,13 +310,13 @@
 
 
 
-            left: 25vw;
 
 
         }
 
 
         &__1--operator {
+            left: 35vw;
             @include respond(phone) {
                 top: 64vh;
             }
@@ -333,11 +334,11 @@
 
 
 
-            left: 35vw;
 
         }
 
         &__2 {
+            left: 25vw;
 
 
 
@@ -359,7 +360,6 @@
 
 
 
-            left: 25vw;
 
         }
 

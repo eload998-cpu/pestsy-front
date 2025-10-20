@@ -30,6 +30,12 @@ $color: #cbedd5;
   width: 30vw;
   opacity: 0;
   transition: all 1s;
+  background-color: #fff;
+  border: 1px solid gainsboro;
+  z-index: 99;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
 
   @include respond(phone) {
     width: 70vw;
@@ -38,15 +44,6 @@ $color: #cbedd5;
   @include respond(tab-port) {
     width: 60vw;
   }
-
-  background-color: #fff;
-  border: 1px solid gainsboro;
-  z-index: 99;
-
-  display: grid;
-  grid-template-columns: 1fr;
-
-  justify-content: center;
 
   &__header {
     display: grid;
@@ -95,17 +92,16 @@ $color: #cbedd5;
   }
 }
 
-.top-bar {
-  background-color: var(--color-background-primary);
-  z-index: 50;
-  height: $top-bar-height;
+  .top-bar {
+    background-color: var(--color-background-primary);
+    z-index: 50;
+    height: $top-bar-height;
+    border-bottom: 1px solid #f0f1f6;
 
-  @include respond(phone) {
-    height: 6vh !important;
+    @include respond(phone) {
+      height: 6vh !important;
+    }
   }
-
-  border-bottom: 1px solid #f0f1f6;
-}
 
 .left-bar {
   background-color: var(--color-background-secondary);
