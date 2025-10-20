@@ -84,23 +84,20 @@ export class LoginComponent implements OnInit {
 
     const deviceInfo = await Device.getInfo();
 
-    if ((deviceInfo as unknown as DeviceInfo).platform === "web") {
+    await GoogleAuth.initialize({
+      clientId: environment.googleClientId,
+      scopes: ['profile', 'email'],
+      grantOfflineAccess: true
+    });
 
-      GoogleAuth.initialize({
-        clientId: environment.googleClientId,
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true
-      });
-    }else
-    {
+    if ((deviceInfo as unknown as DeviceInfo).platform !== "web") {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // Dark mode is enabled
         this.logo_color = true;
-  
+
       } else {
         this.logo_color = false;
       }
-  
     }
 
     this.loadRememberedCredentials();
