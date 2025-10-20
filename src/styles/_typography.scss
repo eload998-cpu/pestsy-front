@@ -296,6 +296,8 @@ a {
 }
 
 .medium-header {
+  font-weight: bold;
+
   @include respond(tab-land) {
     font-size: $desktop-font !important;
   }
@@ -323,8 +325,6 @@ a {
   @include respond(phone) {
     font-size: $phone-font !important;
   }
-
-  font-weight: bold;
 }
 
 .global-form-label {
