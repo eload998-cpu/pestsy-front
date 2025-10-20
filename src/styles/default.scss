@@ -1,5 +1,9 @@
-@use "src/app/shared/css/mixins" as *;
+@use 'ngx-toastr/toastr' as *;
+@use '@ng-select/ng-select/themes/default.theme.css' as *;
+@use 'ngx-boostrap.scss' as *;
+@use 'src/app/shared/css/mixins' as *;
 @use 'ckeditor5/ckeditor5.css' as *;
+@use '_typography' as *;
 
 
 
@@ -132,16 +136,6 @@ th:not(:last-child) {
   background-color: var(--color-green-ligth);
   color: #fff;
 }
-
-@use 'ngx-toastr/toastr' as *;
-
-@use "~@ng-select/ng-select/themes/default.theme.css" as *;
-
-@use "ngx-boostrap.scss" as *;
-
-@use "src/app/shared/css/mixins" as *;
-
-@use "_typography" as *;
 
 .swal2-container {
   z-index: 99999 !important;

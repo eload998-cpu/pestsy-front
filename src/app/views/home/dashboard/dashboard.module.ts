@@ -5,9 +5,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ShowResolverService } from 'src/app/services/solvers/administration/orders/show-resolver.service';
 import { DashboardComponent } from 'src/app/views/home/dashboard/dashboard.component'
-import { HighchartsChartModule } from 'highcharts-angular';
+import { HighchartsChartComponent, provideHighcharts } from 'highcharts-angular';
 import { DashboardService } from 'src/app/services/administration/dashboard.service';
 import { SubscriptionService } from 'src/app/services/administration/subscription.service';
+import * as Highcharts from 'highcharts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //TABS
 
@@ -23,12 +25,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DashboardRoutingModule,
     FontAwesomeModule,
     SharedModule,
-    HighchartsChartModule
+    ReactiveFormsModule,
+    HighchartsChartComponent
   ],
   providers: [
     ShowResolverService,
     DashboardService,
-    SubscriptionService
+    SubscriptionService,
+    provideHighcharts(() => Highcharts)
   ]
 })
 export class DashboardModule { }

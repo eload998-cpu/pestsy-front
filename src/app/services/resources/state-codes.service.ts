@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import subscriptionCodes from '../../../entities/subscription-codes.json';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class StateCodesService {
     let stateCodes = [];
     switch (statusType) {
       case 'subscription':
-        stateCodes = require('../../../entities/subscription-codes.json');
+        stateCodes = subscriptionCodes;
 
         break;
 
