@@ -23,8 +23,7 @@ import { AuthUserService } from 'src/app/services/auth-user.service'
 import { ToastrService } from 'ngx-toastr';
 import * as AOS from 'aos'
 import { environment } from 'src/environments/environment';
-import { GoogleAuth } from '@capacitor/google';
-import { Capacitor } from '@capacitor/core';
+import { SocialLoginService } from 'src/app/services/social-login.service';
 
 @Component({
     selector: 'app-registration',
@@ -76,6 +75,7 @@ export class RegistrationComponent implements OnInit {
     private _authUserService: AuthUserService,
     private router: Router,
     private toastr: ToastrService,
+    private socialLoginService: SocialLoginService,
 
   ) {
 
@@ -145,13 +145,7 @@ export class RegistrationComponent implements OnInit {
     });
     this.onSearchCountry();
 
-    if (Capacitor.getPlatform() !== 'web') {
-      await GoogleAuth.initialize({
-        clientId: environment.googleClientId,
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true,
-      });
-    }
+    await this.socialLoginService.initialize();
 
 
 
@@ -384,15 +378,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   public async googleOauth() {
-
     try {
-      const googleUser = await GoogleAuth.signIn();
+      const googleUser = await this.socialLoginService.signInWithGoogle();
       this.router.navigate(['/pre-login'], { state: googleUser });
-
     } catch (error) {
       console.error('Sign-in error:', error);
     }
-
   }
 
   public facebookOauth() {
