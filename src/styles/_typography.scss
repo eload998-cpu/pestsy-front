@@ -221,6 +221,7 @@ a {
 
 .bold-text {
   font-family: "Inter Bold" !important;
+  line-height: 1.2;
 
   @include respond(tab-land) {
     font-size: $desktop-font !important;
@@ -250,8 +251,6 @@ a {
     font-family: "Inter Bold" !important;
     font-size: 1rem !important;
   }
-
-  line-height: 1.2;
 }
 
 .message-container {
