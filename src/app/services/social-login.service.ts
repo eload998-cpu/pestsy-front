@@ -1,10 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import {
-  CapacitorSocialLogin,
-  SocialLoginSignInResult,
+  InitializeOptions,
+  LoginResult,
+  SocialLogin,
 } from '@capgo/capacitor-social-login';
 import { environment } from 'src/environments/environment';
+
+export interface GoogleSignInLegacyResult {
+  provider: 'google';
+  accessToken: string | null;
+  idToken: string | null;
+  refreshToken: string | null;
+  serverAuthCode: string | null;
+  email: string | null;
+  familyName: string | null;
+  givenName: string | null;
+  id: string | null;
+  imageUrl: string | null;
+  name: string | null;
+  authentication: {
+    accessToken: string | null;
+    idToken: string | null;
+    refreshToken: string | null;
+    serverAuthCode: string | null;
+  } | null;
+  raw: unknown;
+}
+
+const GOOGLE_LOGIN_SCOPES = ['profile', 'email'];
 
 @Injectable({ providedIn: 'root' })
 export class SocialLoginService {
@@ -16,15 +40,16 @@ export class SocialLoginService {
     }
 
     try {
-      await CapacitorSocialLogin.initialize({
+      const options: InitializeOptions = {
         google: {
-          clientId: environment.googleClientId,
-          serverClientId: environment.googleClientId,
           webClientId: environment.googleClientId,
-          scopes: ['profile', 'email'],
-          forceCodeForRefreshToken: true,
+          iOSClientId: environment.googleClientId,
+          iOSServerClientId: environment.googleClientId,
+          mode: 'offline',
         },
-      });
+      };
+
+      await SocialLogin.initialize(options);
 
       this.initialized = true;
     } catch (error) {
@@ -39,8 +64,68 @@ export class SocialLoginService {
     }
   }
 
-  async signInWithGoogle(): Promise<SocialLoginSignInResult> {
+  async signInWithGoogle(): Promise<GoogleSignInLegacyResult> {
     await this.initialize();
-    return CapacitorSocialLogin.signIn({ provider: 'google' });
+    const result = await SocialLogin.login({
+      provider: 'google',
+      options: {
+        scopes: GOOGLE_LOGIN_SCOPES,
+        forceRefreshToken: true,
+      },
+    });
+
+    return this.toLegacyGoogleResult(result);
+  }
+
+  private toLegacyGoogleResult(result: LoginResult): GoogleSignInLegacyResult {
+    if (result.provider !== 'google') {
+      throw new Error(`Unexpected social login provider: ${result.provider}`);
+    }
+
+    const googleResult = result.result;
+
+    if (googleResult.responseType === 'offline') {
+      return {
+        provider: 'google',
+        accessToken: null,
+        idToken: null,
+        refreshToken: null,
+        serverAuthCode: googleResult.serverAuthCode,
+        email: null,
+        familyName: null,
+        givenName: null,
+        id: null,
+        imageUrl: null,
+        name: null,
+        authentication: null,
+        raw: googleResult,
+      };
+    }
+
+    const accessToken = googleResult.accessToken?.token ?? null;
+    const refreshToken = googleResult.accessToken?.refreshToken ?? null;
+
+    return {
+      provider: 'google',
+      accessToken,
+      idToken: googleResult.idToken ?? null,
+      refreshToken,
+      serverAuthCode: null,
+      email: googleResult.profile.email ?? null,
+      familyName: googleResult.profile.familyName ?? null,
+      givenName: googleResult.profile.givenName ?? null,
+      id: googleResult.profile.id ?? null,
+      imageUrl: googleResult.profile.imageUrl ?? null,
+      name: googleResult.profile.name ?? null,
+      authentication: googleResult.accessToken
+        ? {
+            accessToken,
+            refreshToken,
+            idToken: googleResult.idToken ?? null,
+            serverAuthCode: null,
+          }
+        : null,
+      raw: googleResult,
+    };
   }
 }

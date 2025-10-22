@@ -26,12 +26,7 @@
     "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "@capgo/capacitor-social-login": [
-        "src/plugins/capacitor-social-login"
-      ]
-    }
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
