@@ -4,5 +4,4 @@
     <string name="title_activity_main">Pestsy</string>
     <string name="package_name">com.castilloapp.pestsy</string>
     <string name="custom_url_scheme">com.castilloapp.pestsy</string>
-    <string name="server_client_id">547267894981-apgm3tj9r70ui88o94ui2bh5it7qb79n.apps.googleusercontent.com</string>
 </resources>
