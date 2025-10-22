@@ -1,6 +1,6 @@
 import { registerPlugin, WebPlugin } from '@capacitor/core';
 import type { PermissionState } from '@capacitor/core';
-import { GoogleAuth } from '@capacitor/google';
+import { GoogleSocialLogin } from '@capgo/capacitor-social-login/dist/esm/google-provider';
 
 export type SocialProvider = 'google';
 
@@ -62,12 +62,10 @@ export interface SocialLoginPlugin {
 
 const DEFAULT_SCOPES = ['profile', 'email'];
 
-class CapacitorSocialLoginWeb
-  extends WebPlugin<SocialLoginInitializeOptions>
-  implements SocialLoginPlugin
-{
+class CapacitorSocialLoginWeb extends WebPlugin implements SocialLoginPlugin {
   private googleConfig?: GoogleProviderConfig;
   private initialized = false;
+  private readonly googleProvider = new GoogleSocialLogin();
 
   async initialize(options: SocialLoginInitializeOptions): Promise<void> {
     const googleOptions = options.providers?.google ?? options.google;
@@ -78,15 +76,26 @@ class CapacitorSocialLoginWeb
     }
 
     this.googleConfig = googleOptions;
-
     const { clientId, serverClientId, scopes, forceCodeForRefreshToken } =
       googleOptions;
 
-    await GoogleAuth.initialize({
-      clientId: clientId ?? serverClientId ?? '',
-      scopes: scopes ?? DEFAULT_SCOPES,
-      grantOfflineAccess: forceCodeForRefreshToken ?? false,
-    });
+    const resolvedClientId = clientId ?? serverClientId ?? null;
+    const mode = forceCodeForRefreshToken ? 'offline' : 'online';
+
+    await this.googleProvider.initialize(
+      resolvedClientId,
+      mode,
+      undefined,
+      undefined,
+    );
+
+    if (scopes && scopes.length > 0) {
+      // Persist resolved scopes so they can be reused during login.
+      this.googleConfig = {
+        ...googleOptions,
+        scopes,
+      };
+    }
 
     this.initialized = true;
   }
@@ -100,22 +109,57 @@ class CapacitorSocialLoginWeb
       await this.initialize({ google: this.googleConfig });
     }
 
-    const googleUser = await GoogleAuth.signIn();
+    const scopes = this.googleConfig?.scopes ?? DEFAULT_SCOPES;
+    const response = await this.googleProvider.login({
+      scopes,
+      prompt: this.googleConfig?.forceCodeForRefreshToken
+        ? 'consent select_account'
+        : undefined,
+    });
+    const { result } = response;
+
+    if (result.responseType === 'offline') {
+      return {
+        provider: 'google',
+        accessToken: null,
+        idToken: null,
+        refreshToken: null,
+        serverAuthCode: result.serverAuthCode,
+        email: null,
+        familyName: null,
+        givenName: null,
+        id: null,
+        imageUrl: null,
+        name: null,
+        authentication: null,
+        raw: result,
+      };
+    }
+
+    const accessToken = result.accessToken?.token ?? null;
+    const refreshToken = result.accessToken?.refreshToken ?? null;
 
     return {
       provider: 'google',
-      accessToken: googleUser?.authentication?.accessToken ?? null,
-      idToken: googleUser?.authentication?.idToken ?? null,
-      refreshToken: googleUser?.authentication?.refreshToken ?? null,
-      serverAuthCode: (googleUser as any)?.serverAuthCode ?? null,
-      email: googleUser?.email ?? null,
-      familyName: googleUser?.familyName ?? null,
-      givenName: googleUser?.givenName ?? null,
-      id: googleUser?.id ?? null,
-      imageUrl: googleUser?.imageUrl ?? null,
-      name: googleUser?.name ?? null,
-      authentication: googleUser?.authentication ?? null,
-      raw: googleUser,
+      accessToken,
+      idToken: result.idToken ?? null,
+      refreshToken: refreshToken ?? null,
+      serverAuthCode: null,
+      email: result.profile?.email ?? null,
+      familyName: result.profile?.familyName ?? null,
+      givenName: result.profile?.givenName ?? null,
+      id: result.profile?.id ?? null,
+      imageUrl: result.profile?.imageUrl ?? null,
+      name: result.profile?.name ?? null,
+      authentication: result.accessToken
+        ? {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            idToken: result.idToken ?? null,
+            serverAuthCode: null,
+          }
+        : null,
+      raw: result,
     };
   }
 
@@ -124,7 +168,7 @@ class CapacitorSocialLoginWeb
       throw this.unimplemented('Only the Google provider is available on web.');
     }
 
-    await GoogleAuth.signOut();
+    await this.googleProvider.logout();
   }
 }
 
@@ -138,7 +182,7 @@ export const CapacitorSocialLogin = registerPlugin<SocialLoginPlugin>(
 export type {
   SocialLoginInitializeOptions as CapacitorSocialLoginInitializeOptions,
   SocialLoginPlugin as CapacitorSocialLoginPlugin,
-  SocialLoginSignInOptions,
-  SocialLoginSignInResult,
-  SocialLoginSignOutOptions,
+  SocialLoginSignInOptions as CapacitorSocialLoginSignInOptions,
+  SocialLoginSignInResult as CapacitorSocialLoginSignInResult,
+  SocialLoginSignOutOptions as CapacitorSocialLoginSignOutOptions,
 };
