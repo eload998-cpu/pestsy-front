@@ -20,6 +20,7 @@ export class SocialLoginService {
         google: {
           clientId: environment.googleClientId,
           serverClientId: environment.googleClientId,
+          webClientId: environment.googleClientId,
           scopes: ['profile', 'email'],
           forceCodeForRefreshToken: true,
         },
