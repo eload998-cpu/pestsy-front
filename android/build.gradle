@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.2'
+        classpath 'com.android.tools.build:gradle:8.9.1'
         classpath 'com.google.gms:google-services:4.4.2'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,8 +17,8 @@ buildscript {
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'com.android.tools.build' && details.requested.name == 'gradle') {
-                details.useVersion '8.3.0'
-                details.because 'Capacitor plugins must use AGP 8.3.x to remain compatible with the current tooling'
+                details.useVersion '8.9.1'
+                details.because 'Align all modules on AGP 8.9.x to satisfy updated dependency requirements'
             }
         }
     }
@@ -37,8 +37,8 @@ subprojects { subproject ->
     subproject.buildscript?.configurations?.all { configuration ->
         configuration.resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'com.android.tools.build' && details.requested.name == 'gradle') {
-                details.useVersion '8.3.0'
-                details.because 'Align all modules on AGP 8.3.x until tooling updates are available'
+                details.useVersion '8.9.1'
+                details.because 'Align all modules on AGP 8.9.x to satisfy updated dependency requirements'
             }
         }
     }
