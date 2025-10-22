@@ -9,6 +9,10 @@ export interface GoogleProviderConfig {
   serverClientId?: string;
   iosClientId?: string;
   androidClientId?: string;
+  webClientId?: string;
+  mode?: 'online' | 'offline';
+  hostedDomain?: string;
+  redirectUrl?: string;
   scopes?: string[];
   forceCodeForRefreshToken?: boolean;
 }
@@ -76,17 +80,23 @@ class CapacitorSocialLoginWeb extends WebPlugin implements SocialLoginPlugin {
     }
 
     this.googleConfig = googleOptions;
-    const { clientId, serverClientId, scopes, forceCodeForRefreshToken } =
-      googleOptions;
+    const {
+      clientId,
+      serverClientId,
+      webClientId,
+      scopes,
+      forceCodeForRefreshToken,
+      mode,
+    } = googleOptions;
 
-    const resolvedClientId = clientId ?? serverClientId ?? null;
-    const mode = forceCodeForRefreshToken ? 'offline' : 'online';
+    const resolvedClientId = webClientId ?? clientId ?? serverClientId ?? null;
+    const resolvedMode = mode ?? (forceCodeForRefreshToken ? 'offline' : 'online');
 
     await this.googleProvider.initialize(
       resolvedClientId,
-      mode,
-      undefined,
-      undefined,
+      resolvedMode,
+      googleOptions.hostedDomain,
+      googleOptions.redirectUrl,
     );
 
     if (scopes && scopes.length > 0) {
@@ -94,6 +104,19 @@ class CapacitorSocialLoginWeb extends WebPlugin implements SocialLoginPlugin {
       this.googleConfig = {
         ...googleOptions,
         scopes,
+        webClientId: webClientId ?? resolvedClientId ?? undefined,
+        clientId: clientId ?? resolvedClientId ?? undefined,
+        serverClientId,
+        mode: resolvedMode,
+      };
+    } else {
+      this.googleConfig = {
+        ...googleOptions,
+        scopes,
+        webClientId: webClientId ?? resolvedClientId ?? undefined,
+        clientId: clientId ?? resolvedClientId ?? undefined,
+        serverClientId,
+        mode: resolvedMode,
       };
     }
 
@@ -109,12 +132,15 @@ class CapacitorSocialLoginWeb extends WebPlugin implements SocialLoginPlugin {
       await this.initialize({ google: this.googleConfig });
     }
 
-    const scopes = this.googleConfig?.scopes ?? DEFAULT_SCOPES;
+    const scopes = this.googleConfig?.scopes?.length
+      ? this.googleConfig.scopes
+      : DEFAULT_SCOPES;
+    const shouldForceConsent =
+      this.googleConfig?.mode === 'offline' ||
+      this.googleConfig?.forceCodeForRefreshToken;
     const response = await this.googleProvider.login({
       scopes,
-      prompt: this.googleConfig?.forceCodeForRefreshToken
-        ? 'consent select_account'
-        : undefined,
+      prompt: shouldForceConsent ? 'consent select_account' : undefined,
     });
     const { result } = response;
 
