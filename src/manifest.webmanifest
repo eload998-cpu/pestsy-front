@@ -3,7 +3,7 @@
   "short_name": "Pestsy",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
-  "orientation": "portrait", 
+  "orientation": "portrait",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
