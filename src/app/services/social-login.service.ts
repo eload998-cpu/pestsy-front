@@ -30,9 +30,38 @@ export interface GoogleSignInLegacyResult {
 
 const GOOGLE_LOGIN_SCOPES = ['profile', 'email'];
 
+interface LegacyGoogleAuthPlugin {
+  initialize(options: LegacyGoogleAuthInitializeOptions): Promise<void>;
+  signIn(): Promise<LegacyGoogleAuthSignInResult>;
+}
+
+interface LegacyGoogleAuthInitializeOptions {
+  clientId?: string;
+  serverClientId?: string;
+  scopes?: string[];
+  grantOfflineAccess?: boolean;
+  forceCodeForRefreshToken?: boolean;
+}
+
+interface LegacyGoogleAuthSignInResult {
+  authentication?: {
+    accessToken?: string | null;
+    idToken?: string | null;
+    refreshToken?: string | null;
+  } | null;
+  email?: string | null;
+  familyName?: string | null;
+  givenName?: string | null;
+  id?: string | null;
+  imageUrl?: string | null;
+  name?: string | null;
+  serverAuthCode?: string | null;
+}
+
 @Injectable({ providedIn: 'root' })
 export class SocialLoginService {
   private initialized = false;
+  private legacyInitialized = false;
 
   async initialize(): Promise<void> {
     if (this.initialized) {
@@ -65,16 +94,127 @@ export class SocialLoginService {
   }
 
   async signInWithGoogle(): Promise<GoogleSignInLegacyResult> {
-    await this.initialize();
-    const result = await SocialLogin.login({
-      provider: 'google',
-      options: {
-        scopes: GOOGLE_LOGIN_SCOPES,
-        forceRefreshToken: true,
-      },
-    });
+    if (this.shouldUseLegacyPlugin()) {
+      return this.signInWithLegacyGoogleAuth();
+    }
 
-    return this.toLegacyGoogleResult(result);
+    try {
+      await this.initialize();
+    } catch (error) {
+      if (this.shouldFallbackToLegacyPlugin(error)) {
+        return this.signInWithLegacyGoogleAuth();
+      }
+      throw error;
+    }
+
+    try {
+      const result = await SocialLogin.login({
+        provider: 'google',
+        options: {
+          scopes: GOOGLE_LOGIN_SCOPES,
+          forceRefreshToken: true,
+        },
+      });
+
+      return this.toLegacyGoogleResult(result);
+    } catch (error) {
+      if (this.shouldFallbackToLegacyPlugin(error)) {
+        return this.signInWithLegacyGoogleAuth();
+      }
+      throw error;
+    }
+  }
+
+  private shouldUseLegacyPlugin(): boolean {
+    return !Capacitor.isPluginAvailable('SocialLogin') && this.hasLegacyGoogleAuthPlugin();
+  }
+
+  private shouldFallbackToLegacyPlugin(error: unknown): boolean {
+    if (!this.hasLegacyGoogleAuthPlugin()) {
+      return false;
+    }
+
+    if (!error) {
+      return true;
+    }
+
+    const message = this.extractErrorMessage(error);
+
+    if (!message) {
+      return false;
+    }
+
+    return (
+      message.includes('SocialLogin plugin not implemented') ||
+      message.includes('Capacitor plugin not implemented') ||
+      message.includes('SocialLogin plugin is not implemented') ||
+      message.includes('GoogleSignInClient.getSignInIntent')
+    );
+  }
+
+  private extractErrorMessage(error: unknown): string | null {
+    if (typeof error === 'string') {
+      return error;
+    }
+
+    if (error instanceof Error) {
+      return error.message;
+    }
+
+    if (error && typeof error === 'object' && 'message' in error && typeof (error as any).message === 'string') {
+      return (error as any).message;
+    }
+
+    return null;
+  }
+
+  private hasLegacyGoogleAuthPlugin(): boolean {
+    const capacitorAny = Capacitor as unknown as { Plugins?: Record<string, unknown> };
+    const plugin = capacitorAny?.Plugins?.['GoogleAuth'];
+    return typeof plugin === 'object' && plugin !== null;
+  }
+
+  private async signInWithLegacyGoogleAuth(): Promise<GoogleSignInLegacyResult> {
+    const plugin = this.getLegacyGoogleAuthPlugin();
+
+    if (!plugin) {
+      throw new Error('GoogleAuth plugin is not available on this platform');
+    }
+
+    if (!this.legacyInitialized) {
+      try {
+        await plugin.initialize({
+          clientId: environment.googleClientId,
+          serverClientId: environment.googleClientId,
+          scopes: GOOGLE_LOGIN_SCOPES,
+          grantOfflineAccess: true,
+          forceCodeForRefreshToken: true,
+        });
+      } catch (error) {
+        const message = this.extractErrorMessage(error);
+        if (message && message.includes('already initialized')) {
+          // Ignore initialization errors when the plugin was already initialized.
+        } else {
+          throw error;
+        }
+      }
+
+      this.legacyInitialized = true;
+    }
+
+    const result = await plugin.signIn();
+
+    return this.toLegacyGoogleAuthResult(result);
+  }
+
+  private getLegacyGoogleAuthPlugin(): LegacyGoogleAuthPlugin | null {
+    const capacitorAny = Capacitor as unknown as { Plugins?: Record<string, unknown> };
+    const plugin = capacitorAny?.Plugins?.['GoogleAuth'] as LegacyGoogleAuthPlugin | undefined;
+    if (!plugin || typeof plugin.signIn !== 'function') {
+      return null;
+    }
+
+    return plugin;
   }
 
   private toLegacyGoogleResult(result: LoginResult): GoogleSignInLegacyResult {
@@ -126,6 +266,34 @@ export class SocialLoginService {
           }
         : null,
       raw: googleResult,
+    };
+  }
+
+  private toLegacyGoogleAuthResult(result: LegacyGoogleAuthSignInResult): GoogleSignInLegacyResult {
+    const accessToken = result.authentication?.accessToken ?? null;
+    const refreshToken = result.authentication?.refreshToken ?? null;
+
+    return {
+      provider: 'google',
+      accessToken,
+      idToken: result.authentication?.idToken ?? null,
+      refreshToken,
+      serverAuthCode: result.serverAuthCode ?? null,
+      email: result.email ?? null,
+      familyName: result.familyName ?? null,
+      givenName: result.givenName ?? null,
+      id: result.id ?? null,
+      imageUrl: result.imageUrl ?? null,
+      name: result.name ?? null,
+      authentication: result.authentication
+        ? {
+            accessToken,
+            idToken: result.authentication?.idToken ?? null,
+            refreshToken,
+            serverAuthCode: result.serverAuthCode ?? null,
+          }
+        : null,
+      raw: result,
     };
   }
 }
