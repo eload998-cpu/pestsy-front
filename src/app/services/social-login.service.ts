@@ -72,7 +72,6 @@ export class SocialLoginService {
   private initialized = false;
   private legacyInitialized = false;
   private socialLoginPlugin: SocialLoginPlugin | null = null;
-  private socialLoginPluginDisabled = false;
 
   private get isWeb(): boolean {
     return Capacitor.getPlatform() === 'web';
@@ -103,8 +102,6 @@ export class SocialLoginService {
         if (!this.shouldFallbackToLegacyPlugin(error)) {
           throw error;
         }
-
-        this.disableSocialLoginPlugin();
       }
     }
 
@@ -141,10 +138,7 @@ export class SocialLoginService {
       message.includes('Capacitor plugin not implemented') ||
       message.includes('SocialLogin plugin is not implemented') ||
       message.includes('CapacitorSocialLogin') ||
-      message.includes('GoogleSignInClient.getSignInIntent') ||
-      message.includes("Cannot find provider 'google'") ||
-      message.includes('Cannot find provider "google"') ||
-      message.includes('provider not configured')
+      message.includes('GoogleSignInClient.getSignInIntent')
     );
   }
 
@@ -246,28 +240,17 @@ export class SocialLoginService {
   }*/
 
   private resolveSocialLoginPlugin(): SocialLoginPlugin | null {
-    if (this.socialLoginPluginDisabled) {
-      return null;
+    const plugin = this.socialLoginPlugin ?? this.findSocialLoginPlugin();
+
+    if (plugin && this.socialLoginPlugin !== plugin) {
+      this.socialLoginPlugin = plugin;
     }
 
-    if (!this.socialLoginPlugin) {
-      this.socialLoginPlugin = this.findSocialLoginPlugin();
-    }
-
-    return this.socialLoginPlugin ?? null;
+    return plugin ?? null;
   }
 
   private isSocialLoginPluginAvailable(): boolean {
-    if (this.socialLoginPluginDisabled) {
-      return false;
-    }
-
     return this.resolveSocialLoginPlugin() !== null;
-  }
-
-  private disableSocialLoginPlugin(): void {
-    this.socialLoginPlugin = null;
-    this.socialLoginPluginDisabled = true;
   }
 
   private findSocialLoginPlugin(): SocialLoginPlugin | null {
