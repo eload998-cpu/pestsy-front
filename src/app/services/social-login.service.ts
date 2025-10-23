@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import {
-  InitializeOptions,
-  LoginResult,
-  SocialLogin,
-} from '@capgo/capacitor-social-login';
-import { environment } from 'src/environments/environment';
 
 export interface GoogleSignInLegacyResult {
   provider: 'google';
@@ -68,28 +62,10 @@ export class SocialLoginService {
       return;
     }
 
-    try {
-      const options: InitializeOptions = {
-        google: {
-          webClientId: environment.googleClientId,
-          iOSClientId: environment.googleClientId,
-          iOSServerClientId: environment.googleClientId,
-          mode: 'offline',
-        },
-      };
+    this.initialized = true;
 
-      await SocialLogin.initialize(options);
-
-      this.initialized = true;
-    } catch (error) {
-      // When the plugin is not available on the current platform we simply mark
-      // the service as initialized so web usage can keep working with the
-      // registered web implementation.
-      console.warn('Capacitor social login initialization warning', error);
-      this.initialized = Capacitor.getPlatform() === 'web';
-      if (!this.initialized) {
-        throw error;
-      }
+    if (!this.isWeb) {
+      console.info('Google social login has been disabled for native builds in this configuration.');
     }
   }
 
@@ -245,28 +221,7 @@ export class SocialLoginService {
     const accessToken = googleResult.accessToken?.token ?? null;
     const refreshToken = googleResult.accessToken?.refreshToken ?? null;
 
-    return {
-      provider: 'google',
-      accessToken,
-      idToken: googleResult.idToken ?? null,
-      refreshToken,
-      serverAuthCode: null,
-      email: googleResult.profile.email ?? null,
-      familyName: googleResult.profile.familyName ?? null,
-      givenName: googleResult.profile.givenName ?? null,
-      id: googleResult.profile.id ?? null,
-      imageUrl: googleResult.profile.imageUrl ?? null,
-      name: googleResult.profile.name ?? null,
-      authentication: googleResult.accessToken
-        ? {
-            accessToken,
-            refreshToken,
-            idToken: googleResult.idToken ?? null,
-            serverAuthCode: null,
-          }
-        : null,
-      raw: googleResult,
-    };
+    throw new Error('Google sign-in is not available in this build.');
   }
 
   private toLegacyGoogleAuthResult(result: LegacyGoogleAuthSignInResult): GoogleSignInLegacyResult {
