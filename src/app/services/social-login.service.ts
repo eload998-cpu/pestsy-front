@@ -24,6 +24,9 @@ export interface GoogleSignInLegacyResult {
 }
 
 const GOOGLE_LOGIN_SCOPES = ['profile', 'email'];
+const GOOGLE_PROVIDER_IDS = ['google', 'google.com'] as const;
+
+type GoogleProviderId = (typeof GOOGLE_PROVIDER_IDS)[number];
 
 interface SocialLoginPlugin {
   login(options: SocialLoginLoginOptions): Promise<SocialLoginLoginResult>;
@@ -276,21 +279,41 @@ export class SocialLoginService {
   private async signInWithCapacitorSocialLogin(plugin: SocialLoginPlugin): Promise<GoogleSignInLegacyResult> {
     await this.ensureSocialLoginPluginConfigured(plugin);
 
-    const result = await plugin.login({
-      provider: 'google',
-      options: {
-        scopes: GOOGLE_LOGIN_SCOPES,
-        forceRefreshToken: true,
-        forceCodeForRefreshToken: true,
-        grantOfflineAccess: true,
-        iosClientId: environment.googleClientId,
-        androidClientId: environment.googleClientId,
-        webClientId: environment.googleClientId,
-        serverClientId: environment.googleClientId,
-      },
-    });
+    const googleOptions = {
+      scopes: GOOGLE_LOGIN_SCOPES,
+      forceRefreshToken: true,
+      forceCodeForRefreshToken: true,
+      grantOfflineAccess: true,
+      iosClientId: environment.googleClientId,
+      androidClientId: environment.googleClientId,
+      webClientId: environment.googleClientId,
+      serverClientId: environment.googleClientId,
+    } as const;
 
-    return this.toLegacyGoogleResult(result);
+    let lastProviderError: unknown = null;
+
+    for (const providerId of GOOGLE_PROVIDER_IDS) {
+      try {
+        const result = await plugin.login({
+          provider: providerId,
+          options: googleOptions,
+        });
+
+        return this.toLegacyGoogleResult(result);
+      } catch (error) {
+        if (!this.isProviderNotFoundError(error, providerId)) {
+          throw error;
+        }
+
+        lastProviderError = error;
+      }
+    }
+
+    if (lastProviderError) {
+      throw lastProviderError;
+    }
+
+    throw new Error('Google sign-in provider is not available.');
   }
 
   private async ensureSocialLoginPluginConfigured(plugin: SocialLoginPlugin): Promise<void> {
@@ -308,6 +331,10 @@ export class SocialLoginService {
       grantOfflineAccess: true,
     } as const;
 
+    const providersConfig = Object.fromEntries(
+      GOOGLE_PROVIDER_IDS.map((providerId) => [providerId, googleOptions] as const),
+    );
+
     const pluginAny = plugin as unknown as {
       initialize?: (config: Record<string, unknown>) => Promise<void> | void;
       configure?: (config: Record<string, unknown>) => Promise<void> | void;
@@ -316,7 +343,7 @@ export class SocialLoginService {
       setProviderOptions?: (provider: string, options: Record<string, unknown>) => Promise<void> | void;
     };
 
-    const initializationConfig = { providers: { google: googleOptions } } satisfies Record<string, unknown>;
+    const initializationConfig = { providers: providersConfig } satisfies Record<string, unknown>;
 
     const initializationMethods: (keyof typeof pluginAny)[] = ['initialize', 'configure'];
 
@@ -348,12 +375,14 @@ export class SocialLoginService {
         continue;
       }
 
-      try {
-        await fn.call(pluginAny, 'google', googleOptions);
-      } catch (error) {
-        const message = this.extractErrorMessage(error);
-        if (!message || !message.includes('already')) {
-          throw error;
+      for (const providerId of GOOGLE_PROVIDER_IDS) {
+        try {
+          await fn.call(pluginAny, providerId, googleOptions);
+        } catch (error) {
+          const message = this.extractErrorMessage(error);
+          if (!message || !message.includes('already')) {
+            throw error;
+          }
         }
       }
     }
@@ -362,7 +391,7 @@ export class SocialLoginService {
   }
 
   private toLegacyGoogleResult(result: SocialLoginLoginResult): GoogleSignInLegacyResult {
-    if (result.provider !== 'google') {
+    if (!this.isKnownGoogleProvider(result.provider)) {
       throw new Error(`Unexpected social login provider: ${result.provider}`);
     }
 
@@ -500,6 +529,28 @@ export class SocialLoginService {
 
   private extractFirstDefined<T>(values: T[]): T | undefined {
     return values.find((value) => value !== undefined && value !== null);
+  }
+
+  private isKnownGoogleProvider(provider: string): provider is GoogleProviderId {
+    return GOOGLE_PROVIDER_IDS.includes(provider as GoogleProviderId);
+  }
+
+  private isProviderNotFoundError(error: unknown, providerId: GoogleProviderId): boolean {
+    const message = this.extractErrorMessage(error);
+
+    if (!message) {
+      return false;
+    }
+
+    if (!message.includes('Cannot find provider')) {
+      return false;
+    }
+
+    if (message.includes(providerId)) {
+      return true;
+    }
+
+    return message.toLowerCase().includes('google');
   }
 
   private toLegacyGoogleAuthResult(result: LegacyGoogleAuthSignInResult): GoogleSignInLegacyResult {
