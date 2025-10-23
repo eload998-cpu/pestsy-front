@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
+import { LoginResult, SocialLogin } from '@capgo/capacitor-social-login';
+import { environment } from 'src/environments/environment';
 
 export interface GoogleSignInLegacyResult {
   provider: 'google';
@@ -56,6 +58,10 @@ interface LegacyGoogleAuthSignInResult {
 export class SocialLoginService {
   private initialized = false;
   private legacyInitialized = false;
+
+  private get isWeb(): boolean {
+    return Capacitor.getPlatform() === 'web';
+  }
 
   async initialize(): Promise<void> {
     if (this.initialized) {
