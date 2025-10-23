@@ -72,6 +72,7 @@ export class SocialLoginService {
   private initialized = false;
   private legacyInitialized = false;
   private socialLoginPlugin: SocialLoginPlugin | null = null;
+  private socialLoginPluginConfigured = false;
 
   private get isWeb(): boolean {
     return Capacitor.getPlatform() === 'web';
@@ -138,6 +139,7 @@ export class SocialLoginService {
       message.includes('Capacitor plugin not implemented') ||
       message.includes('SocialLogin plugin is not implemented') ||
       message.includes('CapacitorSocialLogin') ||
+      message.includes('Cannot find provider') ||
       message.includes('GoogleSignInClient.getSignInIntent')
     );
   }
@@ -272,6 +274,8 @@ export class SocialLoginService {
   }
 
   private async signInWithCapacitorSocialLogin(plugin: SocialLoginPlugin): Promise<GoogleSignInLegacyResult> {
+    await this.ensureSocialLoginPluginConfigured(plugin);
+
     const result = await plugin.login({
       provider: 'google',
       options: {
@@ -287,6 +291,74 @@ export class SocialLoginService {
     });
 
     return this.toLegacyGoogleResult(result);
+  }
+
+  private async ensureSocialLoginPluginConfigured(plugin: SocialLoginPlugin): Promise<void> {
+    if (this.socialLoginPluginConfigured) {
+      return;
+    }
+
+    const googleOptions = {
+      scopes: GOOGLE_LOGIN_SCOPES,
+      iosClientId: environment.googleClientId,
+      androidClientId: environment.googleClientId,
+      webClientId: environment.googleClientId,
+      serverClientId: environment.googleClientId,
+      forceCodeForRefreshToken: true,
+      grantOfflineAccess: true,
+    } as const;
+
+    const pluginAny = plugin as unknown as {
+      initialize?: (config: Record<string, unknown>) => Promise<void> | void;
+      configure?: (config: Record<string, unknown>) => Promise<void> | void;
+      addProvider?: (provider: string, options: Record<string, unknown>) => Promise<void> | void;
+      registerProvider?: (provider: string, options: Record<string, unknown>) => Promise<void> | void;
+      setProviderOptions?: (provider: string, options: Record<string, unknown>) => Promise<void> | void;
+    };
+
+    const initializationConfig = { providers: { google: googleOptions } } satisfies Record<string, unknown>;
+
+    const initializationMethods: (keyof typeof pluginAny)[] = ['initialize', 'configure'];
+
+    for (const method of initializationMethods) {
+      const fn = pluginAny[method];
+      if (typeof fn !== 'function') {
+        continue;
+      }
+
+      try {
+        await fn.call(pluginAny, initializationConfig);
+      } catch (error) {
+        const message = this.extractErrorMessage(error);
+        if (!message || !message.includes('already')) {
+          throw error;
+        }
+      }
+    }
+
+    const providerRegistrationMethods: (keyof typeof pluginAny)[] = [
+      'addProvider',
+      'registerProvider',
+      'setProviderOptions',
+    ];
+
+    for (const method of providerRegistrationMethods) {
+      const fn = pluginAny[method];
+      if (typeof fn !== 'function') {
+        continue;
+      }
+
+      try {
+        await fn.call(pluginAny, 'google', googleOptions);
+      } catch (error) {
+        const message = this.extractErrorMessage(error);
+        if (!message || !message.includes('already')) {
+          throw error;
+        }
+      }
+    }
+
+    this.socialLoginPluginConfigured = true;
   }
 
   private toLegacyGoogleResult(result: SocialLoginLoginResult): GoogleSignInLegacyResult {
