@@ -1,26 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+    ext {
+        kotlin_version = '1.9.23'
+    }
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.7.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.4.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-    }
-
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            if (details.requested.group == 'com.android.tools.build' && details.requested.name == 'gradle') {
-                details.useVersion '8.3.0'
-                details.because 'Align all modules on AGP 8.3.x to satisfy compatibility requirements'
-            }
-        }
     }
 }
 
@@ -30,17 +25,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-    }
-}
-
-subprojects { subproject ->
-    subproject.buildscript?.configurations?.all { configuration ->
-        configuration.resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            if (details.requested.group == 'com.android.tools.build' && details.requested.name == 'gradle') {
-                details.useVersion '8.3.0'
-                details.because 'Align all modules on AGP 8.3.x to satisfy compatibility requirements'
-            }
-        }
     }
 }
 
