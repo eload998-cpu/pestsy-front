@@ -24,15 +24,24 @@ export interface GoogleSignInLegacyResult {
 
 @Injectable({ providedIn: 'root' })
 export class SocialLoginService {
-  async initialize(): Promise<void> {
-    const platform = Capacitor.getPlatform();
+  private initialized = false;
+  private readonly isWeb = Capacitor.getPlatform() === 'web';
 
-    if (platform !== 'web') {
-      console.info('Google social login is disabled in this build.');
+  async initialize(): Promise<void> {
+    if (this.initialized) {
+      return;
+    }
+
+    this.initialized = true;
+
+    if (!this.isWeb) {
+      console.info('Google social login has been disabled for native builds in this configuration.');
     }
   }
 
   async signInWithGoogle(): Promise<GoogleSignInLegacyResult> {
+    await this.initialize();
+
     throw new Error('Google sign-in is not available in this build.');
   }
 }
