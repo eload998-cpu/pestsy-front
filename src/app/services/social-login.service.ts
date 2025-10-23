@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { LoginResult, SocialLogin } from '@capgo/capacitor-social-login';
 import { environment } from 'src/environments/environment';
 
 export interface GoogleSignInLegacyResult {
@@ -75,7 +74,7 @@ export class SocialLoginService {
     }
   }
 
-  async signInWithGoogle(): Promise<GoogleSignInLegacyResult> {
+  async signInWithGoogle(): Promise<any> {
     if (this.shouldUseLegacyPlugin()) {
       return this.signInWithLegacyGoogleAuth();
     }
@@ -90,6 +89,8 @@ export class SocialLoginService {
     }
 
     try {
+
+      /*
       const result = await SocialLogin.login({
         provider: 'google',
         options: {
@@ -97,8 +98,9 @@ export class SocialLoginService {
           forceRefreshToken: true,
         },
       });
-
+   
       return this.toLegacyGoogleResult(result);
+         */
     } catch (error) {
       if (this.shouldFallbackToLegacyPlugin(error)) {
         return this.signInWithLegacyGoogleAuth();
@@ -199,6 +201,7 @@ export class SocialLoginService {
     return plugin;
   }
 
+  /*
   private toLegacyGoogleResult(result: LoginResult): GoogleSignInLegacyResult {
     if (result.provider !== 'google') {
       throw new Error(`Unexpected social login provider: ${result.provider}`);
@@ -228,7 +231,7 @@ export class SocialLoginService {
     const refreshToken = googleResult.accessToken?.refreshToken ?? null;
 
     throw new Error('Google sign-in is not available in this build.');
-  }
+  }*/
 
   private toLegacyGoogleAuthResult(result: LegacyGoogleAuthSignInResult): GoogleSignInLegacyResult {
     const accessToken = result.authentication?.accessToken ?? null;
@@ -248,11 +251,11 @@ export class SocialLoginService {
       name: result.name ?? null,
       authentication: result.authentication
         ? {
-            accessToken,
-            idToken: result.authentication?.idToken ?? null,
-            refreshToken,
-            serverAuthCode: result.serverAuthCode ?? null,
-          }
+          accessToken,
+          idToken: result.authentication?.idToken ?? null,
+          refreshToken,
+          serverAuthCode: result.serverAuthCode ?? null,
+        }
         : null,
       raw: result,
     };
