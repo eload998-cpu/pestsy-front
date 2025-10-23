@@ -25,6 +25,20 @@ export interface GoogleSignInLegacyResult {
 
 const GOOGLE_LOGIN_SCOPES = ['profile', 'email'];
 
+interface SocialLoginPlugin {
+  login(options: SocialLoginLoginOptions): Promise<SocialLoginLoginResult>;
+}
+
+interface SocialLoginLoginOptions {
+  provider: string;
+  options?: Record<string, unknown>;
+}
+
+interface SocialLoginLoginResult {
+  provider: string;
+  result: unknown;
+}
+
 interface LegacyGoogleAuthPlugin {
   initialize(options: LegacyGoogleAuthInitializeOptions): Promise<void>;
   signIn(): Promise<LegacyGoogleAuthSignInResult>;
@@ -57,6 +71,8 @@ interface LegacyGoogleAuthSignInResult {
 export class SocialLoginService {
   private initialized = false;
   private legacyInitialized = false;
+  private socialLoginPlugin: SocialLoginPlugin | null = null;
+  private socialLoginPluginDisabled = false;
 
   private get isWeb(): boolean {
     return Capacitor.getPlatform() === 'web';
@@ -69,48 +85,40 @@ export class SocialLoginService {
 
     this.initialized = true;
 
-    if (!this.isWeb) {
-      console.info('Google social login has been disabled for native builds in this configuration.');
+    if (!this.isWeb && !this.isSocialLoginPluginAvailable()) {
+      console.info(
+        'Capacitor Social Login plugin is not available. Falling back to the legacy GoogleAuth plugin when possible.',
+      );
     }
   }
 
-  async signInWithGoogle(): Promise<any> {
+  async signInWithGoogle(): Promise<GoogleSignInLegacyResult> {
+    const socialLoginPlugin = this.resolveSocialLoginPlugin();
+
+    if (socialLoginPlugin) {
+      try {
+        await this.initialize();
+        return await this.signInWithCapacitorSocialLogin(socialLoginPlugin);
+      } catch (error) {
+        if (!this.shouldFallbackToLegacyPlugin(error)) {
+          throw error;
+        }
+
+        this.disableSocialLoginPlugin();
+      }
+    }
+
     if (this.shouldUseLegacyPlugin()) {
       return this.signInWithLegacyGoogleAuth();
     }
 
-    try {
-      await this.initialize();
-    } catch (error) {
-      if (this.shouldFallbackToLegacyPlugin(error)) {
-        return this.signInWithLegacyGoogleAuth();
-      }
-      throw error;
-    }
+    await this.initialize();
 
-    try {
-
-      /*
-      const result = await SocialLogin.login({
-        provider: 'google',
-        options: {
-          scopes: GOOGLE_LOGIN_SCOPES,
-          forceRefreshToken: true,
-        },
-      });
-   
-      return this.toLegacyGoogleResult(result);
-         */
-    } catch (error) {
-      if (this.shouldFallbackToLegacyPlugin(error)) {
-        return this.signInWithLegacyGoogleAuth();
-      }
-      throw error;
-    }
+    throw new Error('Google sign-in is not available in this build.');
   }
 
   private shouldUseLegacyPlugin(): boolean {
-    return !Capacitor.isPluginAvailable('SocialLogin') && this.hasLegacyGoogleAuthPlugin();
+    return !this.isSocialLoginPluginAvailable() && this.hasLegacyGoogleAuthPlugin();
   }
 
   private shouldFallbackToLegacyPlugin(error: unknown): boolean {
@@ -132,7 +140,11 @@ export class SocialLoginService {
       message.includes('SocialLogin plugin not implemented') ||
       message.includes('Capacitor plugin not implemented') ||
       message.includes('SocialLogin plugin is not implemented') ||
-      message.includes('GoogleSignInClient.getSignInIntent')
+      message.includes('CapacitorSocialLogin') ||
+      message.includes('GoogleSignInClient.getSignInIntent') ||
+      message.includes("Cannot find provider 'google'") ||
+      message.includes('Cannot find provider "google"') ||
+      message.includes('provider not configured')
     );
   }
 
@@ -233,6 +245,208 @@ export class SocialLoginService {
     throw new Error('Google sign-in is not available in this build.');
   }*/
 
+  private resolveSocialLoginPlugin(): SocialLoginPlugin | null {
+    if (this.socialLoginPluginDisabled) {
+      return null;
+    }
+
+    if (!this.socialLoginPlugin) {
+      this.socialLoginPlugin = this.findSocialLoginPlugin();
+    }
+
+    return this.socialLoginPlugin ?? null;
+  }
+
+  private isSocialLoginPluginAvailable(): boolean {
+    if (this.socialLoginPluginDisabled) {
+      return false;
+    }
+
+    return this.resolveSocialLoginPlugin() !== null;
+  }
+
+  private disableSocialLoginPlugin(): void {
+    this.socialLoginPlugin = null;
+    this.socialLoginPluginDisabled = true;
+  }
+
+  private findSocialLoginPlugin(): SocialLoginPlugin | null {
+    const capacitorAny = Capacitor as unknown as { Plugins?: Record<string, unknown> };
+    const plugins = capacitorAny?.Plugins ?? {};
+    const candidates = [
+      plugins['CapgoCapacitorSocialLogin'],
+      plugins['CapacitorSocialLogin'],
+      plugins['SocialLogin'],
+    ];
+
+    for (const candidate of candidates) {
+      if (candidate && typeof (candidate as SocialLoginPlugin).login === 'function') {
+        return candidate as SocialLoginPlugin;
+      }
+    }
+
+    return null;
+  }
+
+  private async signInWithCapacitorSocialLogin(plugin: SocialLoginPlugin): Promise<GoogleSignInLegacyResult> {
+    const result = await plugin.login({
+      provider: 'google',
+      options: {
+        scopes: GOOGLE_LOGIN_SCOPES,
+        forceRefreshToken: true,
+        forceCodeForRefreshToken: true,
+        grantOfflineAccess: true,
+        iosClientId: environment.googleClientId,
+        androidClientId: environment.googleClientId,
+        webClientId: environment.googleClientId,
+        serverClientId: environment.googleClientId,
+      },
+    });
+
+    return this.toLegacyGoogleResult(result);
+  }
+
+  private toLegacyGoogleResult(result: SocialLoginLoginResult): GoogleSignInLegacyResult {
+    if (result.provider !== 'google') {
+      throw new Error(`Unexpected social login provider: ${result.provider}`);
+    }
+
+    const googleResult: any = result.result ?? {};
+    const responseType = typeof googleResult.responseType === 'string' ? googleResult.responseType : null;
+
+    if (responseType === 'offline') {
+      const serverAuthCode = googleResult.serverAuthCode ?? null;
+
+      return {
+        provider: 'google',
+        accessToken: null,
+        idToken: null,
+        refreshToken: null,
+        serverAuthCode,
+        email: this.extractFirstDefined([
+          googleResult.email,
+          googleResult.profile?.email,
+          googleResult.user?.email,
+        ]),
+        familyName: this.extractFirstDefined([
+          googleResult.familyName,
+          googleResult.profile?.familyName,
+          googleResult.user?.familyName,
+        ]),
+        givenName: this.extractFirstDefined([
+          googleResult.givenName,
+          googleResult.profile?.givenName,
+          googleResult.user?.givenName,
+        ]),
+        id: this.extractFirstDefined([
+          googleResult.id,
+          googleResult.profile?.id,
+          googleResult.user?.id,
+        ]),
+        imageUrl: this.extractFirstDefined([
+          googleResult.imageUrl,
+          googleResult.profile?.imageUrl,
+          googleResult.user?.imageUrl,
+        ]),
+        name: this.extractFirstDefined([
+          googleResult.name,
+          googleResult.profile?.name,
+          googleResult.user?.name,
+        ]),
+        authentication: null,
+        raw: googleResult,
+      };
+    }
+
+    const accessToken = this.extractFirstDefined([
+      googleResult.accessToken?.token,
+      googleResult.authentication?.accessToken,
+      googleResult.accessToken,
+    ]) ?? null;
+
+    const refreshToken = this.extractFirstDefined([
+      googleResult.accessToken?.refreshToken,
+      googleResult.authentication?.refreshToken,
+    ]) ?? null;
+
+    const idToken = this.extractFirstDefined([
+      googleResult.idToken,
+      googleResult.authentication?.idToken,
+      googleResult.token?.idToken,
+    ]) ?? null;
+
+    const serverAuthCode = this.extractFirstDefined([
+      googleResult.serverAuthCode,
+      googleResult.authentication?.serverAuthCode,
+    ]) ?? null;
+
+    const email = this.extractFirstDefined([
+      googleResult.email,
+      googleResult.profile?.email,
+      googleResult.user?.email,
+    ]);
+
+    const familyName = this.extractFirstDefined([
+      googleResult.familyName,
+      googleResult.profile?.familyName,
+      googleResult.user?.familyName,
+    ]);
+
+    const givenName = this.extractFirstDefined([
+      googleResult.givenName,
+      googleResult.profile?.givenName,
+      googleResult.user?.givenName,
+    ]);
+
+    const id = this.extractFirstDefined([
+      googleResult.id,
+      googleResult.profile?.id,
+      googleResult.user?.id,
+    ]);
+
+    const imageUrl = this.extractFirstDefined([
+      googleResult.imageUrl,
+      googleResult.profile?.imageUrl,
+      googleResult.user?.imageUrl,
+    ]);
+
+    const name = this.extractFirstDefined([
+      googleResult.name,
+      googleResult.profile?.name,
+      googleResult.user?.name,
+    ]);
+
+    const authentication =
+      accessToken !== null || idToken !== null || refreshToken !== null || serverAuthCode !== null
+        ? {
+            accessToken,
+            idToken,
+            refreshToken,
+            serverAuthCode,
+          }
+        : null;
+
+    return {
+      provider: 'google',
+      accessToken,
+      idToken,
+      refreshToken,
+      serverAuthCode,
+      email: email ?? null,
+      familyName: familyName ?? null,
+      givenName: givenName ?? null,
+      id: id ?? null,
+      imageUrl: imageUrl ?? null,
+      name: name ?? null,
+      authentication,
+      raw: googleResult,
+    };
+  }
+
+  private extractFirstDefined<T>(values: T[]): T | undefined {
+    return values.find((value) => value !== undefined && value !== null);
+  }
+
   private toLegacyGoogleAuthResult(result: LegacyGoogleAuthSignInResult): GoogleSignInLegacyResult {
     const accessToken = result.authentication?.accessToken ?? null;
     const refreshToken = result.authentication?.refreshToken ?? null;
@@ -251,11 +465,11 @@ export class SocialLoginService {
       name: result.name ?? null,
       authentication: result.authentication
         ? {
-          accessToken,
-          idToken: result.authentication?.idToken ?? null,
-          refreshToken,
-          serverAuthCode: result.serverAuthCode ?? null,
-        }
+            accessToken,
+            idToken: result.authentication?.idToken ?? null,
+            refreshToken,
+            serverAuthCode: result.serverAuthCode ?? null,
+          }
         : null,
       raw: result,
     };
