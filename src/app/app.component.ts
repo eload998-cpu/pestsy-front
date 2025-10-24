@@ -9,6 +9,7 @@ import { Device, DeviceInfo } from "@capacitor/device";
 import { AuthUserService } from 'src/app/services/auth-user.service';
 import { SubscriptionPollingService } from 'src/app/services/resources/subscription-poll-service';
 import { ThemeService } from './services/theme.service';
+import { CapgoUpdaterService } from './services/capgo-updater.service';
 import { Subscription } from 'rxjs';
 
 const ANIMATION_DURATION = 500;
@@ -38,7 +39,8 @@ export class AppComponent implements OnDestroy {
     private _sharedService: SharedService,
     private _authUserService: AuthUserService,
     private _subscriptionPollService: SubscriptionPollingService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private capgoUpdaterService: CapgoUpdaterService
 
   ) {
 
@@ -69,6 +71,8 @@ export class AppComponent implements OnDestroy {
   async ngOnInit() {
 
 
+
+    await this.capgoUpdaterService.initialize();
 
     const deviceInfo = await Device.getInfo();
     if ((deviceInfo as unknown as DeviceInfo).platform != "web") {

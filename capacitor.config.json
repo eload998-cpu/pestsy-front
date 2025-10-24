@@ -16,6 +16,11 @@
         "forceCodeForRefreshToken": true,
         "grantOfflineAccess": true
       }
+    },
+    "CapacitorUpdater": {
+      "appId": "pestsy",
+      "channel": "production",
+      "autoUpdate": true
     }
   }
 }
