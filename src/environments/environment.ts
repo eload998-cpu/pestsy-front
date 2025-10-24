@@ -8,7 +8,13 @@ export const environment = {
   publicUrl: 'http://localhost:8000/api',
   webUrl: 'http://localhost:8000',
   googleClientId:'547267894981-b130sbc443qmrj9murll50kq3i13ep3c.apps.googleusercontent.com',
-  paypalClientId:'AVu7kV-SxJyaZO3LuyAzmOEHa1lbpMbyZDvf8BUdGse8qs-tSo6ariu92gby_CarSCMNNYnF9F70Q1Qp'
+  paypalClientId:'AVu7kV-SxJyaZO3LuyAzmOEHa1lbpMbyZDvf8BUdGse8qs-tSo6ariu92gby_CarSCMNNYnF9F70Q1Qp',
+  capgo: {
+    enabled: false,
+    appId: 'pestsy',
+    channel: 'development',
+    autoUpdate: true,
+  }
 
 };
 
