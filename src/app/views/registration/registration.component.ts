@@ -3,7 +3,7 @@ import { faBuilding, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faPhone,faEye,faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Subject, BehaviorSubject, Observable, of, concat, fromEvent } from 'rxjs';
 import { distinctUntilChanged, debounceTime, switchMap, tap, catchError, filter, map } from 'rxjs/operators'
@@ -26,10 +26,10 @@ import { environment } from 'src/environments/environment';
 import { SocialLoginService } from 'src/app/services/social-login.service';
 
 @Component({
-    selector: 'app-registration',
-    templateUrl: './registration.component.html',
-    styleUrls: ['./registration.component.scss'],
-    standalone: false
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss'],
+  standalone: false
 })
 export class RegistrationComponent implements OnInit {
 
@@ -134,11 +134,13 @@ export class RegistrationComponent implements OnInit {
   public faPhone = faPhone;
   public faArrowLeft = faArrowLeft;
   public faBuilding = faBuilding;
-  public faEye:any = faEyeSlash;
-  public faConfirmEye:any = faEyeSlash;
+  public faEye: any = faEyeSlash;
+  public faConfirmEye: any = faEyeSlash;
 
-  
+
   async ngOnInit(): Promise<any> {
+
+    await this.socialLoginService.initialize();
 
     AOS.init({
       once: true
@@ -380,6 +382,7 @@ export class RegistrationComponent implements OnInit {
   public async googleOauth() {
     try {
       const googleUser = await this.socialLoginService.signInWithGoogle();
+      console.log(googleUser);
       this.router.navigate(['/pre-login'], { state: googleUser });
     } catch (error) {
       console.error('Sign-in error:', error);
