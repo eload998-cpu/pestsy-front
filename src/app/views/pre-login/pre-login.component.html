@@ -9,12 +9,12 @@
             <div class="row">
                 <div class="col-12 d-flex justify-content-center login-form__avatar-row">
                     <div class="rounded-div d-flex justify-content-center align-items-center">
-                        <img *ngIf="currentTheme=='light'" [ngClass]="{
+                        <img *ngIf="currentTheme=='light'" #lightLogo [ngClass]="{
                             'hide':!login_completed
                         }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo.webp" class="avatar"
                             alt="">
 
-                        <img *ngIf="currentTheme=='dark'" [ngClass]="{
+                        <img *ngIf="currentTheme=='dark'" #darkLogo [ngClass]="{
                                 'hide':!login_completed
                             }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo-black.webp"
                             class="avatar" alt="">
