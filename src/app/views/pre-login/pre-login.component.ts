@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NgForm, FormControl, FormGroup, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
@@ -14,6 +14,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { environment } from 'src/environments/environment';
 import { Device, DeviceInfo } from "@capacitor/device";
 import { ThemeService } from 'src/app/services/theme.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { ThemeService } from 'src/app/services/theme.service';
     animations: [],
     standalone: false
 })
-export class PreLoginComponent implements OnInit {
+export class PreLoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   public form_model: any;
@@ -35,6 +36,10 @@ export class PreLoginComponent implements OnInit {
   public user_name:string;
   public logo_color:boolean;
   public currentTheme: string;
+  private themeSubscription?: Subscription;
+
+  @ViewChild('lightLogo') private lightLogo?: ElementRef<HTMLImageElement>;
+  @ViewChild('darkLogo') private darkLogo?: ElementRef<HTMLImageElement>;
 
   constructor(
     private router: Router,
@@ -52,6 +57,11 @@ export class PreLoginComponent implements OnInit {
   public async ngOnInit() {
     const deviceInfo = await Device.getInfo();
     this.currentTheme = this.themeService.currentTheme$.value;
+    this.themeSubscription = this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.login_completed = false;
+      setTimeout(() => this.checkLogoLoadState());
+    });
 
     // this.preLogin();
     if ((deviceInfo as unknown as DeviceInfo).platform != "web") {
@@ -75,6 +85,10 @@ export class PreLoginComponent implements OnInit {
     this.preLogin(dataReceived);
 
 
+  }
+
+  ngAfterViewInit(): void {
+    this.checkLogoLoadState();
   }
 
   public async preLogin(data:any): Promise<void> {
@@ -118,9 +132,24 @@ export class PreLoginComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.themeSubscription?.unsubscribe();
+  }
 
+  private checkLogoLoadState(): void {
+    const activeLogo = this.getActiveLogoElement();
 
+    if (activeLogo?.complete && activeLogo.naturalWidth > 0) {
+      this.login_completed = true;
+    }
+  }
 
+  private getActiveLogoElement(): HTMLImageElement | undefined {
+    if (this.currentTheme === 'dark') {
+      return this.darkLogo?.nativeElement;
+    }
 
+    return this.lightLogo?.nativeElement;
+  }
 
 }

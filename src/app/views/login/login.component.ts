@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { faEye,faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { NgForm, FormControl, FormGroup, Validators, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { ThemeService } from 'src/app/services/theme.service';
+import { Subscription } from 'rxjs';
 
 
 //SERVICES
@@ -30,7 +31,7 @@ import { environment } from 'src/environments/environment';
     animations: [],
     standalone: false
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   public form_model: any;
@@ -43,6 +44,10 @@ export class LoginComponent implements OnInit {
   public faConfirmEye:any = faEyeSlash;
   public displayPassword: boolean = false;
   public currentTheme: string;
+  private themeSubscription?: Subscription;
+
+  @ViewChild('lightLogo') private lightLogo?: ElementRef<HTMLImageElement>;
+  @ViewChild('darkLogo') private darkLogo?: ElementRef<HTMLImageElement>;
 
   constructor(
     private router: Router,
@@ -82,6 +87,11 @@ export class LoginComponent implements OnInit {
       once: true
     });
     this.currentTheme = this.themeService.currentTheme$.value;
+    this.themeSubscription = this.themeService.currentTheme$.subscribe((theme) => {
+      this.currentTheme = theme;
+      this.login_completed = false;
+      setTimeout(() => this.checkLogoLoadState());
+    });
 
     const platform = Capacitor.getPlatform();
 
@@ -98,6 +108,10 @@ export class LoginComponent implements OnInit {
 
     this.loadRememberedCredentials();
 
+  }
+
+  ngAfterViewInit(): void {
+    this.checkLogoLoadState();
   }
 
   public loadRememberedCredentials(): void {
@@ -236,6 +250,26 @@ export class LoginComponent implements OnInit {
   public facebookOauth() {
     window.location.href = environment.webUrl + "/login/auth/facebook";
 
+  }
+
+  ngOnDestroy(): void {
+    this.themeSubscription?.unsubscribe();
+  }
+
+  private checkLogoLoadState(): void {
+    const activeLogo = this.getActiveLogoElement();
+
+    if (activeLogo?.complete && activeLogo.naturalWidth > 0) {
+      this.login_completed = true;
+    }
+  }
+
+  private getActiveLogoElement(): HTMLImageElement | undefined {
+    if (this.currentTheme === 'dark') {
+      return this.darkLogo?.nativeElement;
+    }
+
+    return this.lightLogo?.nativeElement;
   }
 
 
