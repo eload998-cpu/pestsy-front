@@ -58,7 +58,8 @@
                     <div class="no-data__container">
                         <img [ngClass]="{
                             'hide':!graphic_completed
-                        }" (load)="imageCompleted('graphic')" src="assets/images/no-graphic.webp" alt="">
+                        }" (load)="imageCompleted('graphic')" ngSrc="assets/images/no-graphic.webp" width="160"
+                            height="160" decoding="async" loading="lazy" alt="">
                         <div class="loader-div shimmer-effect" *ngIf="!graphic_completed"></div>
 
                     </div>
@@ -177,8 +178,9 @@
                             <div class="image">
                                 <img [ngClass]="{
                                     'hide':!pie_completed
-                                }" (load)="imageCompleted('pie')" class="image__item" src="assets/images/pie-chart.svg"
-                                    alt="">
+                                }" (load)="imageCompleted('pie')" class="image__item"
+                                    ngSrc="assets/images/pie-chart.svg" width="160" height="160" decoding="async"
+                                    loading="lazy" alt="">
                                 <div class="loader-div shimmer-effect" *ngIf="!pie_completed"></div>
 
                             </div>

@@ -27,7 +27,8 @@
     </div>
 
     <div class="help-modal__image animate__animated animate__fadeIn  animate__fast" *ngIf="modal.src[modal.current]">
-        <img class="image " [src]="modal.src[modal.current]" alt="">
+        <img class="image " [ngSrc]="modal.src[modal.current]" width="1024" height="768" decoding="async"
+            loading="lazy" alt="">
     </div>
 
     <div class="help__paginator d-flex justify-content-center mb-5 mt-4">

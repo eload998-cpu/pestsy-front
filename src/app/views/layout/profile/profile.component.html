@@ -20,12 +20,14 @@
                             <img class="rounded-circle w-100 h-100 avatar-image" *ngIf="!authUser.company.logo_src"
                                 [ngClass]="{
                                     'hide':!image_completed
-                                }" (load)="imageCompleted()" src="assets/images/profile-user-2.svg" alt="" #profilePic>
+                                }" (load)="imageCompleted()" ngSrc="assets/images/profile-user-2.svg" width="80"
+                                height="80" decoding="async" priority alt="" #profilePic>
 
                             <img class="rounded-circle w-100 h-100 " *ngIf="authUser.company.logo_src"
-                                [src]="authUser.company.logo_src" [ngClass]="{
+                                [ngClass]="{
                                     'hide':!image_completed
-                                }" (load)="imageCompleted()" alt="" #profilePic>
+                                }" (load)="imageCompleted()" [ngSrc]="authUser.company.logo_src" width="80"
+                                height="80" decoding="async" alt="" #profilePic>
 
                             <div class="loader-div shimmer-effect" *ngIf="!image_completed"></div>
 
@@ -80,14 +82,16 @@
                         *ngIf="tab!='user'">
                         <div class="avatar">
                             <img class="rounded-circle w-100 h-100 avatar-image" *ngIf="!authUser.company.logo_src"
-                                src="assets/images/profile-user-2.svg" [ngClass]="{
+                                ngSrc="assets/images/profile-user-2.svg" width="80" height="80" decoding="async" priority
+                                [ngClass]="{
                                     'hide':!image_company_completed
                                 }" (load)="imageCompanyCompleted()" alt="" #companyPic>
 
                             <img class="rounded-circle w-100 h-100 " *ngIf="authUser.company.logo_src"
-                                [src]="authUser.company.logo_src" [ngClass]="{
+                                [ngClass]="{
                                     'hide':!image_company_completed
-                                }" (load)="imageCompanyCompleted()" alt="" #companyPic>
+                                }" (load)="imageCompanyCompleted()" [ngSrc]="authUser.company.logo_src" width="80"
+                                height="80" decoding="async" alt="" #companyPic>
 
                             <div class="loader-div shimmer-effect" *ngIf="!image_company_completed"></div>
 

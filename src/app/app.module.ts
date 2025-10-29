@@ -1,5 +1,6 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule, CUSTOM_ELEMENTS_SCHEMA, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgOptimizedImage } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
@@ -81,6 +82,7 @@ function checkIfASessionExists(
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent], imports: [BrowserModule,
+        NgOptimizedImage,
         BrowserAnimationsModule,
         AppRoutingModule,
         SharedModule,

@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule, NgSelectConfig } from '@ng-select/ng-select';
@@ -49,6 +49,7 @@ import { ChlorineDirective } from '../directives/chlorine-directive';
   imports: [
     CommonModule,
     ModalModule,
+    NgOptimizedImage,
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
@@ -77,6 +78,7 @@ import { ChlorineDirective } from '../directives/chlorine-directive';
     TourComponent,
     MobileTourComponent,
     ModalModule,
+    NgOptimizedImage,
     DragDropFileUploadDirective,
     CountUpDirective,
     OnlyNumberDirective,

@@ -11,13 +11,13 @@
                     <div class="rounded-div d-flex justify-content-center align-items-center">
                         <img *ngIf="currentTheme=='light'" #lightLogo [ngClass]="{
                             'hide':!login_completed
-                        }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo.webp" class="avatar"
-                            alt="">
+                        }" (load)="imageCompleted('login')" ngSrc="assets/icons/svg/pestsy-v2-logo.webp" width="200"
+                            height="200" decoding="async" priority class="avatar" alt="">
 
                         <img *ngIf="currentTheme=='dark'" #darkLogo [ngClass]="{
                             'hide':!login_completed
-                        }" (load)="imageCompleted('login')" src="assets/icons/svg/pestsy-v2-logo-black.webp"
-                            class="avatar" alt="">
+                        }" (load)="imageCompleted('login')" ngSrc="assets/icons/svg/pestsy-v2-logo-black.webp"
+                            width="200" height="200" decoding="async" priority class="avatar" alt="">
                         <div class="loader-div shimmer-effect" *ngIf="!login_completed"></div>
 
                     </div>
@@ -145,7 +145,8 @@
                         <div class="google ">
                             <div class="google__container">
                                 <div class="google__logo">
-                                    <img class="google__icon" src="assets/icons/svg/google.svg" alt="">
+                                    <img class="google__icon" ngSrc="assets/icons/svg/google.svg" width="40" height="40"
+                                        decoding="async" loading="lazy" alt="">
                                 </div>
                                 <div class="google__text">
                                     <span>Acceder con Google</span>
